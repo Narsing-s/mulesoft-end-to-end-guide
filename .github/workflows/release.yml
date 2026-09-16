@@ -5,7 +5,6 @@ on:
     workflows: ["Deploy learning site"]
     types: [completed]
     branches: [main]
-  workflow_dispatch:
 
 permissions:
   contents: write
@@ -16,13 +15,13 @@ concurrency:
 
 jobs:
   release:
-    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the successful Pages commit
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
+          ref: ${{ github.event.workflow_run.head_sha }}
           fetch-depth: 0
 
       - name: Build release package
@@ -47,6 +46,7 @@ jobs:
           - Repository: Narsing-s/mulesoft-end-to-end-guide
           - Source commit: ${GITHUB_SHA}
           - Pages workflow: Deploy learning site
+          - Successful Pages run: ${{ github.event.workflow_run.id }}
           - Release workflow run: ${GITHUB_RUN_ID}
           - Package generated: $(date -u '+%Y-%m-%d %H:%M:%S UTC')
 
@@ -59,18 +59,39 @@ jobs:
           - Login/email setup documentation
           - Release documentation
 
+          ## Integrity
+
+          The ZIP has a matching SHA-256 checksum asset in the GitHub Release.
+
           ## Important
 
           MuleJourney is an independent educational project and is not an official MuleSoft product.
           EOF
 
-          cp RELEASE-NOTES.md "$PACKAGE_DIR/RELEASE-NOTES.md" 2>/dev/null || true
           cd release
           zip -qr "mulejourney-${VERSION}.zip" "$VERSION"
           sha256sum "mulejourney-${VERSION}.zip" > "mulejourney-${VERSION}.sha256"
 
-          printf '%s\n' "${VERSION}" > "version.txt"
-          printf '%s\n' "${GITHUB_SHA}" > "commit.txt"
+      - name: Validate package outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION="v0.1.${GITHUB_RUN_NUMBER}"
+          test -s "release/mulejourney-${VERSION}.zip"
+          test -s "release/mulejourney-${VERSION}.sha256"
+          test -s "release/${VERSION}/RELEASE-MANIFEST.md"
+          unzip -t "release/mulejourney-${VERSION}.zip" >/dev/null
+          sha256sum -c "release/mulejourney-${VERSION}.sha256"
+
+      - name: Upload release package as workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: mulejourney-${{ github.run_number }}-release-package
+          path: |
+            release/mulejourney-v0.1.${{ github.run_number }}.zip
+            release/mulejourney-v0.1.${{ github.run_number }}.sha256
+            release/v0.1.${{ github.run_number }}/RELEASE-MANIFEST.md
+          retention-days: 30
 
       - name: Generate release notes
         shell: bash
@@ -82,7 +103,7 @@ jobs:
 
           ## Release status
 
-          Published automatically because the learning site deployment completed successfully.
+          Published automatically because the **Deploy learning site** workflow completed successfully.
 
           ## What's included
 
@@ -90,15 +111,18 @@ jobs:
           - Mule Runtime, DataWeave, API, connector, security, testing, deployment and operations material
           - Hands-on labs and interview preparation
           - Official MuleSoft documentation references
-          - Current login and email setup documentation
+          - Current login, account deletion and email setup documentation
+          - Releases and Packages center
 
           ## Source
 
           Commit: \`${GITHUB_SHA}\`
 
+          Successful Pages workflow run: ${{ github.event.workflow_run.id }}
+
           ## Verification
 
-          The release is created only after the **Deploy learning site** workflow succeeds. The attached SHA-256 file can be used to verify the package.
+          The package is validated with `unzip -t` and SHA-256 verification before the GitHub Release is created. The workflow artifact is also retained for 30 days.
           EOF
 
       - name: Publish GitHub release and assets
@@ -112,6 +136,7 @@ jobs:
             "release/mulejourney-${VERSION}.zip" \
             "release/mulejourney-${VERSION}.sha256" \
             "release/notes/RELEASE-NOTES.md" \
+            "release/${VERSION}/RELEASE-MANIFEST.md" \
             --target "${GITHUB_SHA}" \
             --title "MuleJourney ${VERSION}" \
             --notes-file "release/notes/RELEASE-NOTES.md"
