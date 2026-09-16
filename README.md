@@ -2,6 +2,10 @@
 
 A **clean, self-contained MuleSoft learning platform from absolute beginner to advanced production engineer**.
 
+[![Contributing](https://img.shields.io/badge/contributions-welcome-55d6be)](CONTRIBUTING.md) [![Code of Conduct](https://img.shields.io/badge/community-code%20of%20conduct-7c6cff)](CODE_OF_CONDUCT.md) [![License: MIT](https://img.shields.io/badge/license-MIT-22c55e)](LICENSE)
+
+**Want to help build the learning platform?** Start with the [Contribution Guide](CONTRIBUTING.md), review the [Code of Conduct](CODE_OF_CONDUCT.md), or open an issue with an idea, correction, lab, example, or documentation improvement.
+
 ## Core principle
 
 **The repository is the lesson.**
@@ -103,6 +107,35 @@ What → Why → When → Architecture → Configuration
 - `63-Capstone-Production-Checklist` — production readiness
 - `docs/` — visual learning portal, local login and release center
 
+## Community & contribution
+
+MuleJourney is intended to grow through useful community contributions, not just repository size. Contributions are welcome from MuleSoft developers, production-support engineers, learners, technical writers, testers, reviewers, and people discovering the project for the first time.
+
+### Ways to contribute
+
+- Add or improve MuleSoft explanations
+- Add DataWeave examples with input, code and output
+- Add beginner-to-advanced interview questions
+- Create realistic troubleshooting scenarios
+- Add hands-on labs
+- Improve diagrams and learning paths
+- Fix broken links and documentation issues
+- Improve accessibility and portal UX
+- Add automated validation or tests
+- Review pull requests and improve existing material
+
+You do **not** need to be an expert or contribute a large feature. A corrected sentence, clearer example, useful issue report, or small documentation improvement is a valid contribution.
+
+### Start contributing
+
+1. Read [`CONTRIBUTING.md`](CONTRIBUTING.md).
+2. Check open issues for ideas or report a missing topic.
+3. For a new feature or large content area, discuss the approach first when practical.
+4. Create a focused change and verify examples/links.
+5. Open a pull request explaining what changed, why it helps learners, and how it was verified.
+
+Please follow [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md) when participating in the project.
+
 ## Quality rule
 
 If a learner asks a question, the repository should contain the theory and an example that answers it. If a topic requires a missing concept, add that concept to the appropriate internal chapter rather than redirecting the learner to an external documentation page.
@@ -110,5 +143,16 @@ If a learner asks a question, the repository should contain the theory and an ex
 ## Practice loop
 
 **Understand → Build → Test → Break → Debug → Secure → Measure → Deploy → Operate → Explain.**
+
+## License
+
+MuleJourney is released under the [MIT License](LICENSE). See the license file for the complete terms.
+
+## Project information
+
+- [About MuleJourney](ABOUT.md)
+- [Contribution Guide](CONTRIBUTING.md)
+- [Code of Conduct](CODE_OF_CONDUCT.md)
+- [MIT License](LICENSE)
 
 MuleJourney is an independent educational project and is not an official MuleSoft website.
