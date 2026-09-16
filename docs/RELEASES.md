@@ -8,8 +8,12 @@ Every successful release provides:
 
 1. **Source package (`.zip`)** — a versioned snapshot of the repository.
 2. **Release notes (`RELEASE-NOTES.md`)** — what was included and which commit was packaged.
-3. **Checksum (`.sha256`)** — integrity verification for the ZIP package.
-4. **GitHub source archives** — GitHub also provides source ZIP and tar.gz archives for the release tag.
+3. **Release manifest (`RELEASE-MANIFEST.md`)** — package provenance, source commit, successful Pages run and generated timestamp.
+4. **Checksum (`.sha256`)** — SHA-256 integrity verification for the ZIP package.
+5. **GitHub source archives** — GitHub also provides source ZIP and tar.gz archives for the release tag.
+6. **Workflow artifact** — the package, checksum and manifest are retained in the Actions run for 30 days as a second download/verification path.
+
+GitHub Actions artifacts are designed to persist build outputs after a workflow completes, while releases provide versioned assets for published snapshots. citeturn0search0turn0search5
 
 ## Release lifecycle
 
@@ -22,7 +26,15 @@ Pages validation
      ↓
 Pages deployment succeeds
      ↓
-Package repository
+workflow_run receives successful run
+     ↓
+Checkout exact successful commit
+     ↓
+Build package + manifest
+     ↓
+Validate ZIP + SHA-256
+     ↓
+Upload workflow artifact
      ↓
 Generate release notes
      ↓
@@ -30,18 +42,18 @@ Create version tag
      ↓
 Publish GitHub Release
      ↓
-ZIP + checksum + release notes
+ZIP + checksum + manifest + notes
+     ↓
+Release Center displays published assets
 ```
 
 ## Where releases appear
 
-Open the repository's **Releases** page. The latest release can be reached from GitHub's `releases/latest` URL.
-
-The repository's learning portal should also link users to this release area so documentation, source packages and learning content are easy to discover.
+Open the repository's **Releases** page or use the **Releases & Packages** link in the MuleJourney portal. The portal's Release Center reads the public GitHub Releases API and displays published versions and their downloadable assets.
 
 ## Package verification
 
-After downloading a ZIP package, compare its SHA-256 digest with the `.sha256` release asset.
+After downloading a ZIP package, compare its SHA-256 digest with the matching `.sha256` release asset.
 
 Example:
 
@@ -51,9 +63,25 @@ sha256sum mulejourney-v0.1.X.zip
 
 Compare the resulting digest with the value in the matching `.sha256` file.
 
+The release workflow also performs `unzip -t` and `sha256sum -c` before publishing. A failed validation stops the release from being created.
+
+## Workflow artifacts
+
+The Actions workflow retains a release package artifact for 30 days. GitHub documents that workflow artifacts can be downloaded from the workflow run and are intended for persisted build outputs. citeturn0search1turn0search2
+
+The artifact contains:
+
+- versioned ZIP package
+- SHA-256 checksum
+- release manifest
+
+This gives maintainers a second copy of the generated package even if a release-publishing step needs investigation.
+
 ## Release readiness
 
-A release is not created merely because code was pushed. The release workflow waits for the **Deploy learning site** workflow to complete successfully. This makes the release package correspond to a successfully deployed documentation snapshot.
+A release is not created merely because code was pushed. The release workflow listens for the **Deploy learning site** workflow and continues only when that workflow reports `success`. It then checks out the exact successful Pages commit before packaging it.
+
+This keeps the published package aligned with the documentation snapshot that actually passed the site deployment workflow.
 
 ## Versioning
 
