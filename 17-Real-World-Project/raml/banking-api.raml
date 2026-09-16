@@ -1,0 +1,84 @@
+#%RAML 1.0
+
+title: Banking Experience API
+version: v1
+baseUri: https://api.example.com/api/v1
+mediaType: application/json
+
+/accounts:
+  post:
+    description: Create a synthetic learning account
+    body:
+      application/json:
+        example:
+          fullName: "Priya Kumar"
+          dateOfBirth: "1995-04-12"
+          mobileNumber: "9999999999"
+          email: "priya@example.test"
+          address: "Hyderabad"
+    responses:
+      201:
+        body:
+          application/json:
+            example:
+              message: "Account created"
+              accountNumber: "DEMO00000001"
+  /{accountNumber}:
+    uriParameters:
+      accountNumber:
+        type: string
+    get:
+      description: Retrieve a synthetic account
+      responses:
+        200:
+          body:
+            application/json:
+              example:
+                accountNumber: "DEMO00000001"
+                fullName: "Priya Kumar"
+                balance: 12500.50
+        404:
+          body:
+            application/json:
+              example:
+                code: "ACCOUNT_NOT_FOUND"
+                message: "Account was not found"
+    patch:
+      description: Partially update allowed profile fields
+      body:
+        application/json:
+          example:
+            fullName: "Priya K"
+            address: "Hyderabad"
+      responses:
+        200:
+          body:
+            application/json:
+              example:
+                message: "Account updated"
+    delete:
+      description: Delete a synthetic learning account
+      responses:
+        204:
+
+/transfers:
+  post:
+    description: Create a synthetic transfer request
+    headers:
+      Idempotency-Key:
+        type: string
+        required: true
+    body:
+      application/json:
+        example:
+          fromAccount: "DEMO00000001"
+          toAccount: "DEMO00000002"
+          amount: 1000
+          currency: "INR"
+    responses:
+      202:
+        body:
+          application/json:
+            example:
+              transactionId: "TX-DEMO-001"
+              status: "ACCEPTED"
