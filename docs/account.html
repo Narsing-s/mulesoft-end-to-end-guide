@@ -1,30 +1,11 @@
 <!doctype html>
 <html lang="en" data-theme="dark">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#07111f">
-<title>MuleJourney — My Account</title>
-<link rel="stylesheet" href="styles.css">
-<style>
-.account-page{max-width:980px;margin:0 auto;padding:48px 20px 80px}.account-card{border:1px solid #29415e;border-radius:24px;background:#091727;padding:28px;box-shadow:0 24px 70px #0006}.account-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:20px;margin-top:22px}.account-panel{border:1px solid #29415e;border-radius:18px;padding:20px;background:#0b1828}.account-panel h2{margin-top:0}.muted{color:#9eb0c5;line-height:1.6}.danger{border-color:#713447;background:linear-gradient(180deg,#1b1018,#120c12)}.danger button{border:1px solid #a4475a;background:#7b263b;color:#fff;border-radius:11px;padding:11px 15px;font-weight:900;cursor:pointer}.back{display:inline-block;margin-bottom:22px;color:#7dd3fc;text-decoration:none;font-weight:800}@media(max-width:760px){.account-grid{grid-template-columns:1fr}}
-</style>
-</head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#07111f"><title>MuleJourney — My Account</title><link rel="stylesheet" href="styles.css"><style>.account-page{max-width:980px;margin:0 auto;padding:48px 20px 80px}.account-card{border:1px solid #29415e;border-radius:24px;background:#091727;padding:28px;box-shadow:0 24px 70px #0006}.account-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:20px;margin-top:22px}.account-panel{border:1px solid #29415e;border-radius:18px;padding:20px;background:#0b1828}.account-panel h2{margin-top:0}.muted{color:#9eb0c5;line-height:1.6}.danger{border-color:#713447;background:linear-gradient(180deg,#1b1018,#120c12)}.danger button{border:1px solid #a4475a;background:#7b263b;color:#fff;border-radius:11px;padding:11px 15px;font-weight:900;cursor:pointer}.email-panel{margin-top:20px;border-color:#31556f}.email-panel button{border:1px solid #55d6be;background:#55d6be;color:#031018;border-radius:11px;padding:10px 14px;font-weight:900;cursor:pointer}.back{display:inline-block;margin-bottom:22px;color:#7dd3fc;text-decoration:none;font-weight:800}@media(max-width:760px){.account-grid{grid-template-columns:1fr}}</style></head>
 <body>
 <header class="hero" style="padding-bottom:24px"><nav class="nav"><a class="brand" href="index.html">Mule<span>Journey</span></a><div class="navlinks"><a href="index.html#roadmap">Roadmap</a><a href="index.html#topics">Topics</a><a href="releases.html">Releases</a></div><div class="nav-actions"><a class="icon-btn" href="index.html" style="text-decoration:none">Home</a></div></nav></header>
-<main class="account-page">
-<a class="back" href="index.html">← Back to learning portal</a>
-<div class="account-card">
-<p class="eyebrow">ACCOUNT CENTER</p><h1>My MuleJourney Account</h1>
-<p class="muted">Manage the local learning account stored in this browser. This site uses client-side authentication because it is hosted as a static GitHub Pages application.</p>
-<div class="account-grid">
-<section class="account-panel"><h2>Profile</h2><p><strong>Name</strong><br><span id="accountName">Loading…</span></p><p><strong>Email / username</strong><br><span id="accountEmail">Loading…</span></p><p><strong>Storage model</strong><br><span class="muted">Local browser storage only</span></p></section>
-<section class="account-panel danger"><h2>Delete account</h2><p class="muted">Delete your local MuleJourney profile, session, learning progress, preferences and greeting-email status from this browser. This does not delete external emails or anything stored in GitHub.</p><button id="deleteAccount" type="button">Delete my account</button></section>
-</div>
-</div>
-</main>
-<script src="auth.js"></script>
-<script>
-const session=typeof getLocalSession==='function'?getLocalSession():null;
-if(session){document.getElementById('accountName').textContent=session.name||'—';document.getElementById('accountEmail').textContent=session.email||'—'}
-document.getElementById('deleteAccount').addEventListener('click',()=>{if(typeof showDeleteAccountDialog==='function')showDeleteAccountDialog()});
-</script>
+<main class="account-page"><a class="back" href="index.html">← Back to learning portal</a><div class="account-card"><p class="eyebrow">ACCOUNT CENTER</p><h1>My MuleJourney Account</h1><p class="muted">Manage your local learning account and greeting-email settings from one place. The account is stored only in this browser.</p>
+<div class="account-grid"><section class="account-panel"><h2>Profile</h2><p><strong>Name</strong><br><span id="accountName">Loading…</span></p><p><strong>Email / username</strong><br><span id="accountEmail">Loading…</span></p><p><strong>Storage model</strong><br><span class="muted">Local browser storage only</span></p></section><section class="account-panel danger"><h2>Delete account</h2><p class="muted">Delete your local profile, session, learning progress, preferences and EmailJS configuration from this browser. This does not delete external emails or GitHub data.</p><button id="deleteAccount" type="button">Delete my account</button></section></div>
+<section class="account-panel email-panel" id="emailGreetingPanel"><h2>Greeting Email</h2><p class="muted">Configure EmailJS and send or resend your welcome greeting without leaving the Account Center.</p></section>
+</div></main>
+<script src="auth.js"></script><script>const session=typeof getLocalSession==='function'?getLocalSession():null;if(session){document.getElementById('accountName').textContent=session.name||'—';document.getElementById('accountEmail').textContent=session.email||'—'}document.getElementById('deleteAccount').addEventListener('click',()=>{if(typeof showDeleteAccountDialog==='function')showDeleteAccountDialog()});if(typeof showGreetingStatus==='function')showGreetingStatus(session);</script>
 </body></html>
