@@ -1,8 +1,6 @@
 # 07 — Connectors
 
-This section is a **deep MuleSoft connector handbook and learning track**, modeled on the structure of professional MuleSoft documentation and extended with implementation, production support, troubleshooting, labs and interview preparation.
-
-MuleSoft describes Anypoint Connectors as reusable Mule runtime extensions for integrating applications with third-party APIs, databases and standard protocols. Exchange is the discovery point for connector assets, while connector User Guides, Reference Guides and Release Notes provide the version-specific implementation details.
+This section is a **deep MuleSoft connector and Studio processing handbook**. It covers connector configuration plus the core routers/scopes that make real integrations work: Choice, Scatter-Gather, For Each, Parallel For Each, Batch, Until Successful, Try, Async, First Successful, Round Robin, Flow Reference, Subflow, Error Handler, Transform Message, Scheduler, Cache, Idempotency and Transactions.
 
 ## Start here
 
@@ -10,12 +8,14 @@ MuleSoft describes Anypoint Connectors as reusable Mule runtime extensions for i
 2. **[Connector Catalog](./01-CONNECTOR-CATALOG.md)** — broad connector/family inventory.
 3. **[Application Connector Configuration](./02-APPLICATION-CONNECTOR-CONFIGURATION.md)** — SaaS/application configuration.
 4. **[Connector Q&A](./03-CONNECTOR-QA-WITH-ANSWERS.md)** — questions with answers immediately underneath.
-5. **[MuleSoft Documentation Standard](./04-MULESOFT-DOCUMENTATION-STYLE.md)** — how to read and use MuleSoft connector documentation.
-6. **[Connector Family Playbook](./05-CONNECTOR-FAMILY-PLAYBOOK.md)** — deep connector-by-connector practical coverage.
+5. **[MuleSoft Documentation Standard](./04-MULESOFT-DOCUMENTATION-STYLE.md)** — how to read and use connector documentation.
+6. **[Connector Family Playbook](./05-CONNECTOR-FAMILY-PLAYBOOK.md)** — deep connector-family practical coverage.
 7. **[Implementation Standard](./06-CONNECTOR-IMPLEMENTATION-STANDARD.md)** — mandatory checklist for implementing any connector.
 8. **[Hands-On Labs](./07-CONNECTOR-HANDS-ON-LABS.md)** — build, break, test and troubleshoot real scenarios.
 9. **[Production Troubleshooting](./08-CONNECTOR-TROUBLESHOOTING.md)** — incident diagnosis and recovery.
 10. **[Deep Interview Q&A](./09-CONNECTOR-INTERVIEW-QA-DEEP.md)** — production-level connector questions and answers.
+11. **[Studio Core Components, Routers & Processing](./10-STUDIO-CORE-COMPONENTS-AND-ROUTERS.md)** — Choice, Scatter-Gather, For Each, Parallel For Each, Batch, retry, Try, Async, fallback, transactions and production patterns.
+12. **[Connector + Studio Coverage Matrix](./11-CONNECTOR-STUDIO-COVERAGE-MATRIX.md)** — coverage checklist and definition of done.
 
 ## MuleSoft-style documentation model
 
@@ -32,7 +32,35 @@ Connector / Exchange asset
                  compatibility + changes + fixes
 ```
 
-MuleSoft's current Studio guidance follows a practical sequence: authenticate to Anypoint Platform, install the connector, configure a source, configure the connector/global element, test connectivity and use the connector operation. MuleSoft also recommends reusable global configuration, externalized properties and appropriate reconnection strategies. See the official references at the bottom of this page.
+MuleSoft's Studio guidance follows a practical sequence: authenticate to Anypoint Platform, install the connector, configure a source, configure the connector/global element, test connectivity and use the connector operation. Reusable global configuration, externalized properties and appropriate reconnection strategies are important production practices.
+
+## Core Studio processing layer
+
+```text
+                         Mule Event
+                             |
+                      +------+------+
+                      | Transform   |
+                      | DataWeave   |
+                      +------+------+
+                             |
+       +---------------------+----------------------+
+       |                     |                      |
+    Choice             Scatter-Gather          Collection
+       |                /    |    \                 |
+ one matching         A      B      C        +------+------+
+ route                |      |      |        |             |
+                      +------+------+
+                             |             For Each / Parallel
+                          aggregate              |
+                                              Batch for large data
+       |
+  Error Handler / Try / Retry
+       |
+  Continue or Propagate
+```
+
+The dedicated core-components chapter explains configuration and examples for these patterns. Current MuleSoft documentation lists these as core components/flow-control capabilities, including Choice, First Successful, Round Robin, Scatter-Gather, For Each, Parallel For Each, Batch Job, Try, Async and Until Successful.
 
 ## Connector families covered
 
@@ -55,9 +83,9 @@ X12, EDIFACT, TRADACOMS, AS2/B2B patterns and industry-specific integrations whe
 AI/LLM integrations, Agent2Agent, Agentforce, Einstein AI, MCP and other current API/agent/tool connectivity where supported by the relevant MuleSoft release and Exchange assets.
 
 ### Exchange ecosystem
-MuleSoft-provided, MuleSoft Certified, partner and community assets. The live Exchange inventory is dynamic; therefore this repository is a learning system, not a claim that a static Markdown list can permanently represent every Exchange asset.
+MuleSoft-provided, MuleSoft Certified, partner and community assets. The live Exchange inventory is dynamic; this repository is a learning system rather than a claim that a static Markdown list permanently represents every Exchange asset.
 
-## Universal connector learning flow
+## Universal implementation flow
 
 ```text
 Requirement
@@ -66,7 +94,7 @@ Choose protocol/system connector
     ↓
 Check Mule Runtime + Java + connector compatibility
     ↓
-Discover/install from Exchange or Studio/Code Builder
+Discover/install from Exchange or Studio
     ↓
 Create global configuration
     ↓
@@ -77,6 +105,8 @@ Source / trigger (if applicable)
 Operation
     ↓
 DataWeave input/output
+    ↓
+Choice / For Each / Scatter-Gather / Batch as required
     ↓
 Success + error handling
     ↓
@@ -124,7 +154,6 @@ Every connector chapter must explain:
 - pagination/batching/streaming
 - connection pooling/concurrency
 - quotas/rate limits
-- security and secret management
 - logging/masking/correlation IDs
 - MUnit mocking and integration testing
 - production troubleshooting
@@ -136,7 +165,7 @@ Every connector chapter must explain:
 
 ## Production definition of done
 
-A connector implementation is not considered complete merely because **Test Connection** succeeds. It must also have:
+A connector implementation is not complete merely because **Test Connection** succeeds. It must also have:
 
 - exact connector/runtime/Java versions recorded
 - environment configuration externalized
@@ -167,7 +196,7 @@ A connector implementation is not considered complete merely because **Test Conn
 
 ## Important rule
 
-Use this repository to learn the concepts, patterns and production reasoning. For an actual implementation, always open the **current connector asset in Anypoint Exchange**, then verify its **User Guide, Reference Guide and Release Notes** because connector fields, operations, compatibility and support status are version-specific.
+Use this repository to learn concepts, patterns and production reasoning. For an actual implementation, always open the **current connector asset in Anypoint Exchange**, then verify its **User Guide, Reference Guide and Release Notes** because connector fields, operations, compatibility and support status are version-specific.
 
 The goal is:
 
