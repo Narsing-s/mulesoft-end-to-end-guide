@@ -32,23 +32,59 @@ jobs:
           else
             VERSION="${{ inputs.version }}"
           fi
+          if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Invalid semantic version: $VERSION"
+            exit 1
+          fi
           echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
 
-      - name: Validate repository references
+      - name: Validate release structure
         shell: bash
         run: |
-          test -f README.md
-          test -f docs/index.html
-          test -f 00-START-HERE.md
-          test -f 54-Gap-Analysis-and-Completeness/README.md
-          test -f 57-Modern-Platform-AI-and-Agentic-Engineering/README.md
-          test -f 58-Release-and-Packaging/README.md
+          set -euo pipefail
+          required=(
+            README.md
+            00-START-HERE.md
+            TOPIC-INDEX.md
+            docs/index.html
+            53-End-to-End-Study-Path/README.md
+            54-Gap-Analysis-and-Completeness/README.md
+            55-Learning-Assessment-and-Project-Ladder/README.md
+            56-Modern-Platform-Deep-Dive/README.md
+            57-Modern-Platform-AI-and-Agentic-Engineering/README.md
+            58-Release-and-Packaging/README.md
+            59-Job-Interview-Mastery/README.md
+            60-Production-Support-Engineering/README.md
+            61-Architecture-Decision-Playbook/README.md
+            62-Interview-and-Scenario-Mastery/README.md
+            63-Capstone-Production-Checklist/README.md
+            68-Project-Documentation-Templates/README.md
+            69-Glossary-and-Quick-Reference/README.md
+            70-Repository-Quality-and-Release/README.md
+            RELEASE-MANIFEST.md
+            RELEASE-CHECKLIST.md
+            RELEASE-NOTES-v1.0.0.md
+            PACKAGE-CONTENTS.md
+          )
+          for file in "${required[@]}"; do
+            test -f "$file" || { echo "Missing required release file: $file"; exit 1; }
+          done
+
+      - name: Secret hygiene check
+        shell: bash
+        run: |
+          set -euo pipefail
+          if find . -type f \( -name '.env' -o -name '.env.*' -o -name '*.pem' -o -name '*.key' \) -not -path './.git/*' | grep -q .; then
+            echo 'Potential secret/private-key file found in repository.'
+            exit 1
+          fi
 
       - name: Build clean package
         shell: bash
         run: |
+          set -euo pipefail
           VERSION="${{ steps.version.outputs.version }}"
-          mkdir -p dist
+          mkdir -p dist/package
           ZIP="dist/mulesoft-end-to-end-guide-v${VERSION}.zip"
           zip -r "$ZIP" . \
             -x '.git/*' \
@@ -59,9 +95,29 @@ jobs:
                '.vscode/*' \
                '*.log' \
                '.env' \
-               '.env.*'
+               '.env.*' \
+               '*.pem' \
+               '*.key'
           sha256sum "$ZIP" > "${ZIP}.sha256"
+          cp RELEASE-NOTES-v1.0.0.md dist/RELEASE-NOTES.md
+          cp RELEASE-MANIFEST.md dist/RELEASE-MANIFEST.md
           cp 58-Release-and-Packaging/README.md dist/RELEASE-PACKAGING.md
+          cp PACKAGE-CONTENTS.md dist/PACKAGE-CONTENTS.md
+
+      - name: Verify package contents
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION="${{ steps.version.outputs.version }}"
+          ZIP="dist/mulesoft-end-to-end-guide-v${VERSION}.zip"
+          unzip -t "$ZIP"
+          unzip -l "$ZIP" | grep -q 'README.md'
+          unzip -l "$ZIP" | grep -q 'docs/index.html'
+          unzip -l "$ZIP" | grep -q '59-Job-Interview-Mastery/README.md'
+          if unzip -l "$ZIP" | grep -E '\.env($|\.)|\.pem$|\.key$' ; then
+            echo 'Forbidden secret-like file detected in package.'
+            exit 1
+          fi
 
       - name: Publish GitHub Release
         if: github.ref_type == 'tag'
@@ -73,6 +129,10 @@ jobs:
           gh release create "v${VERSION}" \
             "dist/mulesoft-end-to-end-guide-v${VERSION}.zip" \
             "dist/mulesoft-end-to-end-guide-v${VERSION}.zip.sha256" \
+            "dist/RELEASE-NOTES.md" \
+            "dist/RELEASE-MANIFEST.md" \
+            "dist/RELEASE-PACKAGING.md" \
+            "dist/PACKAGE-CONTENTS.md" \
             --title "MuleSoft End-to-End Guide v${VERSION}" \
             --generate-notes
 
