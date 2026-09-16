@@ -10,7 +10,11 @@ This repository now follows one explanation rule across **all sections**, not on
 
 **No unexplained checklist items. No unexplained XML. No unexplained configuration fields. No “memorize this” answers.**
 
-Every important topic should answer:
+### Canonical deep explanation encyclopedia
+
+**[Repository-Wide Deep Explanations](./53-End-to-End-Study-Path/REPO-WIDE-DEEP-EXPLANATIONS.md)** is now the canonical reference for the actual explanations across the major subjects in this repository. It explains runtime, Mule events, HTTP, DataWeave, APIs, API-led connectivity, errors, retry/reconnection, routers, scopes, connectors, messaging, databases, security, testing, deployment, CI/CD, observability, performance, troubleshooting, architecture, production support, banking and interview preparation.
+
+Every major topic should answer:
 
 ```text
 What is it?
@@ -46,6 +50,7 @@ How do I explain it in an interview?
 
 ### Canonical deep-learning standards
 
+- **[Repository-Wide Deep Explanations](./53-End-to-End-Study-Path/REPO-WIDE-DEEP-EXPLANATIONS.md)** — actual deep explanation reference across the major subjects.
 - **[Repo-Wide Deep Explanation Standard](./53-End-to-End-Study-Path/REPO-WIDE-DEEP-EXPLANATION-STANDARD.md)** — mandatory explanation contract for connectors, Studio components, DataWeave, APIs, security, deployment, testing, architecture, troubleshooting and every other technical topic.
 - **[Canonical Deep Lesson Template](./53-End-to-End-Study-Path/LESSON-TEMPLATE.md)** — exact structure to use when creating or expanding a lesson.
 - **[Completeness / Gap Analysis](./54-Gap-Analysis-and-Completeness/README.md)** — prevents shallow or duplicate coverage.
@@ -137,6 +142,7 @@ Architect / Production Engineer
 - `53-End-to-End-Study-Path/README.md` — exact beginner → expert route
 - `53-End-to-End-Study-Path/LESSON-TEMPLATE.md` — deep standard for every technical lesson
 - `53-End-to-End-Study-Path/REPO-WIDE-DEEP-EXPLANATION-STANDARD.md` — explanation contract for the entire repo
+- `53-End-to-End-Study-Path/REPO-WIDE-DEEP-EXPLANATIONS.md` — canonical actual explanations across major topics
 - `53-End-to-End-Study-Path/DIAGRAMS.md` — diagram standards and reusable architecture diagrams
 - `53-End-to-End-Study-Path/PROJECT-PATH.md` — progressive project ladder
 - `55-Learning-Assessment-and-Project-Ladder/README.md` — readiness gates and evidence-based assessment
@@ -144,149 +150,49 @@ Architect / Production Engineer
 - `TOPIC-INDEX.md` — canonical home for every major concept
 - `54-Gap-Analysis-and-Completeness/README.md` — completeness and anti-duplication rules
 
-## 🗺️ Complete learning stages
+## 🧭 Deep-content rule
 
-| Stage | Subject |
-|---|---|
-| 00 | Start from zero |
-| 01 | Mule fundamentals and runtime |
-| 02 | Mule applications and HTTP |
-| 03 | DataWeave |
-| 04 | API development, RAML, OAS, APIkit |
-| 05 | API-led connectivity |
-| 06 | Error handling and resilience |
-| 07 | Connectors |
-| 08 | Database integration |
-| 09 | Enterprise integration and messaging |
-| 10 | API security |
-| 11 | API management and governance |
-| 12 | MUnit and automated testing |
-| 13 | Deployment |
-| 14 | Maven, Git and CI/CD |
-| 15 | Observability and production support |
-| 16 | Advanced MuleSoft engineering |
-| 17 | Banking capstone |
-| 18 | Interview preparation |
-| 19 | Exercises |
-| 20 | Production troubleshooting |
-| 21 | Reference implementations |
-| 22 | Architecture and integration patterns |
-| 23 | Performance engineering |
-| 24 | Security deep dive |
-| 25 | MUnit practical guide |
-| 26 | Troubleshooting playbook |
-| 27 | Interview scenarios |
-| 28 | Cheat sheets |
-| 29 | Environment configuration |
-| 30 | Mule 3 → Mule 4 migration |
-| 31 | Master topic checklist |
-| 32 | Runtime/version matrix |
-| 33 | Self-contained learning system |
-| 34 | Interview mastery |
-| 35 | Advanced engineering |
-| 36 | Hands-on challenge lab |
-| 37–44 | Coverage, platform, labs, patterns, templates, reference and career tracks |
-| 45–52 | Platform architecture, DataWeave/runtime/security/messaging/release/operations/governance |
-| 53 | Canonical end-to-end study path |
-| 54 | Gap analysis and completeness |
-| 55 | Learning assessment and project ladder |
-| 56 | Modern platform deep dive |
-
-## 🧭 How to know when to move forward
-
-Do not use “I finished reading the folder” as the completion rule.
-
-Use:
+When expanding any existing chapter, do not leave a checklist-only section behind. Apply the canonical sequence:
 
 ```text
-Explain
-  ↓
-Implement
-  ↓
-Test
-  ↓
-Break
-  ↓
-Debug
-  ↓
-Secure
-  ↓
-Scale
-  ↓
-Deploy
-  ↓
-Operate
-  ↓
-Teach
+Concept
+ ↓
+Plain-English explanation
+ ↓
+Why it exists
+ ↓
+When / when not to use
+ ↓
+Architecture diagram
+ ↓
+Runtime behavior
+ ↓
+Configuration fields + why each field exists
+ ↓
+Input → Code/Configuration → Output
+ ↓
+Failure scenarios
+ ↓
+Retry / reconnection / idempotency / transaction reasoning
+ ↓
+Security
+ ↓
+Performance
+ ↓
+MUnit/tests
+ ↓
+Troubleshooting
+ ↓
+Observability
+ ↓
+Production runbook
+ ↓
+Lab
+ ↓
+Interview Q&A
 ```
 
-`55-Learning-Assessment-and-Project-Ladder` defines the practical gates and evidence expected at each level.
-
-## 📚 Major coverage
-
-### Mule runtime and development
-
-Mule Runtime Engine, application lifecycle, Mule event/message model, payload, attributes, variables, event sources, processors, flows, subflows, private flows, scopes, global configurations, XML DSL, namespaces, expressions, Scheduler, Logger, properties, secure properties, Maven, dependencies, Java/JVM fundamentals and debugging.
-
-**Deep explanation expectation:** for each major runtime concept explain the event lifecycle, configuration, input/output, scope, failure behavior, performance implications, MUnit strategy and production troubleshooting.
-
-### HTTP, REST and API design
-
-HTTP lifecycle, methods, headers, query/path parameters, bodies, media types, status codes, REST design, RAML, OpenAPI/OAS, reusable types, examples, validation, pagination, filtering, sorting, versioning, idempotency, error contracts, APIkit, API Console, CORS, OPTIONS and TLS.
-
-**Deep explanation expectation:** show consumer → contract → APIkit/implementation → process logic → system connector → response, with real request/response examples and failure scenarios.
-
-### DataWeave
-
-Syntax, objects, arrays, selectors, map/filter/reduce, mapObject/filterObject/flatMap/pluck, grouping/sorting/distinct operations, conditionals, match, null handling, functions, lambdas, types, coercion, modules/imports, reusable transformations, JSON/XML/CSV/Java/binary, namespaces, dates/times, base64, MIME types, streaming, performance and error-safe transformations.
-
-**Deep explanation expectation:** every important function/concept gets syntax → input → expression → output → edge cases → performance → production example → test.
-
-### Architecture and integration
-
-System/Process/Experience APIs, responsibility boundaries, canonical models, orchestration, coupling/cohesion, synchronous/asynchronous decisions, event-driven architecture, resilience, scalability, availability, disaster recovery, trade-offs, anti-patterns and ADRs.
-
-**Deep explanation expectation:** explain the reason for the boundary, data flow, failure domains, security boundary, scaling model and operational trade-offs.
-
-### Integration patterns
-
-Choice, Try, For Each, Parallel For Each, Scatter-Gather, Async, Until Successful, Batch, Scheduler, VM, Object Store, retry/backoff, timeout, idempotency, deduplication, transactions, compensation, DLQ, poison messages, correlation and back-pressure concepts.
-
-**Deep explanation expectation:** explain event behavior, ordering, concurrency, aggregation, errors, retries, memory, transaction boundaries and duplicate risk.
-
-### Enterprise integrations
-
-HTTP, Database, File, FTP/SFTP, JMS, IBM MQ, Anypoint MQ, Email/SMTP, SOAP, Salesforce/SaaS, connection pooling, reconnection, timeouts, connector error mapping and transactions.
-
-**Deep explanation expectation:** follow the same mandatory connector depth used in `07-Connectors`, including every important configuration field and why it matters.
-
-### Security
-
-HTTPS/TLS, certificates, keystores/truststores, rotation, mTLS, Basic authentication, OAuth 2.0, JWT, authorization, scopes/claims, client identity, API policies, CORS, rate limiting, threat protection, secure properties, secret management, PII masking, least privilege, auditability and dependency security.
-
-**Deep explanation expectation:** Threat → Control → Configuration → Verification → Failure mode → Monitoring.
-
-### Testing
-
-MUnit, mocks, spies, verify calls, assertions, negative paths, coverage, integration/contract testing, Postman and CI quality gates.
-
-**Deep explanation expectation:** explain what is mocked, what is real, what is asserted, what failure is simulated and why the test proves the behavior.
-
-### Deployment and DevOps
-
-Maven, Mule Maven Plugin, Git, CI/CD, environment configuration, Runtime Manager, CloudHub, CloudHub 2.0, Runtime Fabric, hybrid/on-premises, deployment automation, promotion, rollback, release strategy, smoke testing and health verification.
-
-**Deep explanation expectation:** build → package → configure → deploy → verify → observe → rollback/recover.
-
-### Production engineering
-
-Logs, correlation IDs, metrics, dashboards, alerts, tracing concepts, latency/throughput/error rate, CPU/memory/GC investigation, pools, dependency latency, HTTP failures, TLS, DB, MQ, Object Store, deployment failures, RCA, runbooks, incident response and preventive actions.
-
-**Deep explanation expectation:** Symptom → Evidence → Hypothesis → Controlled check → Fix → Regression test → Prevention.
-
-### Modern platform engineering
-
-The modern platform track additionally covers Anypoint Code Builder, API gateway/Flex Gateway terminology, Anypoint Monitoring, CloudHub 2.0 Private Spaces and networking, deployment/replica lifecycle, Runtime Fabric/Kubernetes concepts, platform RBAC and auditability, certificate/secret rotation, API automation and modern API contract styles. See `56-Modern-Platform-Deep-Dive`.
+The goal is not simply to make Markdown longer. The goal is that a learner can **understand the reason behind every configuration and reproduce the behavior**.
 
 ## 🏦 Banking capstone
 
@@ -349,7 +255,7 @@ Every major topic should contain:
 - official references
 - related internal links
 
-See `53-End-to-End-Study-Path/LESSON-TEMPLATE.md` and the repo-wide deep explanation standard.
+See `53-End-to-End-Study-Path/LESSON-TEMPLATE.md`, the repo-wide deep explanation standard and the canonical deep explanations file.
 
 ## 🔐 Production rule
 
