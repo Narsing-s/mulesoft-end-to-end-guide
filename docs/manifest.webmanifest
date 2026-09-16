@@ -1,7 +1,7 @@
 {
-  "name": "MuleJourney — MuleSoft End-to-End Guide",
+  "name": "MuleJourney — Self-Contained MuleSoft Guide",
   "short_name": "MuleJourney",
-  "description": "Beginner-to-production MuleSoft learning workspace.",
+  "description": "Self-contained MuleSoft learning portal from beginner to production.",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#07111f",
