@@ -11,6 +11,43 @@ function redirectToLogin(){if(!location.pathname.endsWith('/login.html')&&!locat
 function requireLogin(){if(!hasValidSession())redirectToLogin()}
 function signOut(){localStorage.removeItem(SESSION_KEY);location.replace(LOGIN_PAGE)}
 
+function deleteLocalAccount(){
+  const keys=[];
+  for(let i=0;i<localStorage.length;i++){
+    const key=localStorage.key(i);
+    if(key&&key.startsWith('mulejourney.'))keys.push(key);
+  }
+  keys.forEach(key=>localStorage.removeItem(key));
+  try{sessionStorage.clear()}catch{}
+  location.replace(LOGIN_PAGE+'?deleted=1');
+}
+
+function showDeleteAccountDialog(){
+  const existing=document.querySelector('#deleteAccountModal');
+  if(existing){existing.remove();return}
+  const modal=document.createElement('div');
+  modal.id='deleteAccountModal';
+  modal.setAttribute('role','dialog');
+  modal.setAttribute('aria-modal','true');
+  modal.style.cssText='position:fixed;inset:0;z-index:2000;display:flex;align-items:center;justify-content:center;padding:20px;background:#020812cc;backdrop-filter:blur(8px)';
+  const box=document.createElement('div');
+  box.style.cssText='width:min(520px,100%);padding:24px;border:1px solid #5b3140;border-radius:18px;background:#0b1828;color:#e8eef8;box-shadow:0 24px 80px #0009';
+  const title=document.createElement('h2');title.textContent='Delete local account?';title.style.margin='0 0 10px';
+  const text=document.createElement('p');text.textContent='This removes your MuleJourney local profile, session, learning progress, theme and greeting-email status from this browser. Because MuleJourney is static, this does not delete anything from an external email provider or GitHub.';text.style.cssText='color:#b9c7d8;line-height:1.6;margin:0 0 16px';
+  const warning=document.createElement('p');warning.textContent='This action cannot be undone in this browser. Type DELETE to confirm.';warning.style.cssText='color:#ffb5c2;font-weight:700;margin:0 0 10px';
+  const input=document.createElement('input');input.type='text';input.autocomplete='off';input.placeholder='Type DELETE';input.setAttribute('aria-label','Type DELETE to confirm account deletion');input.style.cssText='width:100%;box-sizing:border-box;padding:11px 12px;border-radius:10px;border:1px solid #42556c;background:#07111f;color:#fff';
+  const actions=document.createElement('div');actions.style.cssText='display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;margin-top:18px';
+  const cancel=document.createElement('button');cancel.type='button';cancel.textContent='Keep my account';cancel.style.cssText='border:1px solid #40546b;background:#122235;color:#e6edf7;border-radius:10px;padding:9px 13px;cursor:pointer;font-weight:700';
+  const confirm=document.createElement('button');confirm.type='button';confirm.textContent='Delete account';confirm.disabled=true;confirm.style.cssText='border:1px solid #a4475a;background:#7b263b;color:#fff;border-radius:10px;padding:9px 13px;cursor:pointer;font-weight:800;opacity:.55';
+  function close(){modal.remove()}
+  function update(){const ok=input.value.trim()==='DELETE';confirm.disabled=!ok;confirm.style.opacity=ok?'1':'.55'}
+  input.addEventListener('input',update);
+  cancel.addEventListener('click',close);
+  confirm.addEventListener('click',()=>{if(input.value.trim()==='DELETE')deleteLocalAccount()});
+  modal.addEventListener('click',e=>{if(e.target===modal)close()});
+  box.append(title,text,warning,input,actions);actions.append(cancel,confirm);modal.append(box);document.body.appendChild(modal);input.focus();
+}
+
 function loadScript(src){return new Promise((resolve,reject)=>{const existing=document.querySelector(`script[src="${src}"]`);if(existing){if(existing.dataset.loaded==='true')return resolve();existing.addEventListener('load',()=>resolve(),{once:true});existing.addEventListener('error',reject,{once:true});return}const script=document.createElement('script');script.src=src;script.async=true;script.onload=()=>{script.dataset.loaded='true';resolve()};script.onerror=()=>reject(new Error(`Could not load ${src}`));document.head.appendChild(script)})}
 
 async function sendGreetingForSession(session){
@@ -69,10 +106,25 @@ function mountAuth(){
   wrap.style.cssText='display:inline-flex;align-items:center;gap:8px';
   if(session){
     const name=document.createElement('span');name.textContent=`Hi, ${session.name}`;name.style.cssText='color:#9eb0c5;font-size:.8rem';
-    const out=document.createElement('button');out.className='icon-btn';out.type='button';out.textContent='Logout';out.addEventListener('click',signOut);wrap.append(name,out);
+    const account=document.createElement('button');account.className='icon-btn';account.type='button';account.textContent='Account';account.setAttribute('aria-label','Open account options');account.addEventListener('click',showAccountMenu);
+    wrap.append(name,account);
   }
   nav.prepend(wrap);
   showGreetingStatus(session);
+}
+
+function showAccountMenu(){
+  const old=document.querySelector('#accountMenu');if(old){old.remove();return}
+  const session=getLocalSession();if(!session)return;
+  const menu=document.createElement('div');menu.id='accountMenu';menu.style.cssText='position:fixed;right:20px;top:72px;z-index:1500;width:min(300px,calc(100vw - 40px));padding:16px;border:1px solid #29415e;border-radius:16px;background:#0b1828;color:#e8eef8;box-shadow:0 20px 60px #0009';
+  const heading=document.createElement('strong');heading.textContent=session.name||'Account';
+  const email=document.createElement('div');email.textContent=session.email||'Local profile';email.style.cssText='margin-top:3px;color:#9eb0c5;font-size:.8rem;overflow-wrap:anywhere';
+  const rule=document.createElement('div');rule.style.cssText='height:1px;background:#20364e;margin:14px 0';
+  const setup=document.createElement('a');setup.href='EMAIL-SETUP.md';setup.textContent='Email setup';setup.style.cssText='display:block;color:#dce9f7;padding:8px 0;text-decoration:none';
+  const logout=document.createElement('button');logout.type='button';logout.textContent='Logout';logout.style.cssText='width:100%;text-align:left;border:0;background:transparent;color:#dce9f7;padding:8px 0;cursor:pointer';logout.addEventListener('click',signOut);
+  const deleteBtn=document.createElement('button');deleteBtn.type='button';deleteBtn.textContent='Delete account';deleteBtn.style.cssText='width:100%;text-align:left;border:0;border-top:1px solid #20364e;background:transparent;color:#ff9eaf;padding:12px 0 5px;cursor:pointer;font-weight:800';deleteBtn.addEventListener('click',()=>{menu.remove();showDeleteAccountDialog()});
+  menu.append(heading,email,rule,setup,logout,deleteBtn);document.body.appendChild(menu);
+  setTimeout(()=>document.addEventListener('click',function close(e){if(!menu.contains(e.target)&&!e.target.closest('#localAuth')){menu.remove();document.removeEventListener('click',close)}},{once:true}),0);
 }
 
 function routeRepositoryDocuments(){
@@ -88,9 +140,6 @@ function routeRepositoryDocuments(){
   });
 }
 
-// The learning portal is private-by-session: opening index.html directly without a
-// successful local login immediately returns to the login screen. This is a UX gate,
-// not security for sensitive data; GitHub Pages is static and has no trusted server auth.
 if(!location.pathname.endsWith('/login.html')&&!location.pathname.endsWith('login.html'))requireLogin();
 if(location.pathname.endsWith('/login.html')||location.pathname.endsWith('login.html')){
   if(hasValidSession())location.replace(HOME_PAGE);
