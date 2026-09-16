@@ -57,7 +57,7 @@ async function sendGreetingForSession(session){
     await loadScript('email-config.js');
     const cfg=window.MULEJOURNEY_EMAIL||{};
     if(!cfg.publicKey||cfg.publicKey.startsWith('YOUR_')||!cfg.serviceId||cfg.serviceId.startsWith('YOUR_')||!cfg.templateId||cfg.templateId.startsWith('YOUR_')){
-      const result={status:'not-configured',email:session.email,at:new Date().toISOString()};
+      const result={status:'not-configured',email:session.email,at:new Date().toISOString(),message:'EmailJS public key, service ID and template ID are not configured.'};
       localStorage.setItem(GREETING_STATUS_KEY,JSON.stringify(result));
       return result;
     }
@@ -80,15 +80,15 @@ function showGreetingStatus(session){
   const old=document.querySelector('#greetingStatus');if(old)old.remove();
   const banner=document.createElement('div');
   banner.id='greetingStatus';
-  banner.style.cssText='position:fixed;right:20px;bottom:20px;z-index:1001;max-width:440px;padding:15px 17px;border:1px solid #29415e;border-radius:14px;background:#0b1828;color:#e8eef8;box-shadow:0 18px 50px #0007;font-size:.86rem;line-height:1.5';
+  banner.style.cssText='position:fixed;right:20px;bottom:20px;z-index:1001;max-width:460px;padding:15px 17px;border:1px solid #29415e;border-radius:14px;background:#0b1828;color:#e8eef8;box-shadow:0 18px 50px #0007;font-size:.86rem;line-height:1.5';
   const title=document.createElement('strong');
-  title.textContent=status.status==='sent'?'Welcome! ✉️':status.status==='not-configured'?'Login successful':'Login successful';
+  title.textContent=status.status==='sent'?'Welcome! ✉️':status.status==='not-configured'?'Login successful — email setup required':'Login successful — email could not be sent';
   const message=document.createElement('div');
   message.style.cssText='margin-top:4px;color:#aebed1';
-  message.textContent=status.status==='sent'?`Greeting email sent to ${session.email}.`:status.status==='not-configured'?'Greeting email is not configured yet. Add the EmailJS values described in EMAIL-SETUP.md.':'The greeting email could not be sent. You can retry below after checking EmailJS.';
+  message.textContent=status.status==='sent'?`Greeting email sent to ${session.email}.`:status.status==='not-configured'?'EmailJS is not configured in this public site yet. The resend button cannot deliver mail until the three EmailJS values are configured.':'The greeting email could not be sent. Check the EmailJS error details in the browser console and verify the service/template settings.';
   const actions=document.createElement('div');actions.style.cssText='display:flex;gap:8px;flex-wrap:wrap;margin-top:10px';
   const resend=document.createElement('button');resend.type='button';resend.textContent='Send greeting again';resend.style.cssText='border:1px solid #55d6be;background:#55d6be;color:#031018;border-radius:9px;padding:7px 10px;cursor:pointer;font-weight:800';
-  resend.addEventListener('click',async()=>{resend.disabled=true;resend.textContent='Sending…';const result=await sendGreetingForSession(session);resend.disabled=false;resend.textContent='Send greeting again';message.textContent=result.status==='sent'?`Greeting email sent to ${session.email}.`:result.status==='not-configured'?'Greeting email is not configured yet. Add the EmailJS values described in EMAIL-SETUP.md.':'The greeting email could not be sent. Check EmailJS configuration and browser console.'});
+  resend.addEventListener('click',async()=>{resend.disabled=true;resend.textContent='Sending…';const result=await sendGreetingForSession(session);resend.disabled=false;resend.textContent='Send greeting again';message.textContent=result.status==='sent'?`Greeting email sent to ${session.email}.`:result.status==='not-configured'?'EmailJS is not configured yet. Open Email setup and add the Public Key, Service ID and Template ID.':`The greeting email failed: ${result.message||'check EmailJS configuration and the browser console.'}`});
   const setup=document.createElement('a');setup.href='EMAIL-SETUP.md';setup.textContent='Email setup';setup.style.cssText='border:1px solid #29415e;background:#102034;color:#dce9f7;border-radius:9px;padding:7px 10px;text-decoration:none';
   const dismiss=document.createElement('button');dismiss.type='button';dismiss.textContent='Dismiss';dismiss.style.cssText='border:1px solid #29415e;background:#102034;color:#dce9f7;border-radius:9px;padding:7px 10px;cursor:pointer';dismiss.addEventListener('click',()=>banner.remove());
   actions.append(resend,setup,dismiss);banner.append(title,message,actions);document.body.appendChild(banner);
@@ -98,17 +98,16 @@ function showGreetingStatus(session){
 function mountAuth(){
   const nav=document.querySelector('.nav-actions');
   if(!nav)return;
-  const existing=document.querySelector('#localAuth');
-  if(existing)existing.remove();
+  // Remove both current and legacy Account controls so cached/previous UI cannot leave duplicates.
+  nav.querySelectorAll('#localAuth, a[aria-label="Open account center"], a[title="Open Account Center"]').forEach(el=>el.remove());
   const session=getLocalSession();
+  if(!session){showGreetingStatus(null);return}
   const wrap=document.createElement('span');
   wrap.id='localAuth';
   wrap.style.cssText='display:inline-flex;align-items:center;gap:8px';
-  if(session){
-    const name=document.createElement('span');name.textContent=`Hi, ${session.name}`;name.style.cssText='color:#9eb0c5;font-size:.8rem';
-    const account=document.createElement('a');account.className='icon-btn';account.href='account.html';account.textContent='Account';account.setAttribute('aria-label','Open account center');account.title='Open Account Center';account.style.textDecoration='none';
-    wrap.append(name,account);
-  }
+  const name=document.createElement('span');name.textContent=`Hi, ${session.name}`;name.style.cssText='color:#9eb0c5;font-size:.8rem';
+  const account=document.createElement('a');account.className='icon-btn';account.href='account.html';account.textContent='Account';account.setAttribute('aria-label','Open account center');account.title='Open Account Center';account.style.textDecoration='none';
+  wrap.append(name,account);
   nav.prepend(wrap);
   showGreetingStatus(session);
 }
