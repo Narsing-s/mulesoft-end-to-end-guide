@@ -1,34 +1,104 @@
 const roadmap=[
-['01','Foundations','Start with HTTP, integrations, Mule events, flows, connectors and Studio.'],
-['02','DataWeave','Learn transformation from basic selectors to functions, modules, types and performance.'],
-['03','API Development','Build RAML/OAS APIs with HTTP Listener, APIkit, validation and versioning.'],
-['04','API-Led Connectivity','Understand System, Process and Experience APIs with practical boundaries.'],
-['05','Integration Patterns','Choice, For Each, Scatter-Gather, Async, retry, batch, queues and idempotency.'],
-['06','Connectors','HTTP, Database, File, SFTP, JMS, IBM MQ, Anypoint MQ, SOAP, Email and SaaS.'],
-['07','Errors','Design controlled error types, handlers, retries, timeouts and recovery.'],
-['08','Security','TLS, mTLS, OAuth, JWT, policies, secure properties and safe logging.'],
-['09','Testing','MUnit, mocks, spies, assertions, coverage, Postman and contract testing.'],
-['10','Deployment','Maven, Runtime Manager, CloudHub, CloudHub 2.0, Runtime Fabric and on-prem.'],
-['11','Operations','Logs, metrics, alerts, incidents, RCA, troubleshooting and performance.'],
-['12','Architecture','Resilience, scalability, governance, event-driven design and trade-offs.']
+['01','Foundations','Beginner','Learn HTTP, APIs, Mule events, flows, connectors, Studio and the request lifecycle.','../00-START-HERE.md'],
+['02','Mule Runtime & Event','Beginner','Understand runtime, message, payload, attributes, vars, scopes, processors and flow execution.','../01-Mule-Fundamentals/README.md'],
+['03','DataWeave','Beginner','Transform JSON, XML, CSV and Java objects; learn selectors, operators, functions, modules, types and performance.','../03-DataWeave/README.md'],
+['04','API Development','Beginner','Design RAML/OAS contracts, build HTTP APIs, use APIkit, validate inputs and version APIs.','../04-API-Development/README.md'],
+['05','API-Led Connectivity','Intermediate','Apply System, Process and Experience API boundaries to real integration problems.','../05-API-Led-Connectivity/README.md'],
+['06','Integration Patterns','Intermediate','Choice, For Each, Scatter-Gather, async processing, retry, batch, queues and idempotency.','../22-Patterns-And-Architecture/README.md'],
+['07','Enterprise Connectors','Intermediate','HTTP, Database, File, SFTP, JMS, IBM MQ, Anypoint MQ, SOAP, Email and SaaS integrations.','../09-Enterprise-Integration/README.md'],
+['08','Error Handling','Intermediate','Design typed errors, handlers, retries, timeouts, recovery, dead-letter flows and safe error responses.','../06-Error-Handling/README.md'],
+['09','Security','Advanced','TLS, mTLS, OAuth2, JWT, policies, secure properties, authorization and safe logging.','../24-Security/README.md'],
+['10','Testing','Intermediate','MUnit mocks, spies, assertions, coverage, negative tests, contract tests and CI quality gates.','../25-MUnit/README.md'],
+['11','Deployment & DevOps','Advanced','Maven, environments, Runtime Manager, CloudHub, CloudHub 2.0, Runtime Fabric, Hybrid and CI/CD.','../10-Deployment/README.md'],
+['12','Operations','Advanced','Logs, metrics, alerts, incident response, RCA, observability, performance and troubleshooting.','../26-Troubleshooting/README.md'],
+['13','Architecture','Advanced','Resilience, scalability, governance, event-driven design, canonical models and trade-offs.','../22-Patterns-And-Architecture/README.md']
 ];
+
 const topics=[
-['Mule Event','Understand payload, attributes and variables.','../00-START-HERE.md'],
-['DataWeave','Transform JSON, XML, CSV and other data formats.','../03-DataWeave/README.md'],
-['APIkit','Turn API contracts into implementation flows.','../04-API-Development/README.md'],
-['API-Led','Design System, Process and Experience APIs.','../05-API-Led-Connectivity/README.md'],
-['Error Handling','Build predictable failure responses and recovery.','../06-Error-Handling/README.md'],
-['Database','Use parameterized queries, pools and transactions.','../08-Database-Integration/README.md'],
-['Messaging','Understand queues, acknowledgement, retry and DLQ patterns.','../09-Enterprise-Integration/README.md'],
-['Security','Protect APIs, credentials, transport and logs.','../24-Security/README.md'],
-['MUnit','Test flows without depending on real external systems.','../25-MUnit/README.md'],
-['Production','Troubleshoot real failures systematically.','../26-Troubleshooting/README.md'],
-['Architecture','Choose integration patterns based on requirements.','../22-Patterns-And-Architecture/README.md'],
-['Performance','Measure and improve latency, throughput and resource use.','../23-Performance/README.md']
+['Mule Event','Understand payload, attributes and variables.','../01-Mule-Fundamentals/README.md','build'],
+['HTTP & REST','Learn methods, status codes, headers, query/path parameters and content types.','../02-HTTP-And-APIs/README.md','build'],
+['DataWeave','Transform JSON, XML, CSV and other data formats.','../03-DataWeave/README.md','build'],
+['APIkit','Turn RAML/OAS contracts into implementation flows and validations.','../04-API-Development/README.md','build'],
+['API-Led','Design System, Process and Experience APIs with clear responsibilities.','../05-API-Led-Connectivity/README.md','architecture'],
+['Integration Patterns','Choose sync, async, routing, aggregation, retry and idempotency patterns.','../22-Patterns-And-Architecture/README.md','architecture'],
+['Database','Use parameterized queries, connection pools, transactions and safe data access.','../08-Database-Integration/README.md','build'],
+['Messaging','Understand queues, acknowledgements, retry, ordering and DLQ patterns.','../09-Enterprise-Integration/README.md','build'],
+['Error Handling','Create predictable error types, responses, recovery and operational signals.','../06-Error-Handling/README.md','operate'],
+['Security','Protect transport, identity, credentials, policies and logs.','../24-Security/README.md','security'],
+['MUnit','Test happy paths, errors and external dependencies without real systems.','../25-MUnit/README.md','build'],
+['Performance','Measure latency, throughput, concurrency, memory and connector bottlenecks.','../23-Performance/README.md','operate'],
+['Troubleshooting','Diagnose 400/401/403/404/405/415/5xx, TLS, DB, MQ and deployment failures.','../26-Troubleshooting/README.md','operate'],
+['Environment Config','Separate environment settings, properties, secrets and deployment configuration.','../29-Environment-Configuration/README.md','security'],
+['Mule 3 → 4','Understand event model, DataWeave, MEL, connectors and error-model migration.','../30-Migration/MULE-3-TO-MULE-4.md','architecture'],
+['Interview Scenarios','Practice realistic debugging, architecture and production-support questions.','../27-Interview-Scenarios/README.md','operate'],
+['Cheat Sheets','Keep the most-used Mule 4 and DataWeave patterns close at hand.','../28-Glossary-And-Cheat-Sheets/MULE-4-CHEAT-SHEET.md','build'],
+['Reference Implementations','See compact XML, DataWeave, SQL and error-handling examples.','../21-Reference-Implementations/README.md','build']
 ];
+
+const labs=[
+['01','Hello API','Beginner','Create a listener, accept JSON and return a controlled JSON response.','../00-START-HERE.md'],
+['02','DataWeave Transformer','Beginner','Map customer input, filter records, handle nulls and produce a new contract.','../03-DataWeave/README.md'],
+['03','Database API','Intermediate','Use parameterized SQL, map rows and return a stable API response.','../08-Database-Integration/README.md'],
+['04','APIkit Contract','Intermediate','Start from RAML/OAS, generate flows and investigate validation failures.','../04-API-Development/README.md'],
+['05','Reliable Integration','Advanced','Implement retry, timeout, idempotency and a dead-letter strategy.','../22-Patterns-And-Architecture/README.md'],
+['06','Production Incident','Advanced','Diagnose a 502, 405, 415, timeout, TLS or database incident methodically.','../26-Troubleshooting/README.md'],
+['07','Secure API','Advanced','Apply TLS/mTLS concepts, OAuth/JWT boundaries and secure property handling.','../24-Security/README.md'],
+['08','MUnit Quality Gate','Intermediate','Mock connectors, assert outputs and test error paths for CI.','../25-MUnit/README.md'],
+['09','Banking Capstone','Advanced','Connect Experience → Process → System APIs with DB/MQ and operational controls.','../17-Real-World-Project/README.md']
+];
+
+const stateKey='mulejourney.completed.v1';
+let completed=new Set(JSON.parse(localStorage.getItem(stateKey)||'[]'));
+let activeCategory='all';
+
 const roadmapGrid=document.querySelector('#roadmapGrid');
-roadmap.forEach(x=>{roadmapGrid.innerHTML+=`<article class="step"><b>${x[0]}</b><h3>${x[1]}</h3><p>${x[2]}</p></article>`});
+function renderRoadmap(){
+ const level=document.querySelector('#levelFilter').value;
+ roadmapGrid.innerHTML='';
+ roadmap.forEach((x,i)=>{
+  if(level!=='all'&&x[2].toLowerCase()!==level) return;
+  const done=completed.has('roadmap-'+i);
+  roadmapGrid.innerHTML+=`<article class="step ${done?'done':''}"><div class="step-top"><b>${x[0]}</b><button class="check" data-key="roadmap-${i}" title="Mark complete">${done?'✓':'○'}</button></div><span class="level ${x[2].toLowerCase()}">${x[2]}</span><h3>${x[1]}</h3><p>${x[3]}</p><a class="learn-link" href="${x[4]}">Open lesson →</a></article>`;
+ });
+ document.querySelectorAll('.check').forEach(b=>b.addEventListener('click',()=>toggleComplete(b.dataset.key)));
+}
+
 const topicGrid=document.querySelector('#topicGrid');
-function renderTopics(q=''){topicGrid.innerHTML='';topics.filter(x=>x[0].toLowerCase().includes(q)||x[1].toLowerCase().includes(q)).forEach(x=>{topicGrid.innerHTML+=`<a class="topic" href="${x[2]}"><b>TOPIC</b><h3>${x[0]}</h3><p>${x[1]}</p></a>`})}
-renderTopics();
-document.querySelector('#search').addEventListener('input',e=>renderTopics(e.target.value.toLowerCase().trim()));
+function renderTopics(q=''){
+ topicGrid.innerHTML='';
+ const term=q.toLowerCase();
+ topics.filter(x=>(activeCategory==='all'||x[3]===activeCategory)&&(!term||x[0].toLowerCase().includes(term)||x[1].toLowerCase().includes(term))).forEach((x,i)=>{
+  const key='topic-'+topics.indexOf(x); const done=completed.has(key);
+  topicGrid.innerHTML+=`<a class="topic ${done?'done':''}" href="${x[2]}"><div class="topic-top"><span class="topic-cat">${x[3]}</span><button class="topic-check" data-key="${key}" title="Mark complete">${done?'✓':'+'}</button></div><h3>${x[0]}</h3><p>${x[1]}</p><span class="learn-link">Open topic →</span></a>`;
+ });
+ document.querySelectorAll('.topic-check').forEach(b=>{b.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();toggleComplete(b.dataset.key);});});
+}
+
+function renderLabs(){
+ const grid=document.querySelector('#labGrid'); grid.innerHTML='';
+ labs.forEach((x,i)=>{const key='lab-'+i,done=completed.has(key);grid.innerHTML+=`<article class="lab-card ${done?'done':''}"><div class="lab-top"><b>${x[0]}</b><button class="check" data-key="${key}">${done?'✓':'○'}</button></div><span class="level ${x[2].toLowerCase()}">${x[2]}</span><h3>${x[1]}</h3><p>${x[3]}</p><a class="learn-link" href="${x[4]}">Open lab guide →</a></article>`;});
+ grid.querySelectorAll('.check').forEach(b=>b.addEventListener('click',()=>toggleComplete(b.dataset.key)));
+}
+
+function toggleComplete(key){completed.has(key)?completed.delete(key):completed.add(key);localStorage.setItem(stateKey,JSON.stringify([...completed]));renderAll();}
+function updateProgress(){
+ const total=roadmap.length+topics.length+labs.length; const pct=Math.round(completed.size/total*100); document.querySelector('#progressPct').textContent=pct+'%'; document.querySelector('#completedCount').textContent=completed.size; document.querySelector('#progressBar').style.width=pct+'%'; document.querySelector('#progressRing').style.setProperty('--p',pct*3.6+'deg');
+}
+function renderAll(){renderRoadmap();renderTopics(document.querySelector('#search').value.trim());renderLabs();updateProgress();}
+
+document.querySelector('#search').addEventListener('input',e=>renderTopics(e.target.value.trim()));
+document.querySelector('#levelFilter').addEventListener('change',renderRoadmap);
+document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));c.classList.add('active');activeCategory=c.dataset.category;renderTopics(document.querySelector('#search').value.trim());}));
+document.querySelector('#resetProgress').addEventListener('click',()=>{if(confirm('Reset all learning progress?')){completed.clear();localStorage.removeItem(stateKey);renderAll();}});
+
+const commands=[['Start Here','../00-START-HERE.md'],['Roadmap','#roadmap'],['Topic Library','#topics'],['Hands-on Labs','#labs'],['Banking Capstone','#capstone'],['Security','../24-Security/README.md'],['MUnit','../25-MUnit/README.md'],['Troubleshooting','../26-Troubleshooting/README.md'],['Architecture','../22-Patterns-And-Architecture/README.md'],['Cheat Sheet','../28-Glossary-And-Cheat-SHEETS/MULE-4-CHEAT-SHEET.md']];
+const modal=document.querySelector('#commandModal');const commandList=document.querySelector('#commandList');
+function renderCommands(q=''){commandList.innerHTML='';commands.filter(x=>x[0].toLowerCase().includes(q.toLowerCase())).forEach(x=>commandList.innerHTML+=`<a href="${x[1]}"><span>↗</span>${x[0]}</a>`);}
+function openCommand(){modal.classList.remove('hidden');document.querySelector('#commandSearch').focus();renderCommands();}
+function closeCommand(){modal.classList.add('hidden');}
+document.querySelector('#commandBtn').addEventListener('click',openCommand);document.querySelector('#closeCommand').addEventListener('click',closeCommand);document.querySelector('#commandSearch').addEventListener('input',e=>renderCommands(e.target.value));modal.addEventListener('click',e=>{if(e.target===modal)closeCommand();});
+document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();openCommand();}if(e.key==='Escape')closeCommand();});
+
+const savedTheme=localStorage.getItem('mulejourney.theme')||'dark';document.documentElement.dataset.theme=savedTheme;document.querySelector('#themeBtn').textContent=savedTheme==='dark'?'☼':'☾';document.querySelector('#themeBtn').addEventListener('click',()=>{const next=document.documentElement.dataset.theme==='dark'?'light':'dark';document.documentElement.dataset.theme=next;localStorage.setItem('mulejourney.theme',next);document.querySelector('#themeBtn').textContent=next==='dark'?'☼':'☾';});
+window.addEventListener('scroll',()=>document.querySelector('#progressBar').style.width=(window.scrollY/(document.documentElement.scrollHeight-window.innerHeight)*100)+'%');
+renderAll();
