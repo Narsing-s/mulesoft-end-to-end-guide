@@ -48,39 +48,24 @@ commands.push(
 );
 renderAll();
 
-// Make the visual navigation pills/tags real links to the repository documentation.
 const portalDocLinks={
-  'Beginner → Advanced':'../53-End-to-End-Study-Path/README.md',
-  'Internal-first lessons':'../33-Self-Contained-Learning/README.md',
-  'Hands-on labs':'../36-Hands-On-Challenge-Lab/README.md',
-  'Production scenarios':'../60-Production-Support-Engineering/README.md',
-  'Interview mastery':'../62-Interview-and-Scenario-Mastery/README.md',
-  'Offline-ready':'../33-Self-Contained-Learning/README.md',
-  'Backend-free local profile':'login.html',
-  'RAML / OAS':'../04-API-Development/README.md',
-  'APIkit':'../04-API-Development/README.md',
-  'DataWeave':'../03-DataWeave/README.md',
-  'DB':'../08-Database-Integration/README.md',
-  'JMS / MQ':'../09-Enterprise-Integration/README.md',
-  'MUnit':'../25-MUnit/README.md',
-  'DevOps':'../13-Deployment/README.md',
-  'Observability':'../15-Observability/README.md'
+  'Beginner → Advanced':'../53-End-to-End-Study-Path/README.md','Internal-first lessons':'../33-Self-Contained-Learning/README.md','Hands-on labs':'../36-Hands-On-Challenge-Lab/README.md','Production scenarios':'../60-Production-Support-Engineering/README.md','Interview mastery':'../62-Interview-and-Scenario-Mastery/README.md','Offline-ready':'../33-Self-Contained-Learning/README.md','Backend-free local profile':'login.html','RAML / OAS':'../04-API-Development/README.md','APIkit':'../04-API-Development/README.md','DataWeave':'../03-DataWeave/README.md','DB':'../08-Database-Integration/README.md','JMS / MQ':'../09-Enterprise-Integration/README.md','MUnit':'../25-MUnit/README.md','DevOps':'../13-Deployment/README.md','Observability':'../15-Observability/README.md'
 };
-function makePortalLinks(selector){
-  document.querySelectorAll(selector).forEach(container=>{
-    Array.from(container.children).forEach(item=>{
-      const label=(item.textContent||'').trim();
-      const href=portalDocLinks[label];
-      if(!href||item.tagName==='A')return;
-      const link=document.createElement('a');
-      link.href=href;
-      link.title=`Open ${label} documentation`;
-      const pill=document.createElement('span');
-      pill.textContent=label;
-      link.appendChild(pill);
-      item.replaceWith(link);
-    });
-  });
-}
+function makePortalLinks(selector){document.querySelectorAll(selector).forEach(container=>{Array.from(container.children).forEach(item=>{const label=(item.textContent||'').trim();const href=portalDocLinks[label];if(!href||item.tagName==='A')return;const link=document.createElement('a');link.href=href;link.title=`Open ${label} documentation`;const pill=document.createElement('span');pill.textContent=label;link.appendChild(pill);item.replaceWith(link)})})}
 makePortalLinks('.hero-pills');
 makePortalLinks('.project-tags');
+
+// Make account management impossible to miss for signed-in users.
+(function mountAccountCenterLink(){
+  const navActions=document.querySelector('.nav-actions');
+  if(!navActions||document.querySelector('#accountCenterLink'))return;
+  const session=typeof getLocalSession==='function'?getLocalSession():null;
+  if(!session)return;
+  const link=document.createElement('a');
+  link.id='accountCenterLink';
+  link.href='account.html';
+  link.textContent='Account';
+  link.title='Open My Account and Delete Account';
+  link.style.cssText='display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:0 12px;border:1px solid #55d6be;border-radius:10px;background:#102b32;color:#8ef0d7;text-decoration:none;font-weight:900;font-size:.82rem';
+  navActions.prepend(link);
+})();
