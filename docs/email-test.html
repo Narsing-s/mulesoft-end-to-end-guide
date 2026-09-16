@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#07111f">
+<title>MuleJourney — Email Test</title>
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;padding:28px;font-family:Inter,system-ui,sans-serif;background:radial-gradient(circle at 15% 10%,#16436f,#07111f 55%,#050b14);color:#e8eef8}.card{max-width:760px;margin:auto;padding:30px;border:1px solid #29435f;border-radius:24px;background:#091727ee;box-shadow:0 25px 80px #0008}.brand{font-weight:900;font-size:1.5rem}.brand span{color:#55d6be}.eyebrow{color:#55d6be;font-size:.7rem;font-weight:900;letter-spacing:.14em;margin:22px 0 6px}.lead{color:#9eb0c5;line-height:1.6}.grid{display:grid;gap:12px;margin:22px 0}.row{padding:14px;border:1px solid #29415e;border-radius:13px;background:#07111f}.label{font-size:.76rem;color:#8195aa;text-transform:uppercase;letter-spacing:.08em}.value{margin-top:5px;font-weight:800}.ok{color:#8ef0d7}.warn{color:#ffd58a}.bad{color:#ff9d9d}.button{padding:12px 16px;border:0;border-radius:11px;background:#55d6be;color:#031018;font-weight:900;cursor:pointer}.button:disabled{opacity:.6;cursor:wait}.note{margin-top:18px;padding:14px;border:1px solid #29415e;border-radius:12px;color:#8ea1b6;font-size:.82rem;line-height:1.6}a{color:#7dd3fc}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="email-config.js"></script>
+</head>
+<body>
+<main class="card">
+<div class="brand">Mule<span>Journey</span></div>
+<p class="eyebrow">EMAIL DELIVERY DIAGNOSTIC</p>
+<h1>Greeting Email Test</h1>
+<p class="lead">This page checks the browser-side EmailJS configuration and can send one real test greeting to the currently signed-in local account. It never asks for an EmailJS private key or SMTP password.</p>
+<div class="grid" id="status"></div>
+<button class="button" id="send" type="button">Send test greeting</button>
+<div class="note"><b>Before testing:</b> configure <code>docs/email-config.js</code> with your EmailJS public key, service ID and template ID, then make sure the template uses the variables documented in <a href="EMAIL-SETUP.md">EMAIL-SETUP.md</a>. EmailJS browser sending uses the public key and template/service identifiers; keep private credentials out of this public repository.</div>
+<div class="note"><a href="index.html">← Back to MuleJourney</a></div>
+</main>
+<script>
+const SESSION_KEY='mulejourney.local.session.v2';
+const $=s=>document.querySelector(s);
+function session(){try{return JSON.parse(localStorage.getItem(SESSION_KEY)||'null')}catch{return null}}
+function configured(){const c=window.MULEJOURNEY_EMAIL||{};return !!(window.emailjs&&c.publicKey&&!c.publicKey.startsWith('YOUR_')&&c.serviceId&&!c.serviceId.startsWith('YOUR_')&&c.templateId&&!c.templateId.startsWith('YOUR_'))}
+function render(){const s=session(),c=window.MULEJOURNEY_EMAIL||{};$('#status').innerHTML='';const items=[['Local session',s?.authenticated&&s?.email?'Authenticated':'Not signed in',s?.authenticated&&s?.email?'ok':'bad'],['EmailJS SDK',window.emailjs?'Loaded':'Not loaded',window.emailjs?'ok':'bad'],['EmailJS configuration',configured()?'Configured':'Not configured',configured()?'ok':'warn'],['Recipient',s?.email||'No signed-in email available',s?.email?'ok':'warn'],['Service ID',c.serviceId&&!c.serviceId.startsWith('YOUR_')?'Configured':'Placeholder',c.serviceId&&!c.serviceId.startsWith('YOUR_')?'ok':'warn'],['Template ID',c.templateId&&!c.templateId.startsWith('YOUR_')?'Configured':'Placeholder',c.templateId&&!c.templateId.startsWith('YOUR_')?'ok':'warn']];for(const [label,value,cls] of items){const row=document.createElement('div');row.className='row';row.innerHTML=`<div class="label">${label}</div><div class="value ${cls}"></div>`;row.querySelector('.value').textContent=value;$('#status').append(row)}}
+render();
+$('#send').addEventListener('click',async()=>{const s=session(),c=window.MULEJOURNEY_EMAIL||{};if(!s?.authenticated||!s.email){alert('Sign in first.');return}if(!configured()){alert('EmailJS is not configured. Update docs/email-config.js first.');return}const b=$('#send');b.disabled=true;b.textContent='Sending…';try{emailjs.init({publicKey:c.publicKey,limitRate:{id:'mulejourney-email-test',throttle:1000}});await emailjs.send(c.serviceId,c.templateId,{to_email:s.email,email:s.email,user_email:s.email,name:s.name,login_time:new Date().toLocaleString(),subject:'Welcome to MuleJourney'});alert(`Test greeting sent to ${s.email}. Check Inbox and Spam/Junk.`)}catch(e){console.error(e);alert(`EmailJS rejected the request: ${String(e?.text||e?.message||e)}`)}finally{b.disabled=false;b.textContent='Send test greeting'}});
+</script>
+</body>
+</html>
