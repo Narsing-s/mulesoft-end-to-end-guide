@@ -1,0 +1,117 @@
+name: Package and publish release
+
+on:
+  workflow_run:
+    workflows: ["Deploy learning site"]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-publish
+  cancel-in-progress: false
+
+jobs:
+  release:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the successful Pages commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
+          fetch-depth: 0
+
+      - name: Build release package
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION="v0.1.${GITHUB_RUN_NUMBER}"
+          PACKAGE_DIR="release/${VERSION}"
+          mkdir -p "$PACKAGE_DIR"
+
+          rsync -a ./ "$PACKAGE_DIR/mulesoft-end-to-end-guide/" \
+            --exclude='.git/' \
+            --exclude='release/' \
+            --exclude='_site/' \
+            --exclude='node_modules/'
+
+          cat > "$PACKAGE_DIR/RELEASE-MANIFEST.md" <<EOF
+          # MuleJourney ${VERSION}
+
+          This package was generated automatically after a successful GitHub Pages deployment.
+
+          - Repository: Narsing-s/mulesoft-end-to-end-guide
+          - Source commit: ${GITHUB_SHA}
+          - Pages workflow: Deploy learning site
+          - Release workflow run: ${GITHUB_RUN_ID}
+          - Package generated: $(date -u '+%Y-%m-%d %H:%M:%S UTC')
+
+          ## Included
+
+          - Complete MuleSoft learning repository
+          - `docs/` learning portal
+          - Deep explanations, labs, interview material and production guides
+          - Official documentation mapping
+          - Login/email setup documentation
+          - Release documentation
+
+          ## Important
+
+          MuleJourney is an independent educational project and is not an official MuleSoft product.
+          EOF
+
+          cp RELEASE-NOTES.md "$PACKAGE_DIR/RELEASE-NOTES.md" 2>/dev/null || true
+          cd release
+          zip -qr "mulejourney-${VERSION}.zip" "$VERSION"
+          sha256sum "mulejourney-${VERSION}.zip" > "mulejourney-${VERSION}.sha256"
+
+          printf '%s\n' "${VERSION}" > "version.txt"
+          printf '%s\n' "${GITHUB_SHA}" > "commit.txt"
+
+      - name: Generate release notes
+        shell: bash
+        run: |
+          VERSION="v0.1.${GITHUB_RUN_NUMBER}"
+          mkdir -p release/notes
+          cat > release/notes/RELEASE-NOTES.md <<EOF
+          # MuleJourney ${VERSION}
+
+          ## Release status
+
+          Published automatically because the learning site deployment completed successfully.
+
+          ## What's included
+
+          - Current repository documentation and learning portal
+          - Mule Runtime, DataWeave, API, connector, security, testing, deployment and operations material
+          - Hands-on labs and interview preparation
+          - Official MuleSoft documentation references
+          - Current login and email setup documentation
+
+          ## Source
+
+          Commit: \`${GITHUB_SHA}\`
+
+          ## Verification
+
+          The release is created only after the **Deploy learning site** workflow succeeds. The attached SHA-256 file can be used to verify the package.
+          EOF
+
+      - name: Publish GitHub release and assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION="v0.1.${GITHUB_RUN_NUMBER}"
+          gh release create "$VERSION" \
+            "release/mulejourney-${VERSION}.zip" \
+            "release/mulejourney-${VERSION}.sha256" \
+            "release/notes/RELEASE-NOTES.md" \
+            --target "${GITHUB_SHA}" \
+            --title "MuleJourney ${VERSION}" \
+            --notes-file "release/notes/RELEASE-NOTES.md"
