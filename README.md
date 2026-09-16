@@ -24,25 +24,60 @@ Open `docs/` for the visual learning workspace:
 
 ## 👶 Start here if you know nothing about MuleSoft
 
-1. `00-START-HERE.md`
-2. `docs/BEGINNER-TERMS.md`
-3. `01-Fundamentals`
-4. `02-Mule-Applications`
-5. `03-DataWeave`
-6. `04-API-Development`
-7. `05-API-Led-Connectivity`
-8. `06-Error-Handling`
-9. Database + enterprise integration
-10. Security + MUnit
-11. Deployment + DevOps
-12. Observability + troubleshooting
-13. Architecture
-14. Banking capstone
-15. Interview mastery
+Use this exact order:
 
-The learning rule is always:
+```text
+00 Start Here
+ ↓
+01 Fundamentals
+ ↓
+02 Mule Applications
+ ↓
+03 DataWeave
+ ↓
+04 API Development
+ ↓
+05 API-Led Connectivity
+ ↓
+06 Errors
+ ↓
+07 Connectors → 08 Database → 09 Enterprise Integration
+ ↓
+10 Security → 11 API Management
+ ↓
+12 Testing → 13 Deployment → 14 CI/CD
+ ↓
+15 Observability → Troubleshooting
+ ↓
+22 Architecture → 23 Performance → Advanced Engineering
+ ↓
+40 Labs → 41 Patterns → 42 Projects
+ ↓
+45–52 Advanced platform/engineering tracks
+ ↓
+55 Assessment + Project Ladder
+ ↓
+17 Banking Capstone
+ ↓
+56 Modern Platform Deep Dive
+ ↓
+Architect / Production Engineer
+```
+
+**Important:** there is no artificial final chapter. After the capstone, repeat the engineering loop with harder requirements.
 
 > **What is it? → Why does it exist? → How does it work? → Build it → Test it → Break it → Fix it → Secure it → Deploy it → Operate it.**
+
+## 🗺️ Canonical navigation
+
+- `53-End-to-End-Study-Path/README.md` — exact beginner → expert route
+- `53-End-to-End-Study-Path/LESSON-TEMPLATE.md` — standard for every technical lesson
+- `53-End-to-End-Study-Path/DIAGRAMS.md` — diagram standards and reusable architecture diagrams
+- `53-End-to-End-Study-Path/PROJECT-PATH.md` — progressive project ladder
+- `55-Learning-Assessment-and-Project-Ladder/README.md` — readiness gates and evidence-based assessment
+- `56-Modern-Platform-Deep-Dive/README.md` — modern platform, gateway, monitoring, networking and automation topics
+- `TOPIC-INDEX.md` — canonical home for every major concept
+- `54-Gap-Analysis-and-Completeness/README.md` — completeness and anti-duplication rules
 
 ## 🗺️ Complete learning stages
 
@@ -82,269 +117,89 @@ The learning rule is always:
 | 31 | Master topic checklist |
 | 32 | Runtime/version matrix |
 | 33 | Self-contained learning system |
-| 34 | Interview mastery and current-focus questions |
-| 35 | Advanced MuleSoft engineering |
+| 34 | Interview mastery |
+| 35 | Advanced engineering |
 | 36 | Hands-on challenge lab |
+| 37–44 | Coverage, platform, labs, patterns, templates, reference and career tracks |
+| 45–52 | Platform architecture, DataWeave/runtime/security/messaging/release/operations/governance |
+| 53 | Canonical end-to-end study path |
+| 54 | Gap analysis and completeness |
+| 55 | Learning assessment and project ladder |
+| 56 | Modern platform deep dive |
 
-## 📚 What is covered
+## 🧭 How to know when to move forward
+
+Do not use “I finished reading the folder” as the completion rule.
+
+Use:
+
+```text
+Explain
+  ↓
+Implement
+  ↓
+Test
+  ↓
+Break
+  ↓
+Debug
+  ↓
+Secure
+  ↓
+Deploy
+  ↓
+Operate
+  ↓
+Teach
+```
+
+`55-Learning-Assessment-and-Project-Ladder` defines the practical gates and evidence expected at each level.
+
+## 📚 Major coverage
 
 ### Mule runtime and development
 
-- Mule Runtime Engine
-- application lifecycle
-- Mule event/message model
-- payload
-- attributes
-- variables
-- event sources
-- processors
-- flows
-- subflows
-- private flows
-- scopes
-- global configurations
-- XML DSL
-- namespaces
-- expressions
-- Scheduler
-- Logger
-- application properties
-- secure properties
-- Maven project structure
-- dependencies
-- Java/JVM fundamentals
-- Studio debugging
+Mule Runtime Engine, application lifecycle, Mule event/message model, payload, attributes, variables, event sources, processors, flows, subflows, private flows, scopes, global configurations, XML DSL, namespaces, expressions, Scheduler, Logger, properties, secure properties, Maven, dependencies, Java/JVM fundamentals and debugging.
 
 ### HTTP, REST and API design
 
-- HTTP lifecycle
-- methods
-- headers
-- query/path parameters
-- request/response bodies
-- media types
-- status codes
-- REST resource design
-- RAML
-- OpenAPI/OAS
-- reusable types
-- examples
-- validation
-- pagination
-- filtering
-- sorting
-- versioning
-- idempotency
-- error contracts
-- APIkit routing/scaffolding
-- API Console
-- CORS and OPTIONS
-- TLS
+HTTP lifecycle, methods, headers, query/path parameters, bodies, media types, status codes, REST design, RAML, OpenAPI/OAS, reusable types, examples, validation, pagination, filtering, sorting, versioning, idempotency, error contracts, APIkit, API Console, CORS, OPTIONS and TLS.
 
 ### DataWeave
 
-- syntax
-- objects and arrays
-- selectors
-- `map`
-- `filter`
-- `reduce`
-- `mapObject`
-- `filterObject`
-- `flatMap`
-- `pluck`
-- `groupBy`
-- `orderBy`
-- `distinctBy`
-- `some`
-- `every`
-- conditionals
-- `match`
-- `default`
-- null handling
-- functions
-- lambdas
-- types
-- type aliases
-- coercion
-- modules/imports
-- reusable transformations
-- JSON/XML/CSV/Java/binary
-- XML namespaces
-- date/time/timezones
-- base64/binary
-- MIME types
-- streaming
-- performance
-- error-safe transformations
+Syntax, objects, arrays, selectors, map/filter/reduce, mapObject/filterObject/flatMap/pluck, grouping/sorting/distinct operations, conditionals, match, null handling, functions, lambdas, types, coercion, modules/imports, reusable transformations, JSON/XML/CSV/Java/binary, namespaces, dates/times, base64, MIME types, streaming, performance and error-safe transformations.
 
-### API-led connectivity and architecture
+### Architecture and integration
 
-- System API
-- Process API
-- Experience API
-- responsibility boundaries
-- canonical data models
-- orchestration
-- reusable assets
-- coupling/cohesion
-- synchronous/asynchronous decisions
-- event-driven architecture
-- resilience
-- scalability
-- availability
-- disaster recovery concepts
-- architecture trade-offs
-- anti-patterns
-- ADRs
+System/Process/Experience APIs, responsibility boundaries, canonical models, orchestration, coupling/cohesion, synchronous/asynchronous decisions, event-driven architecture, resilience, scalability, availability, disaster recovery, trade-offs, anti-patterns and ADRs.
 
 ### Integration patterns
 
-- Choice
-- Try
-- For Each
-- Parallel For Each
-- Scatter-Gather
-- Async
-- Until Successful
-- Batch
-- Scheduler
-- VM
-- Object Store
-- retry
-- backoff
-- timeout
-- idempotency
-- deduplication
-- transactions
-- compensation
-- DLQ
-- poison messages
-- correlation IDs
-- back-pressure
-- circuit-breaker/bulkhead concepts
+Choice, Try, For Each, Parallel For Each, Scatter-Gather, Async, Until Successful, Batch, Scheduler, VM, Object Store, retry/backoff, timeout, idempotency, deduplication, transactions, compensation, DLQ, poison messages, correlation and back-pressure concepts.
 
 ### Enterprise integrations
 
-- HTTP
-- Database
-- File
-- FTP/SFTP
-- JMS
-- IBM MQ
-- Anypoint MQ
-- Email/SMTP
-- SOAP
-- Salesforce/SaaS concepts
-- connection pooling
-- reconnection
-- connector timeouts
-- connector error mapping
-- transactions
+HTTP, Database, File, FTP/SFTP, JMS, IBM MQ, Anypoint MQ, Email/SMTP, SOAP, Salesforce/SaaS, connection pooling, reconnection, timeouts, connector error mapping and transactions.
 
 ### Security
 
-- HTTP/HTTPS
-- TLS
-- certificates
-- keystore/truststore
-- certificate rotation
-- mTLS
-- Basic authentication
-- OAuth 2.0
-- JWT
-- authorization
-- scopes/claims
-- client identity
-- API policies
-- CORS
-- rate limiting concepts
-- threat protection concepts
-- secure properties
-- secret management
-- PII masking
-- least privilege
-- dependency security
-- safe logging
-
-### API management
-
-- Exchange
-- API Manager
-- API instances
-- API proxies
-- policies
-- client applications
-- contracts
-- SLA concepts
-- analytics
-- governance
-- lifecycle
-- versioning/deprecation
+HTTPS/TLS, certificates, keystores/truststores, rotation, mTLS, Basic authentication, OAuth 2.0, JWT, authorization, scopes/claims, client identity, API policies, CORS, rate limiting, threat protection, secure properties, secret management, PII masking, least privilege, auditability and dependency security.
 
 ### Testing
 
-- MUnit
-- test suites
-- setup/teardown concepts
-- mocks
-- spies
-- verify calls
-- assertions
-- error-path testing
-- coverage
-- integration testing
-- contract testing
-- Postman
-- performance testing concepts
-- CI quality gates
+MUnit, mocks, spies, verify calls, assertions, negative paths, coverage, integration/contract testing, Postman and CI quality gates.
 
 ### Deployment and DevOps
 
-- Maven lifecycle
-- packaging
-- Mule Maven Plugin
-- Git
-- CI/CD
-- environment configuration
-- Runtime Manager
-- CloudHub
-- CloudHub 2.0
-- Runtime Fabric
-- hybrid/on-premises
-- Runtime Manager agent concepts
-- deployment automation
-- promotion
-- rollback
-- release strategy
-- smoke testing
-- health verification
+Maven, Mule Maven Plugin, Git, CI/CD, environment configuration, Runtime Manager, CloudHub, CloudHub 2.0, Runtime Fabric, hybrid/on-premises, deployment automation, promotion, rollback, release strategy, smoke testing and health verification.
 
 ### Production engineering
 
-- structured logging
-- correlation IDs
-- request IDs
-- metrics
-- dashboards
-- alerts
-- distributed tracing concepts
-- latency/throughput/error rate
-- CPU/memory/GC investigation
-- connection pools
-- dependency latency
-- 400/401/403/404/405/406/415/429
-- 500/502/503/504
-- CORS/OPTIONS
-- TLS failures
-- DB failures
-- MQ/JMS failures
-- Object Store problems
-- deployment failures
-- RCA
-- runbooks
-- incident response
-- preventive actions
+Logs, correlation IDs, metrics, dashboards, alerts, tracing concepts, latency/throughput/error rate, CPU/memory/GC investigation, pools, dependency latency, HTTP failures, TLS, DB, MQ, Object Store, deployment failures, RCA, runbooks, incident response and preventive actions.
+
+### Modern platform engineering
+
+The modern platform track additionally covers Anypoint Code Builder, API gateway/Flex Gateway terminology, Anypoint Monitoring, CloudHub 2.0 Private Spaces and networking, deployment/replica lifecycle, Runtime Fabric/Kubernetes concepts, platform RBAC and auditability, certificate/secret rotation, API automation and modern API contract styles. See `56-Modern-Platform-Deep-Dive`.
 
 ## 🏦 Banking capstone
 
@@ -371,14 +226,6 @@ The capstone covers customer onboarding, account CRUD, balance, transaction hist
 
 All financial data must be synthetic.
 
-## 🎯 New interview path
-
-`18-Interview-Preparation` now contains a large structured interview bank from easy to advanced, including DataWeave, APIkit, errors, DB, MQ/JMS, MUnit, security, deployment, production incidents, architecture and current-focus topics.
-
-Use `35-Advanced-MuleSoft` to prepare senior-level architecture and production questions.
-
-Use `36-Hands-On-Challenge-Lab` to turn interview answers into working implementations.
-
 ## 🧪 Definition of a complete lesson
 
 Every major topic should contain:
@@ -386,23 +233,27 @@ Every major topic should contain:
 - simple explanation
 - terminology
 - why it exists
+- when and when-not-to-use guidance
 - architecture/visual flow
-- Anypoint Studio steps
-- complete XML where useful
+- sequence/data-flow diagram
+- Studio or Code Builder steps where applicable
+- complete XML/configuration where useful
 - DataWeave
 - input/output
-- tests
+- tests and MUnit
 - common mistakes
 - failure scenarios
 - troubleshooting
 - security
 - performance
-- MUnit
 - production example
 - beginner exercise
-- advanced exercise
+- advanced challenge
 - interview questions
-- links to related internal chapters
+- version assumptions
+- related internal links
+
+See `53-End-to-End-Study-Path/LESSON-TEMPLATE.md`.
 
 ## 🔐 Production rule
 
@@ -419,14 +270,11 @@ Never stop at “it returns 200”. Ask:
 - Can I deploy safely?
 - Can I roll back?
 - Can I prove the fix with a test?
+- Can another engineer operate the service without asking me?
 
 ## 📌 Version discipline
 
-Use `32-Version-Matrix` and record the exact runtime, Java, DataWeave, APIkit, connector, Maven/plugin and deployment versions for every project. Current 2026 runtime information includes Mule 4.12 and DataWeave 2.12; version-sensitive examples should always identify their tested environment. citeturn0search0
-
-## 📖 Optional verification only
-
-The core learning path does **not** require leaving this repository. External product references can be used only when a learner needs exact version-specific configuration or release information.
+Use `32-Version-Matrix` and record the exact runtime, Java, DataWeave, APIkit, connector, Maven/plugin and deployment versions for every project. Version-sensitive platform examples must identify the tested environment and should be rechecked against current MuleSoft documentation.
 
 ## ⚠️ Educational safety
 
