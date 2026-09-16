@@ -106,7 +106,7 @@ function mountAuth(){
   wrap.style.cssText='display:inline-flex;align-items:center;gap:8px';
   if(session){
     const name=document.createElement('span');name.textContent=`Hi, ${session.name}`;name.style.cssText='color:#9eb0c5;font-size:.8rem';
-    const account=document.createElement('button');account.className='icon-btn';account.type='button';account.textContent='Account';account.setAttribute('aria-label','Open account options');account.addEventListener('click',showAccountMenu);
+    const account=document.createElement('a');account.className='icon-btn';account.href='account.html';account.textContent='Account';account.setAttribute('aria-label','Open account center');account.title='Open Account Center';account.style.textDecoration='none';
     wrap.append(name,account);
   }
   nav.prepend(wrap);
@@ -120,10 +120,11 @@ function showAccountMenu(){
   const heading=document.createElement('strong');heading.textContent=session.name||'Account';
   const email=document.createElement('div');email.textContent=session.email||'Local profile';email.style.cssText='margin-top:3px;color:#9eb0c5;font-size:.8rem;overflow-wrap:anywhere';
   const rule=document.createElement('div');rule.style.cssText='height:1px;background:#20364e;margin:14px 0';
+  const openAccount=document.createElement('a');openAccount.href='account.html';openAccount.textContent='Open Account Center';openAccount.style.cssText='display:block;color:#7dd3fc;padding:8px 0;text-decoration:none;font-weight:800';
   const setup=document.createElement('a');setup.href='EMAIL-SETUP.md';setup.textContent='Email setup';setup.style.cssText='display:block;color:#dce9f7;padding:8px 0;text-decoration:none';
   const logout=document.createElement('button');logout.type='button';logout.textContent='Logout';logout.style.cssText='width:100%;text-align:left;border:0;background:transparent;color:#dce9f7;padding:8px 0;cursor:pointer';logout.addEventListener('click',signOut);
   const deleteBtn=document.createElement('button');deleteBtn.type='button';deleteBtn.textContent='Delete account';deleteBtn.style.cssText='width:100%;text-align:left;border:0;border-top:1px solid #20364e;background:transparent;color:#ff9eaf;padding:12px 0 5px;cursor:pointer;font-weight:800';deleteBtn.addEventListener('click',()=>{menu.remove();showDeleteAccountDialog()});
-  menu.append(heading,email,rule,setup,logout,deleteBtn);document.body.appendChild(menu);
+  menu.append(heading,email,rule,openAccount,setup,logout,deleteBtn);document.body.appendChild(menu);
   setTimeout(()=>document.addEventListener('click',function close(e){if(!menu.contains(e.target)&&!e.target.closest('#localAuth')){menu.remove();document.removeEventListener('click',close)}},{once:true}),0);
 }
 
