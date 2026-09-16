@@ -1,114 +1,290 @@
-# MuleSoft Zero to Production — End-to-End Guide
+# MuleSoft End-to-End Guide 🚀
 
-A beginner-friendly, practical MuleSoft learning path from **absolute beginner to advanced developer and production support**.
+A **beginner-to-production MuleSoft learning platform**. The goal is not to memorize components. The goal is to understand **what a MuleSoft term means, why it exists, how to build it, how to test it, how it fails, and how it is operated in production**.
 
-> Goal: learn the concept, build it in Anypoint Studio, test it, understand failures, and apply it in a real enterprise project.
+## 🌐 Interactive learning UI
 
-## Who is this for?
+A browser-friendly learning homepage is included in [`docs/`](docs/). After GitHub Pages is enabled, it can be used as the visual entry point for learners.
 
-- Complete beginners who have never used MuleSoft
-- Developers learning Mule 4 and DataWeave
-- API/integration developers
-- MuleSoft production-support engineers
-- Interview preparation
+## 👶 If you are completely new
 
-## How to use this guide
+Start with [`00-START-HERE.md`](00-START-HERE.md) and [`docs/BEGINNER-TERMS.md`](docs/BEGINNER-TERMS.md).
 
-Do not read this as a dictionary. Follow the chapters in order. Every major topic should answer four questions:
+You should first understand these words:
 
-1. **What is it?** — simple language first.
-2. **Why do we need it?** — the problem it solves.
-3. **How do I build it?** — Anypoint Studio + XML/DataWeave + test data.
-4. **How is it used in production?** — errors, security, monitoring and design decisions.
+**API, HTTP, request, response, JSON, XML, flow, event, payload, attributes, variables, connector, DataWeave, RAML, APIkit, System API, Process API, Experience API, error handler, MUnit and deployment.**
 
-## Learning path
+Every unfamiliar term should be learned using this sequence:
 
-| Stage | Topics |
+> **What is it? → Why do we need it? → How does it work? → How do I build it? → How do I test it? → What can fail? → How is it used in production?**
+
+## 🗺️ Learning order
+
+| Stage | Learn |
 |---|---|
-| 01 | Fundamentals |
-| 02 | Mule applications and Mule events |
-| 03 | DataWeave |
+| 00 | Getting started and prerequisites |
+| 01 | MuleSoft and Mule runtime fundamentals |
+| 02 | Mule applications, flows and Mule events |
+| 03 | DataWeave from beginner to advanced |
 | 04 | REST APIs, RAML, OAS and APIkit |
 | 05 | API-led connectivity |
 | 06 | Error handling and resilience |
-| 07 | Connectors |
-| 08 | Databases and transactions |
-| 09 | Routing and enterprise integration |
-| 10 | Security |
-| 11 | API Manager and lifecycle |
-| 12 | MUnit and testing |
-| 13 | Deployment |
-| 14 | Git, Maven and CI/CD |
-| 15 | Logging, monitoring and troubleshooting |
-| 16 | Advanced MuleSoft |
-| 17 | Real banking integration project |
+| 07 | Connectors and external systems |
+| 08 | Database integration and transactions |
+| 09 | Enterprise integration and messaging |
+| 10 | API security |
+| 11 | API management, Exchange and policies |
+| 12 | MUnit and automated testing |
+| 13 | Deployment and Runtime Manager |
+| 14 | Maven, Git and CI/CD |
+| 15 | Observability, logging and monitoring |
+| 16 | Advanced MuleSoft and integration design |
+| 17 | Real-world banking capstone |
 | 18 | Interview preparation |
 | 19 | Hands-on exercises |
-| 20 | Production scenarios |
+| 20 | Production troubleshooting |
+| 22 | Architecture and integration patterns |
+| 23 | Performance engineering |
+| 24 | Security deep dive |
+| 25 | MUnit practical guide |
+| 26 | Production troubleshooting playbook |
+| 27 | Interview scenarios |
+| 28 | Cheat sheets |
 
-## Repository map
+The full learning map is in [`docs/LEARNING-MAP.md`](docs/LEARNING-MAP.md).
 
-- [`MULESOFT-TOPIC-CHECKLIST.md`](MULESOFT-TOPIC-CHECKLIST.md) — coverage checklist
-- [`01-Fundamentals/`](01-Fundamentals/) — start here
-- [`02-Mule-Applications/`](02-Mule-Applications/)
-- [`03-DataWeave/`](03-DataWeave/)
-- [`04-API-Development/`](04-API-Development/)
-- [`05-API-Led-Connectivity/`](05-API-Led-Connectivity/)
-- [`06-Error-Handling/`](06-Error-Handling/)
-- [`07-Connectors/`](07-Connectors/)
-- [`08-Database-Integration/`](08-Database-Integration/)
-- [`09-Enterprise-Integration/`](09-Enterprise-Integration/)
-- [`10-API-Security/`](10-API-Security/)
-- [`11-API-Management/`](11-API-Management/)
-- [`12-Testing/`](12-Testing/)
-- [`13-Deployment/`](13-Deployment/)
-- [`14-DevOps-CICD/`](14-DevOps-CICD/)
-- [`15-Observability/`](15-Observability/)
-- [`16-Advanced-MuleSoft/`](16-Advanced-MuleSoft/)
-- [`17-Real-World-Project/`](17-Real-World-Project/)
-- [`18-Interview-Preparation/`](18-Interview-Preparation/)
-- [`19-Hands-On-Exercises/`](19-Hands-On-Exercises/)
-- [`20-Production-Scenarios/`](20-Production-Scenarios/)
+## 📚 Core topics covered
 
-## The running project
+### Mule 4 foundations
+- Mule runtime engine
+- Mule application lifecycle
+- Mule event and immutable event model
+- Message, payload and attributes
+- Variables
+- Event sources
+- Event processors
+- Flows, subflows and private flows
+- Scopes
+- Global configurations
+- XML DSL
+- properties and secure properties
+- Scheduler
+- logging
 
-The practical project is a **Real Banking Integration Platform**. It gradually introduces customer onboarding, accounts, balances, transactions, beneficiaries, transfers, notifications, databases, messaging, security, testing, API management, deployment and monitoring.
+### DataWeave
+- syntax and script structure
+- selectors
+- arrays and objects
+- mapping and filtering
+- reduce and aggregation
+- `mapObject`, `pluck`, `groupBy`, `distinctBy`, `orderBy`
+- conditionals and pattern matching
+- functions and reusable modules
+- types and coercion
+- strings, numbers, dates and times
+- null handling
+- JSON/XML/CSV/binary data
+- streaming
+- performance
+- version compatibility
+
+### API development
+- HTTP Listener and Request
+- REST concepts
+- RAML
+- OpenAPI/OAS
+- APIkit
+- API Console
+- validation
+- query/path/header parameters
+- request/response design
+- pagination
+- filtering and sorting
+- versioning
+- CORS
+- TLS
+- API documentation
+
+### Integration
+- Choice
+- Try
+- For Each
+- Parallel For Each
+- Scatter-Gather
+- Async
+- Until Successful
+- Batch
+- VM
+- Object Store
+- retry
+- timeout
+- idempotency
+- synchronous vs asynchronous design
+
+### Enterprise connectors
+HTTP, Database, File, FTP/SFTP, JMS, IBM MQ, Anypoint MQ, Email/SMTP, SOAP Web Service Consumer, Salesforce and other common SaaS/integration connectors.
+
+### Errors and resilience
+- Mule error model
+- error types
+- `on-error-continue`
+- `on-error-propagate`
+- Raise Error
+- custom errors
+- global handlers
+- retry strategy
+- timeout strategy
+- redelivery
+- dead-letter handling
+- partial-failure design
+
+### Security
+- HTTPS/TLS
+- keystores and truststores
+- mTLS
+- Basic authentication
+- OAuth 2.0
+- JWT
+- secure properties
+- client ID enforcement
+- rate limiting
+- SLA policies
+- CORS
+- threat protection
+- secret management
+- secure logging
+
+### API management
+- Exchange
+- API Manager
+- API instances
+- client applications
+- contracts
+- policies
+- SLA tiers
+- analytics
+- lifecycle and governance
+
+### Testing
+- MUnit
+- mocks
+- spies
+- verify
+- assertions
+- error-path tests
+- coverage
+- Maven test execution
+- Postman
+- contract testing
+- performance testing concepts
+
+### Deployment and DevOps
+- Maven
+- Mule Maven Plugin
+- Runtime Manager
+- CloudHub
+- CloudHub 2.0
+- Runtime Fabric
+- Hybrid/standalone on-prem runtime
+- environment properties
+- CI/CD
+- GitHub Actions/Jenkins concepts
+- artifact promotion
+- rollback
+
+### Production engineering
+- correlation IDs
+- structured logging
+- metrics
+- monitoring
+- alerts
+- API 4xx/5xx
+- 502/503/504
+- DB failures
+- MQ failures
+- TLS failures
+- timeout analysis
+- memory/CPU problems
+- connection pools
+- deployment failures
+- incident response
+- root-cause analysis
+
+## 🏦 Real banking capstone
+
+The capstone continuously applies the topics instead of creating unrelated examples:
 
 ```text
-Web / Mobile Client
-        |
-        v
- Experience API (EAPI)
-        |
-        v
- Process API (PAPI)
-        |
-        +--------------------+
-        |                    |
-        v                    v
- Customer System API    Account System API
-        |                    |
-        v                    v
-     Database          Database / Services
-
-                 + Payment System API
-                         |
-                         v
-                     MQ / External API
+Web / Mobile / Partner
+          |
+          v
+   Experience API
+          |
+          v
+     Process API
+          |
+     +----+----+
+     |         |
+     v         v
+ Customer   Account / Payment System APIs
+     |         |
+     +----+----+
+          |
+      DB / MQ / External Systems
 ```
 
-## Beginner rule
+The project includes API contract design, customer/account operations, balances, transactions, beneficiaries, transfers, notifications, database integration, messaging, security, MUnit, API management, deployment and production troubleshooting.
 
-You do **not** need to memorize every Mule component. Understand the event, flow, message processing, DataWeave transformation, error behavior, connector configuration and deployment model.
+## 🧪 Every practical lesson should contain
 
-## Prerequisites
+- Simple explanation
+- Why it exists
+- Prerequisites
+- Architecture
+- Anypoint Studio steps
+- Complete XML where useful
+- DataWeave code
+- Input
+- Expected output
+- Postman/curl test
+- Common mistakes
+- Error cases
+- Production considerations
+- Security considerations
+- Performance considerations
+- MUnit test idea
+- Interview questions
+- Beginner exercise
+- Advanced exercise
 
-Start with basic HTTP, JSON, XML, REST and SQL. Java knowledge helps but is not required to begin. Install Anypoint Studio, a supported Java version for your Studio/runtime combination, Git and Postman.
+## 🧠 Production mindset
 
-## Contribution
+Do not stop at **“the API returned 200.”** Ask:
 
-This is intended to be a living learning resource. Add corrections, examples, diagrams and exercises through pull requests.
+- What happens if the database is down?
+- What happens if the downstream API takes 20 seconds?
+- Can the operation be safely retried?
+- What happens if the same request arrives twice?
+- Can I trace one request across APIs?
+- Are secrets hidden from logs?
+- How will I deploy it to another environment?
+- How will I roll it back?
+- How will I know the application is unhealthy?
 
-## Disclaimer
+## 📖 Official documentation
 
-Examples are educational. The banking project uses synthetic data and must not be connected to real customer accounts or production financial systems without proper security, compliance, testing and authorization.
+Use the current MuleSoft documentation for version-specific behavior. The guide intentionally explains concepts in simple language, while official documentation remains the authoritative reference for exact configuration and supported versions.
+
+- MuleSoft Documentation: https://docs.mulesoft.com/
+- DataWeave Language Guide: https://docs.mulesoft.com/dataweave/latest/dataweave-language-guide
+- APIkit: https://docs.mulesoft.com/apikit/latest/
+- Runtime Manager: https://docs.mulesoft.com/runtime-manager/
+- API Manager: https://docs.mulesoft.com/api-manager/latest/
+
+## 🤝 Contributions
+
+This is a living learning resource. Add corrections, diagrams, examples, MUnit tests, production scenarios and beginner explanations through pull requests.
+
+## ⚠️ Educational use
+
+The banking project uses synthetic examples. Do not connect educational code to real customer accounts, payment systems or production financial infrastructure without appropriate security, compliance, authorization, testing and operational controls.
