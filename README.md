@@ -4,6 +4,8 @@ A **clean, self-contained MuleSoft learning platform from absolute beginner to a
 
 [![Contributing](https://img.shields.io/badge/contributions-welcome-55d6be)](CONTRIBUTING.md) [![Code of Conduct](https://img.shields.io/badge/community-code%20of%20conduct-7c6cff)](CODE_OF_CONDUCT.md) [![License: MIT](https://img.shields.io/badge/license-MIT-22c55e)](LICENSE)
 
+> 💬 **Have a MuleSoft question?** [**Chat with MuleJourney**](docs/index.html#chat) — use the learning portal's built-in chat experience to explore the repository content.
+
 **Want to help build the learning platform?** Start with the [Contribution Guide](CONTRIBUTING.md), review the [Code of Conduct](CODE_OF_CONDUCT.md), or open an issue with an idea, correction, lab, example, or documentation improvement.
 
 ## Core principle
