@@ -1,24 +1,27 @@
-# MuleSoft Connector Documentation Standard
+# MuleSoft Connector Learning Standard
 
-This guide makes the connector section of this repository follow the **learning structure used by MuleSoft documentation**, while adding job-interview, production-support, architecture, and hands-on depth.
+This guide defines the **internal learning structure** for connector chapters in this repository, with practical configuration, production-support, architecture, hands-on and interview depth.
 
-> This repository does not copy MuleSoft documentation verbatim. It summarizes concepts, configuration patterns, decision points, and examples in original wording, and points learners to the current MuleSoft documentation for version-specific fields.
+> The repository teaches the concepts in its own words. Connector lessons must contain the theory, configuration reasoning, examples, failure behavior, production patterns, labs and interview questions needed to understand the topic.
 
-## 1. How to read MuleSoft connector documentation
+## 1. How to learn a connector
 
-For a real project, use three layers:
+Use the repository's internal layers:
 
 ```text
-Exchange / Connector landing page
+Connector family overview
         |
-        +--> User Guide       -> how to install, configure and use
-        |
-        +--> Reference Guide  -> sources, operations, fields, attributes
-        |
-        +--> Release Notes    -> versions, compatibility, fixes, changes
+        +--> Concept lesson       -> what it is and why it exists
+        +--> Configuration lesson -> fields, authentication, TLS, networking
+        +--> Implementation       -> XML, DataWeave, input/output
+        +--> Failure guide        -> errors, timeout, retry, idempotency
+        +--> Testing              -> MUnit and integration scenarios
+        +--> Operations           -> monitoring, troubleshooting, recovery
+        +--> Lab                  -> build, break, diagnose and fix
+        +--> Interview Q&A        -> explain the design clearly
 ```
 
-The connector landing page is the starting point. Do not assume that a field shown for one connector/version exists in another.
+Do not assume that a field shown for one connector or version exists in another. Record the tested version inside the lesson.
 
 ## 2. Standard connector lifecycle
 
@@ -249,6 +252,6 @@ A learner has mastered a connector only when they can:
 - explain security and performance concerns
 - describe the implementation in an interview
 
-## Official documentation navigation
+## Repository rule
 
-Start with MuleSoft's current connector overview, then open the individual connector's User Guide, Reference Guide, and Release Notes. The Exchange catalog is dynamic, so this repository intentionally provides a durable learning framework instead of pretending that a static list can represent every partner/community Exchange asset forever.
+**The repository is the lesson.** A learner should be able to understand the concept, follow the diagram, study the example, reproduce the configuration, see input/output, run the lab, diagnose failures and answer interview questions without being redirected to a separate documentation hub.
