@@ -1,0 +1,10 @@
+{
+  "name": "MuleJourney — MuleSoft End-to-End Guide",
+  "short_name": "MuleJourney",
+  "description": "Beginner-to-production MuleSoft learning workspace.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#07111f",
+  "theme_color": "#07111f",
+  "icons": []
+}
