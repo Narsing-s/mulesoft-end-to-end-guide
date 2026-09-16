@@ -1,0 +1,83 @@
+name: Release and Package
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Package version, for example 1.0.0'
+        required: true
+        default: '0.1.0'
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Resolve version
+        id: version
+        shell: bash
+        run: |
+          if [[ "${GITHUB_REF_TYPE}" == "tag" ]]; then
+            VERSION="${GITHUB_REF_NAME#v}"
+          else
+            VERSION="${{ inputs.version }}"
+          fi
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+
+      - name: Validate repository references
+        shell: bash
+        run: |
+          test -f README.md
+          test -f docs/index.html
+          test -f 00-START-HERE.md
+          test -f 54-Gap-Analysis-and-Completeness/README.md
+          test -f 57-Modern-Platform-AI-and-Agentic-Engineering/README.md
+          test -f 58-Release-and-Packaging/README.md
+
+      - name: Build clean package
+        shell: bash
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          mkdir -p dist
+          ZIP="dist/mulesoft-end-to-end-guide-v${VERSION}.zip"
+          zip -r "$ZIP" . \
+            -x '.git/*' \
+               '.github/workflows/*' \
+               'dist/*' \
+               '*.DS_Store' \
+               '.idea/*' \
+               '.vscode/*' \
+               '*.log' \
+               '.env' \
+               '.env.*'
+          sha256sum "$ZIP" > "${ZIP}.sha256"
+          cp 58-Release-and-Packaging/README.md dist/RELEASE-PACKAGING.md
+
+      - name: Publish GitHub Release
+        if: github.ref_type == 'tag'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          gh release create "v${VERSION}" \
+            "dist/mulesoft-end-to-end-guide-v${VERSION}.zip" \
+            "dist/mulesoft-end-to-end-guide-v${VERSION}.zip.sha256" \
+            --title "MuleSoft End-to-End Guide v${VERSION}" \
+            --generate-notes
+
+      - name: Upload package artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: mulesoft-end-to-end-guide-v${{ steps.version.outputs.version }}
+          path: dist/
