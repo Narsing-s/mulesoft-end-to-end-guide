@@ -2,7 +2,7 @@
 
 This catalog is the navigation layer for connector learning. It deliberately separates **core connector families**, **application/SaaS connectors**, **cloud/service connectors**, **messaging**, **B2B/EDI**, and **platform/modern connectors** so a learner does not mistake five common connectors for the complete MuleSoft connectivity landscape.
 
-> Connector availability, names, operations, support tier, and exact configuration fields can change by product/version. Always verify the current connector asset in Anypoint Exchange and its User Guide/Reference Guide before implementing production code.
+> Connector availability, names, operations, support tier, and exact configuration fields can change by product/version. Record the tested connector/runtime version in the internal lesson before implementing production code.
 
 ## A. Core connectivity connectors
 
@@ -151,7 +151,7 @@ Also maintain awareness of:
 
 ## I. Built-in vs Exchange connectors
 
-Anypoint Code Builder documents a built-in set including Database, Email, File, HTTP, Java, MCP, Salesforce, Salesforce Data Cloud, Sockets, Workday and other platform/product connectors. Many additional connector assets are available through Anypoint Exchange. Therefore this repository treats the connector catalog as a living inventory rather than a fixed five-item list.
+The connector catalog is a living inventory. Connector assets can be added, renamed, versioned or retired, so each internal lesson records the exact asset/version used by its examples instead of relying on a fixed static list.
 
 ## J. Configuration template every connector chapter must contain
 
@@ -195,7 +195,6 @@ Every detailed connector chapter in this repository should contain these heading
 36. Scenario questions
 37. Hands-on exercise
 38. Version notes
-39. Official documentation reference
 
 ## K. Connector selection decision tree
 
