@@ -1,0 +1,5 @@
+const SESSION_KEY='mulejourney.local.session.v1';
+function getLocalSession(){try{return JSON.parse(localStorage.getItem(SESSION_KEY)||'null')}catch{return null}}
+function signOut(){localStorage.removeItem(SESSION_KEY);location.href='login.html'}
+function mountAuth(){const nav=document.querySelector('.nav-actions');if(!nav)return;const existing=document.querySelector('#localAuth');if(existing)existing.remove();const session=getLocalSession();const wrap=document.createElement('span');wrap.id='localAuth';wrap.style.display='inline-flex';wrap.style.alignItems='center';wrap.style.gap='8px';if(session){const name=document.createElement('span');name.textContent=`Hi, ${session.name}`;name.style.cssText='color:#9eb0c5;font-size:.8rem';const out=document.createElement('button');out.className='icon-btn';out.textContent='Logout';out.addEventListener('click',signOut);wrap.append(name,out)}else{const a=document.createElement('a');a.className='icon-btn';a.href='login.html';a.textContent='Login';wrap.append(a)}nav.prepend(wrap)}
+mountAuth();
