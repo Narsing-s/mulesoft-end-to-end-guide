@@ -2,9 +2,25 @@
 
 A **beginner-to-production MuleSoft learning platform**. The goal is not to memorize components. The goal is to understand **what a MuleSoft term means, why it exists, how to build it, how to test it, how it fails, and how it is operated in production**.
 
-## 🌐 Interactive learning UI
+## 🌐 Modern interactive learning portal
 
-A browser-friendly learning homepage is included in [`docs/`](docs/). After GitHub Pages is enabled, it can be used as the visual entry point for learners.
+Open `docs/` for the visual learning workspace. It now includes:
+
+- guided roadmap with Beginner / Intermediate / Advanced filtering
+- searchable topic library
+- Build / Operate / Security / Architecture filters
+- hands-on lab cards
+- local learning-progress tracking
+- completion checkboxes
+- progress ring and reading progress bar
+- dark/light theme switcher
+- command palette with `Ctrl+K` / `Cmd+K`
+- responsive desktop/tablet/mobile UI
+- installable/offline-capable PWA shell
+- direct navigation into lessons, labs and capstone
+- production-focused banking architecture visualization
+
+After GitHub Pages is enabled, the portal is the visual entry point for learners.
 
 ## 👶 If you are completely new
 
@@ -24,7 +40,7 @@ Every unfamiliar term should be learned using this sequence:
 |---|---|
 | 00 | Getting started and prerequisites |
 | 01 | MuleSoft and Mule runtime fundamentals |
-| 02 | Mule applications, flows and Mule events |
+| 02 | HTTP, REST and API fundamentals |
 | 03 | DataWeave from beginner to advanced |
 | 04 | REST APIs, RAML, OAS and APIkit |
 | 05 | API-led connectivity |
@@ -43,6 +59,7 @@ Every unfamiliar term should be learned using this sequence:
 | 18 | Interview preparation |
 | 19 | Hands-on exercises |
 | 20 | Production troubleshooting |
+| 21 | Reference implementations |
 | 22 | Architecture and integration patterns |
 | 23 | Performance engineering |
 | 24 | Security deep dive |
@@ -50,8 +67,12 @@ Every unfamiliar term should be learned using this sequence:
 | 26 | Production troubleshooting playbook |
 | 27 | Interview scenarios |
 | 28 | Cheat sheets |
+| 29 | Environment configuration |
+| 30 | Mule 3 → Mule 4 migration |
+| 31 | Master completeness checklist |
+| 32 | Mule runtime/version compatibility |
 
-The full learning map is in [`docs/LEARNING-MAP.md`](docs/LEARNING-MAP.md).
+The full learning map is in [`docs/LEARNING-MAP.md`](docs/LEARNING-MAP.md). The final completeness checklist is [`31-Master-Topic-Checklist/README.md`](31-Master-Topic-Checklist/README.md).
 
 ## 📚 Core topics covered
 
@@ -120,6 +141,8 @@ The full learning map is in [`docs/LEARNING-MAP.md`](docs/LEARNING-MAP.md).
 - timeout
 - idempotency
 - synchronous vs asynchronous design
+- dead-letter patterns
+- correlation and traceability
 
 ### Enterprise connectors
 HTTP, Database, File, FTP/SFTP, JMS, IBM MQ, Anypoint MQ, Email/SMTP, SOAP Web Service Consumer, Salesforce and other common SaaS/integration connectors.
@@ -137,6 +160,8 @@ HTTP, Database, File, FTP/SFTP, JMS, IBM MQ, Anypoint MQ, Email/SMTP, SOAP Web S
 - redelivery
 - dead-letter handling
 - partial-failure design
+- idempotency
+- safe client error contracts
 
 ### Security
 - HTTPS/TLS
@@ -164,6 +189,7 @@ HTTP, Database, File, FTP/SFTP, JMS, IBM MQ, Anypoint MQ, Email/SMTP, SOAP Web S
 - SLA tiers
 - analytics
 - lifecycle and governance
+- API governance concepts
 
 ### Testing
 - MUnit
@@ -177,6 +203,7 @@ HTTP, Database, File, FTP/SFTP, JMS, IBM MQ, Anypoint MQ, Email/SMTP, SOAP Web S
 - Postman
 - contract testing
 - performance testing concepts
+- CI quality gates
 
 ### Deployment and DevOps
 - Maven
@@ -186,11 +213,13 @@ HTTP, Database, File, FTP/SFTP, JMS, IBM MQ, Anypoint MQ, Email/SMTP, SOAP Web S
 - CloudHub 2.0
 - Runtime Fabric
 - Hybrid/standalone on-prem runtime
+- Runtime Manager agent
 - environment properties
 - CI/CD
 - GitHub Actions/Jenkins concepts
 - artifact promotion
 - rollback
+- release/version strategy
 
 ### Production engineering
 - correlation IDs
@@ -209,6 +238,8 @@ HTTP, Database, File, FTP/SFTP, JMS, IBM MQ, Anypoint MQ, Email/SMTP, SOAP Web S
 - deployment failures
 - incident response
 - root-cause analysis
+- runbooks
+- performance engineering
 
 ## 🏦 Real banking capstone
 
@@ -233,7 +264,7 @@ Web / Mobile / Partner
       DB / MQ / External Systems
 ```
 
-The project includes API contract design, customer/account operations, balances, transactions, beneficiaries, transfers, notifications, database integration, messaging, security, MUnit, API management, deployment and production troubleshooting.
+The project covers API contract design, customer/account operations, balances, transactions, beneficiaries, transfers, notifications, database integration, messaging, security, MUnit, API management, deployment and production troubleshooting.
 
 ## 🧪 Every practical lesson should contain
 
@@ -271,9 +302,17 @@ Do not stop at **“the API returned 200.”** Ask:
 - How will I roll it back?
 - How will I know the application is unhealthy?
 
+## 🧭 Completeness checklist
+
+The [`31-Master-Topic-Checklist`](31-Master-Topic-Checklist/README.md) covers foundations, Mule runtime, DataWeave, API design, API-led, patterns, connectors, errors, security, databases, messaging, MUnit, deployment, API management, observability, performance, architecture, troubleshooting and interview readiness.
+
+## 🔢 Version discipline
+
+Use [`32-Version-Matrix`](32-Version-Matrix/README.md) to record runtime, Java, DataWeave, APIkit, connector and deployment versions for every project. Version-specific behavior must be verified against current product documentation.
+
 ## 📖 Official documentation
 
-Use the current MuleSoft documentation for version-specific behavior. The guide intentionally explains concepts in simple language, while official documentation remains the authoritative reference for exact configuration and supported versions.
+Use current MuleSoft documentation for exact, version-specific behavior. The guide explains concepts in simple language while official documentation remains the authoritative reference for configuration and supported versions.
 
 - MuleSoft Documentation: https://docs.mulesoft.com/
 - DataWeave Language Guide: https://docs.mulesoft.com/dataweave/latest/dataweave-language-guide
