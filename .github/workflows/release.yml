@@ -26,6 +26,9 @@ jobs:
 
       - name: Build release package
         shell: bash
+        env:
+          SOURCE_SHA: ${{ github.event.workflow_run.head_sha }}
+          PAGES_RUN_ID: ${{ github.event.workflow_run.id }}
         run: |
           set -euo pipefail
           VERSION="v0.1.${GITHUB_RUN_NUMBER}"
@@ -44,16 +47,16 @@ jobs:
           This package was generated automatically after a successful GitHub Pages deployment.
 
           - Repository: Narsing-s/mulesoft-end-to-end-guide
-          - Source commit: ${GITHUB_SHA}
+          - Source commit: ${SOURCE_SHA}
           - Pages workflow: Deploy learning site
-          - Successful Pages run: ${{ github.event.workflow_run.id }}
+          - Successful Pages run: ${PAGES_RUN_ID}
           - Release workflow run: ${GITHUB_RUN_ID}
           - Package generated: $(date -u '+%Y-%m-%d %H:%M:%S UTC')
 
           ## Included
 
           - Complete MuleSoft learning repository
-          - `docs/` learning portal
+          - docs/ learning portal
           - Deep explanations, labs, interview material and production guides
           - Official documentation mapping
           - Login/email setup documentation
@@ -81,7 +84,8 @@ jobs:
           test -s "release/mulejourney-${VERSION}.sha256"
           test -s "release/${VERSION}/RELEASE-MANIFEST.md"
           unzip -t "release/mulejourney-${VERSION}.zip" >/dev/null
-          sha256sum -c "release/mulejourney-${VERSION}.sha256"
+          cd release
+          sha256sum -c "mulejourney-${VERSION}.sha256"
 
       - name: Upload release package as workflow artifact
         uses: actions/upload-artifact@v4
@@ -94,6 +98,9 @@ jobs:
           retention-days: 30
 
       - name: Generate release notes
+        env:
+          SOURCE_SHA: ${{ github.event.workflow_run.head_sha }}
+          PAGES_RUN_ID: ${{ github.event.workflow_run.id }}
         shell: bash
         run: |
           VERSION="v0.1.${GITHUB_RUN_NUMBER}"
@@ -103,7 +110,7 @@ jobs:
 
           ## Release status
 
-          Published automatically because the **Deploy learning site** workflow completed successfully.
+          Published automatically because the Deploy learning site workflow completed successfully.
 
           ## What's included
 
@@ -116,13 +123,13 @@ jobs:
 
           ## Source
 
-          Commit: \`${GITHUB_SHA}\`
+          Commit: ${SOURCE_SHA}
 
-          Successful Pages workflow run: ${{ github.event.workflow_run.id }}
+          Successful Pages workflow run: ${PAGES_RUN_ID}
 
           ## Verification
 
-          The package is validated with `unzip -t` and SHA-256 verification before the GitHub Release is created. The workflow artifact is also retained for 30 days.
+          The package is validated with unzip -t and SHA-256 verification before the GitHub Release is created. The workflow artifact is also retained for 30 days.
           EOF
 
       - name: Publish GitHub release and assets
@@ -137,6 +144,6 @@ jobs:
             "release/mulejourney-${VERSION}.sha256" \
             "release/notes/RELEASE-NOTES.md" \
             "release/${VERSION}/RELEASE-MANIFEST.md" \
-            --target "${GITHUB_SHA}" \
+            --target "${{ github.event.workflow_run.head_sha }}" \
             --title "MuleJourney ${VERSION}" \
             --notes-file "release/notes/RELEASE-NOTES.md"
