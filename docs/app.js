@@ -1,4 +1,5 @@
 const roadmap=[
+['00','Canonical Start-to-End Path','Beginner','Start here if you are new: follow the exact sequence, level gates, projects and continuous-learning loop.','../53-End-to-End-Study-Path/README.md'],
 ['01','Foundations','Beginner','Learn HTTP, APIs, Mule events, flows, connectors, Studio and the request lifecycle.','../00-START-HERE.md'],
 ['02','Mule Runtime & Event','Beginner','Understand runtime, message, payload, attributes, vars, scopes, processors and flow execution.','../01-Fundamentals/README.md'],
 ['03','DataWeave','Beginner','Transform JSON, XML, CSV and Java objects; learn selectors, operators, functions, modules, types and performance.','../03-DataWeave/README.md'],
@@ -11,10 +12,12 @@ const roadmap=[
 ['10','Testing','Intermediate','MUnit mocks, spies, assertions, coverage, negative tests, contract tests and CI quality gates.','../25-MUnit/README.md'],
 ['11','Deployment & DevOps','Advanced','Maven, environments, Runtime Manager, CloudHub, CloudHub 2.0, Runtime Fabric, Hybrid and CI/CD.','../13-Deployment/README.md'],
 ['12','Operations','Advanced','Logs, metrics, alerts, incident response, RCA, observability, performance and troubleshooting.','../26-Troubleshooting/README.md'],
-['13','Architecture','Advanced','Resilience, scalability, governance, event-driven design, canonical models and trade-offs.','../22-Patterns-And-Architecture/README.md']
+['13','Architecture','Advanced','Resilience, scalability, governance, event-driven design, canonical models and trade-offs.','../22-Patterns-And-Architecture/README.md'],
+['14','Continuous Engineering','Advanced','After the capstone, increase scale, failure, security, availability and architecture complexity. There is no final end.','../53-End-to-End-Study-Path/README.md']
 ];
 
 const topics=[
+['End-to-End Study Path','Exact beginner → intermediate → advanced → capstone → continuous-learning route.','../53-End-to-End-Study-Path/README.md','architecture'],
 ['Mule Event','Understand payload, attributes and variables.','../01-Fundamentals/README.md','build'],
 ['HTTP & REST','Learn methods, status codes, headers, query/path parameters and content types.','../02-Mule-Applications/README.md','build'],
 ['DataWeave','Transform JSON, XML, CSV and other data formats.','../03-DataWeave/README.md','build'],
@@ -28,6 +31,9 @@ const topics=[
 ['MUnit','Test happy paths, errors and external dependencies without real systems.','../25-MUnit/README.md','build'],
 ['Performance','Measure latency, throughput, concurrency, memory and connector bottlenecks.','../23-Performance/README.md','operate'],
 ['Troubleshooting','Diagnose 400/401/403/404/405/415/5xx, TLS, DB, MQ and deployment failures.','../26-Troubleshooting/README.md','operate'],
+['Platform Architecture','Understand control plane, runtime plane, deployment targets and platform boundaries.','../45-Platform-Architecture/README.md','architecture'],
+['Runtime Internals','Go deeper into execution, streaming, memory and runtime behavior.','../47-Runtime-Internals/README.md','operate'],
+['API Governance','Learn lifecycle, standards, policies and governance controls.','../52-API-Governance/README.md','architecture'],
 ['Environment Config','Separate environment settings, properties, secrets and deployment configuration.','../29-Environment-Configuration/README.md','security'],
 ['Mule 3 → 4','Understand event model, DataWeave, MEL, connectors and error-model migration.','../30-Migration/MULE-3-TO-MULE-4.md','architecture'],
 ['Interview Scenarios','Practice realistic debugging, architecture and production-support questions.','../27-Interview-Scenarios/README.md','operate'],
@@ -59,7 +65,7 @@ function toggleComplete(key){completed.has(key)?completed.delete(key):completed.
 function updateProgress(){const total=roadmap.length+topics.length+labs.length,pct=Math.min(100,Math.round(completed.size/total*100));document.querySelector('#progressPct').textContent=pct+'%';document.querySelector('#completedCount').textContent=completed.size;document.querySelector('#progressBar').style.width=pct+'%';document.querySelector('#progressRing').style.setProperty('--p',pct*3.6+'deg')}
 function renderAll(){renderRoadmap();renderTopics(document.querySelector('#search').value.trim());renderLabs();updateProgress()}
 document.querySelector('#search').addEventListener('input',e=>renderTopics(e.target.value.trim()));document.querySelector('#levelFilter').addEventListener('change',renderRoadmap);document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));c.classList.add('active');activeCategory=c.dataset.category;renderTopics(document.querySelector('#search').value.trim())}));document.querySelector('#resetProgress').addEventListener('click',()=>{if(confirm('Reset all learning progress?')){completed.clear();localStorage.removeItem(stateKey);renderAll()}});
-const commands=[['Start Here','../00-START-HERE.md'],['Roadmap','#roadmap'],['Topic Library','#topics'],['Hands-on Labs','#labs'],['Banking Capstone','#capstone'],['Security','../24-Security/README.md'],['MUnit','../25-MUnit/README.md'],['Troubleshooting','../26-Troubleshooting/README.md'],['Architecture','../22-Patterns-And-Architecture/README.md'],['Cheat Sheet','../28-Glossary-And-Cheat-Sheets/MULE-4-CHEAT-SHEET.md']];
+const commands=[['Start-to-End Study Path','../53-End-to-End-Study-Path/README.md'],['Start Here','../00-START-HERE.md'],['Roadmap','#roadmap'],['Topic Library','#topics'],['Hands-on Labs','#labs'],['Banking Capstone','#capstone'],['Security','../24-Security/README.md'],['MUnit','../25-MUnit/README.md'],['Troubleshooting','../26-Troubleshooting/README.md'],['Architecture','../22-Patterns-And-Architecture/README.md'],['Cheat Sheet','../28-Glossary-And-Cheat-Sheets/MULE-4-CHEAT-SHEET.md']];
 const modal=document.querySelector('#commandModal'),commandList=document.querySelector('#commandList');function renderCommands(q=''){commandList.innerHTML='';commands.filter(x=>x[0].toLowerCase().includes(q.toLowerCase())).forEach(x=>commandList.innerHTML+=`<a href="${x[1]}"><span>↗</span>${x[0]}</a>`)}function openCommand(){modal.classList.remove('hidden');document.querySelector('#commandSearch').focus();renderCommands()}function closeCommand(){modal.classList.add('hidden')}
 document.querySelector('#commandBtn').addEventListener('click',openCommand);document.querySelector('#closeCommand').addEventListener('click',closeCommand);document.querySelector('#commandSearch').addEventListener('input',e=>renderCommands(e.target.value));modal.addEventListener('click',e=>{if(e.target===modal)closeCommand()});document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();openCommand()}if(e.key==='Escape')closeCommand()});
 const savedTheme=localStorage.getItem('mulejourney.theme')||'dark';document.documentElement.dataset.theme=savedTheme;document.querySelector('#themeBtn').textContent=savedTheme==='dark'?'☼':'☾';document.querySelector('#themeBtn').addEventListener('click',()=>{const next=document.documentElement.dataset.theme==='dark'?'light':'dark';document.documentElement.dataset.theme=next;localStorage.setItem('mulejourney.theme',next);document.querySelector('#themeBtn').textContent=next==='dark'?'☼':'☾'});window.addEventListener('scroll',()=>{const max=document.documentElement.scrollHeight-window.innerHeight;document.querySelector('#progressBar').style.width=max>0?(window.scrollY/max*100)+'%':'0%'});renderAll();
