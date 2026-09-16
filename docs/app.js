@@ -1,6 +1,6 @@
 const roadmap=[
 ['01','Foundations','Beginner','Learn HTTP, APIs, Mule events, flows, connectors, Studio and the request lifecycle.','../00-START-HERE.md'],
-['02','Mule Runtime & Event','Beginner','Understand runtime, message, payload, attributes, vars, scopes, processors and flow execution.','../01-Mule-Fundamentals/README.md'],
+['02','Mule Runtime & Event','Beginner','Understand runtime, message, payload, attributes, vars, scopes, processors and flow execution.','../01-Fundamentals/README.md'],
 ['03','DataWeave','Beginner','Transform JSON, XML, CSV and Java objects; learn selectors, operators, functions, modules, types and performance.','../03-DataWeave/README.md'],
 ['04','API Development','Beginner','Design RAML/OAS contracts, build HTTP APIs, use APIkit, validate inputs and version APIs.','../04-API-Development/README.md'],
 ['05','API-Led Connectivity','Intermediate','Apply System, Process and Experience API boundaries to real integration problems.','../05-API-Led-Connectivity/README.md'],
@@ -9,14 +9,14 @@ const roadmap=[
 ['08','Error Handling','Intermediate','Design typed errors, handlers, retries, timeouts, recovery, dead-letter flows and safe error responses.','../06-Error-Handling/README.md'],
 ['09','Security','Advanced','TLS, mTLS, OAuth2, JWT, policies, secure properties, authorization and safe logging.','../24-Security/README.md'],
 ['10','Testing','Intermediate','MUnit mocks, spies, assertions, coverage, negative tests, contract tests and CI quality gates.','../25-MUnit/README.md'],
-['11','Deployment & DevOps','Advanced','Maven, environments, Runtime Manager, CloudHub, CloudHub 2.0, Runtime Fabric, Hybrid and CI/CD.','../10-Deployment/README.md'],
+['11','Deployment & DevOps','Advanced','Maven, environments, Runtime Manager, CloudHub, CloudHub 2.0, Runtime Fabric, Hybrid and CI/CD.','../13-Deployment/README.md'],
 ['12','Operations','Advanced','Logs, metrics, alerts, incident response, RCA, observability, performance and troubleshooting.','../26-Troubleshooting/README.md'],
 ['13','Architecture','Advanced','Resilience, scalability, governance, event-driven design, canonical models and trade-offs.','../22-Patterns-And-Architecture/README.md']
 ];
 
 const topics=[
-['Mule Event','Understand payload, attributes and variables.','../01-Mule-Fundamentals/README.md','build'],
-['HTTP & REST','Learn methods, status codes, headers, query/path parameters and content types.','../02-HTTP-And-APIs/README.md','build'],
+['Mule Event','Understand payload, attributes and variables.','../01-Fundamentals/README.md','build'],
+['HTTP & REST','Learn methods, status codes, headers, query/path parameters and content types.','../02-Mule-Applications/README.md','build'],
 ['DataWeave','Transform JSON, XML, CSV and other data formats.','../03-DataWeave/README.md','build'],
 ['APIkit','Turn RAML/OAS contracts into implementation flows and validations.','../04-API-Development/README.md','build'],
 ['API-Led','Design System, Process and Experience APIs with clear responsibilities.','../05-API-Led-Connectivity/README.md','architecture'],
@@ -50,55 +50,16 @@ const labs=[
 const stateKey='mulejourney.completed.v1';
 let completed=new Set(JSON.parse(localStorage.getItem(stateKey)||'[]'));
 let activeCategory='all';
-
 const roadmapGrid=document.querySelector('#roadmapGrid');
-function renderRoadmap(){
- const level=document.querySelector('#levelFilter').value;
- roadmapGrid.innerHTML='';
- roadmap.forEach((x,i)=>{
-  if(level!=='all'&&x[2].toLowerCase()!==level) return;
-  const done=completed.has('roadmap-'+i);
-  roadmapGrid.innerHTML+=`<article class="step ${done?'done':''}"><div class="step-top"><b>${x[0]}</b><button class="check" data-key="roadmap-${i}" title="Mark complete">${done?'✓':'○'}</button></div><span class="level ${x[2].toLowerCase()}">${x[2]}</span><h3>${x[1]}</h3><p>${x[3]}</p><a class="learn-link" href="${x[4]}">Open lesson →</a></article>`;
- });
- document.querySelectorAll('.check').forEach(b=>b.addEventListener('click',()=>toggleComplete(b.dataset.key)));
-}
-
+function renderRoadmap(){const level=document.querySelector('#levelFilter').value;roadmapGrid.innerHTML='';roadmap.forEach((x,i)=>{if(level!=='all'&&x[2].toLowerCase()!==level)return;const done=completed.has('roadmap-'+i);roadmapGrid.innerHTML+=`<article class="step ${done?'done':''}"><div class="step-top"><b>${x[0]}</b><button class="check" data-key="roadmap-${i}" title="Mark complete">${done?'✓':'○'}</button></div><span class="level ${x[2].toLowerCase()}">${x[2]}</span><h3>${x[1]}</h3><p>${x[3]}</p><a class="learn-link" href="${x[4]}">Open lesson →</a></article>`});document.querySelectorAll('.check').forEach(b=>b.addEventListener('click',()=>toggleComplete(b.dataset.key)))}
 const topicGrid=document.querySelector('#topicGrid');
-function renderTopics(q=''){
- topicGrid.innerHTML='';
- const term=q.toLowerCase();
- topics.filter(x=>(activeCategory==='all'||x[3]===activeCategory)&&(!term||x[0].toLowerCase().includes(term)||x[1].toLowerCase().includes(term))).forEach(x=>{
-  const key='topic-'+topics.indexOf(x); const done=completed.has(key);
-  topicGrid.innerHTML+=`<a class="topic ${done?'done':''}" href="${x[2]}"><div class="topic-top"><span class="topic-cat">${x[3]}</span><button class="topic-check" data-key="${key}" title="Mark complete">${done?'✓':'+'}</button></div><h3>${x[0]}</h3><p>${x[1]}</p><span class="learn-link">Open topic →</span></a>`;
- });
- document.querySelectorAll('.topic-check').forEach(b=>{b.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();toggleComplete(b.dataset.key);});});
-}
-
-function renderLabs(){
- const grid=document.querySelector('#labGrid'); grid.innerHTML='';
- labs.forEach((x,i)=>{const key='lab-'+i,done=completed.has(key);grid.innerHTML+=`<article class="lab-card ${done?'done':''}"><div class="lab-top"><b>${x[0]}</b><button class="check" data-key="${key}">${done?'✓':'○'}</button></div><span class="level ${x[2].toLowerCase()}">${x[2]}</span><h3>${x[1]}</h3><p>${x[3]}</p><a class="learn-link" href="${x[4]}">Open lab guide →</a></article>`;});
- grid.querySelectorAll('.check').forEach(b=>b.addEventListener('click',()=>toggleComplete(b.dataset.key)));
-}
-
-function toggleComplete(key){completed.has(key)?completed.delete(key):completed.add(key);localStorage.setItem(stateKey,JSON.stringify([...completed]));renderAll();}
-function updateProgress(){
- const total=roadmap.length+topics.length+labs.length; const pct=Math.min(100,Math.round(completed.size/total*100)); document.querySelector('#progressPct').textContent=pct+'%'; document.querySelector('#completedCount').textContent=completed.size; document.querySelector('#progressBar').style.width=pct+'%'; document.querySelector('#progressRing').style.setProperty('--p',pct*3.6+'deg');
-}
-function renderAll(){renderRoadmap();renderTopics(document.querySelector('#search').value.trim());renderLabs();updateProgress();}
-
-document.querySelector('#search').addEventListener('input',e=>renderTopics(e.target.value.trim()));
-document.querySelector('#levelFilter').addEventListener('change',renderRoadmap);
-document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));c.classList.add('active');activeCategory=c.dataset.category;renderTopics(document.querySelector('#search').value.trim());}));
-document.querySelector('#resetProgress').addEventListener('click',()=>{if(confirm('Reset all learning progress?')){completed.clear();localStorage.removeItem(stateKey);renderAll();}});
-
+function renderTopics(q=''){topicGrid.innerHTML='';const term=q.toLowerCase();topics.filter(x=>(activeCategory==='all'||x[3]===activeCategory)&&(!term||x[0].toLowerCase().includes(term)||x[1].toLowerCase().includes(term))).forEach(x=>{const key='topic-'+topics.indexOf(x),done=completed.has(key);topicGrid.innerHTML+=`<a class="topic ${done?'done':''}" href="${x[2]}"><div class="topic-top"><span class="topic-cat">${x[3]}</span><button class="topic-check" data-key="${key}" title="Mark complete">${done?'✓':'+'}</button></div><h3>${x[0]}</h3><p>${x[1]}</p><span class="learn-link">Open topic →</span></a>`});document.querySelectorAll('.topic-check').forEach(b=>b.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();toggleComplete(b.dataset.key)}))}
+function renderLabs(){const grid=document.querySelector('#labGrid');grid.innerHTML='';labs.forEach((x,i)=>{const key='lab-'+i,done=completed.has(key);grid.innerHTML+=`<article class="lab-card ${done?'done':''}"><div class="lab-top"><b>${x[0]}</b><button class="check" data-key="${key}">${done?'✓':'○'}</button></div><span class="level ${x[2].toLowerCase()}">${x[2]}</span><h3>${x[1]}</h3><p>${x[3]}</p><a class="learn-link" href="${x[4]}">Open lab guide →</a></article>`});grid.querySelectorAll('.check').forEach(b=>b.addEventListener('click',()=>toggleComplete(b.dataset.key)))}
+function toggleComplete(key){completed.has(key)?completed.delete(key):completed.add(key);localStorage.setItem(stateKey,JSON.stringify([...completed]));renderAll()}
+function updateProgress(){const total=roadmap.length+topics.length+labs.length,pct=Math.min(100,Math.round(completed.size/total*100));document.querySelector('#progressPct').textContent=pct+'%';document.querySelector('#completedCount').textContent=completed.size;document.querySelector('#progressBar').style.width=pct+'%';document.querySelector('#progressRing').style.setProperty('--p',pct*3.6+'deg')}
+function renderAll(){renderRoadmap();renderTopics(document.querySelector('#search').value.trim());renderLabs();updateProgress()}
+document.querySelector('#search').addEventListener('input',e=>renderTopics(e.target.value.trim()));document.querySelector('#levelFilter').addEventListener('change',renderRoadmap);document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));c.classList.add('active');activeCategory=c.dataset.category;renderTopics(document.querySelector('#search').value.trim())}));document.querySelector('#resetProgress').addEventListener('click',()=>{if(confirm('Reset all learning progress?')){completed.clear();localStorage.removeItem(stateKey);renderAll()}});
 const commands=[['Start Here','../00-START-HERE.md'],['Roadmap','#roadmap'],['Topic Library','#topics'],['Hands-on Labs','#labs'],['Banking Capstone','#capstone'],['Security','../24-Security/README.md'],['MUnit','../25-MUnit/README.md'],['Troubleshooting','../26-Troubleshooting/README.md'],['Architecture','../22-Patterns-And-Architecture/README.md'],['Cheat Sheet','../28-Glossary-And-Cheat-Sheets/MULE-4-CHEAT-SHEET.md']];
-const modal=document.querySelector('#commandModal');const commandList=document.querySelector('#commandList');
-function renderCommands(q=''){commandList.innerHTML='';commands.filter(x=>x[0].toLowerCase().includes(q.toLowerCase())).forEach(x=>commandList.innerHTML+=`<a href="${x[1]}"><span>↗</span>${x[0]}</a>`);}
-function openCommand(){modal.classList.remove('hidden');document.querySelector('#commandSearch').focus();renderCommands();}
-function closeCommand(){modal.classList.add('hidden');}
-document.querySelector('#commandBtn').addEventListener('click',openCommand);document.querySelector('#closeCommand').addEventListener('click',closeCommand);document.querySelector('#commandSearch').addEventListener('input',e=>renderCommands(e.target.value));modal.addEventListener('click',e=>{if(e.target===modal)closeCommand();});
-document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();openCommand();}if(e.key==='Escape')closeCommand();});
-
-const savedTheme=localStorage.getItem('mulejourney.theme')||'dark';document.documentElement.dataset.theme=savedTheme;document.querySelector('#themeBtn').textContent=savedTheme==='dark'?'☼':'☾';document.querySelector('#themeBtn').addEventListener('click',()=>{const next=document.documentElement.dataset.theme==='dark'?'light':'dark';document.documentElement.dataset.theme=next;localStorage.setItem('mulejourney.theme',next);document.querySelector('#themeBtn').textContent=next==='dark'?'☼':'☾';});
-window.addEventListener('scroll',()=>{const max=document.documentElement.scrollHeight-window.innerHeight;document.querySelector('#progressBar').style.width=max>0?(window.scrollY/max*100)+'%':'0%';});
-renderAll();
+const modal=document.querySelector('#commandModal'),commandList=document.querySelector('#commandList');function renderCommands(q=''){commandList.innerHTML='';commands.filter(x=>x[0].toLowerCase().includes(q.toLowerCase())).forEach(x=>commandList.innerHTML+=`<a href="${x[1]}"><span>↗</span>${x[0]}</a>`)}function openCommand(){modal.classList.remove('hidden');document.querySelector('#commandSearch').focus();renderCommands()}function closeCommand(){modal.classList.add('hidden')}
+document.querySelector('#commandBtn').addEventListener('click',openCommand);document.querySelector('#closeCommand').addEventListener('click',closeCommand);document.querySelector('#commandSearch').addEventListener('input',e=>renderCommands(e.target.value));modal.addEventListener('click',e=>{if(e.target===modal)closeCommand()});document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();openCommand()}if(e.key==='Escape')closeCommand()});
+const savedTheme=localStorage.getItem('mulejourney.theme')||'dark';document.documentElement.dataset.theme=savedTheme;document.querySelector('#themeBtn').textContent=savedTheme==='dark'?'☼':'☾';document.querySelector('#themeBtn').addEventListener('click',()=>{const next=document.documentElement.dataset.theme==='dark'?'light':'dark';document.documentElement.dataset.theme=next;localStorage.setItem('mulejourney.theme',next);document.querySelector('#themeBtn').textContent=next==='dark'?'☼':'☾'});window.addEventListener('scroll',()=>{const max=document.documentElement.scrollHeight-window.innerHeight;document.querySelector('#progressBar').style.width=max>0?(window.scrollY/max*100)+'%':'0%'});renderAll();
