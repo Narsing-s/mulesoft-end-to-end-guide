@@ -1,68 +1,71 @@
 # 07 — Connectors
 
-This section is a **deep MuleSoft connector and Studio processing handbook**. It covers connector configuration plus the core routers/scopes that make real integrations work: Choice, Scatter-Gather, For Each, Parallel For Each, Batch, Until Successful, Try, Async, First Successful, Round Robin, Flow Reference, Subflow, Error Handler, Transform Message, Scheduler, Cache, Idempotency and Transactions.
+This section is a **self-contained connector and Studio engineering handbook**. The repository itself teaches the theory, configuration reasoning, examples, failure behavior, production patterns, labs and interview questions.
 
 ## Start here
 
 1. **[Complete Connector Mastery](./00-CONNECTOR-MASTERY.md)** — core connector concepts and production patterns.
-2. **[Connector Catalog](./01-CONNECTOR-CATALOG.md)** — broad connector/family inventory.
-3. **[Application Connector Configuration](./02-APPLICATION-CONNECTOR-CONFIGURATION.md)** — SaaS/application configuration.
+2. **[Connector Catalog](./01-CONNECTOR-CATALOG.md)** — connector/family inventory.
+3. **[Application Connector Configuration](./02-APPLICATION-CONNECTOR-CONFIGURATION.md)** — application/SaaS configuration.
 4. **[Connector Q&A](./03-CONNECTOR-QA-WITH-ANSWERS.md)** — questions with answers immediately underneath.
-5. **[MuleSoft Documentation Standard](./04-MULESOFT-DOCUMENTATION-STYLE.md)** — how to read and use connector documentation.
-6. **[Connector Family Playbook](./05-CONNECTOR-FAMILY-PLAYBOOK.md)** — deep connector-family practical coverage.
-7. **[Implementation Standard](./06-CONNECTOR-IMPLEMENTATION-STANDARD.md)** — mandatory checklist for implementing any connector.
-8. **[Hands-On Labs](./07-CONNECTOR-HANDS-ON-LABS.md)** — build, break, test and troubleshoot real scenarios.
+5. **[MuleSoft Documentation Style](./04-MULESOFT-DOCUMENTATION-STYLE.md)** — internal explanation and learning structure.
+6. **[Connector Family Playbook](./05-CONNECTOR-FAMILY-PLAYBOOK.md)** — practical family coverage.
+7. **[Implementation Standard](./06-CONNECTOR-IMPLEMENTATION-STANDARD.md)** — mandatory implementation checklist.
+8. **[Hands-On Labs](./07-CONNECTOR-HANDS-ON-LABS.md)** — build, break, test and troubleshoot.
 9. **[Production Troubleshooting](./08-CONNECTOR-TROUBLESHOOTING.md)** — incident diagnosis and recovery.
-10. **[Deep Interview Q&A](./09-CONNECTOR-INTERVIEW-QA-DEEP.md)** — production-level connector questions and answers.
-11. **[Studio Core Components, Routers & Processing](./10-STUDIO-CORE-COMPONENTS-AND-ROUTERS.md)** — Choice, Scatter-Gather, For Each, Parallel For Each, Batch, retry, Try, Async, fallback, transactions and production patterns.
-12. **[Connector + Studio Coverage Matrix](./11-CONNECTOR-STUDIO-COVERAGE-MATRIX.md)** — coverage checklist and definition of done.
-13. **[Mandatory Connector Depth — Explained](./12-MANDATORY-CONNECTOR-DEPTH-EXPLAINED.md)** — explains every mandatory configuration item, why it matters, and what a learner must demonstrate.
-14. **[Complete Coverage Audit](./13-CONNECTOR-COMPLETE-COVERAGE-AUDIT.md)** — quality gate for deciding whether a connector chapter is actually complete.
+10. **[Deep Interview Q&A](./09-CONNECTOR-INTERVIEW-QA-DEEP.md)** — production-level questions and answers.
+11. **[Studio Core Components, Routers & Processing](./10-STUDIO-CORE-COMPONENTS-AND-ROUTERS.md)** — routing, scopes, retry and processing patterns.
+12. **[Connector + Studio Coverage Matrix](./11-CONNECTOR-STUDIO-COVERAGE-MATRIX.md)** — coverage checklist.
+13. **[Mandatory Connector Depth — Explained](./12-MANDATORY-CONNECTOR-DEPTH-EXPLAINED.md)** — every important configuration item explained.
+14. **[Complete Coverage Audit](./13-CONNECTOR-COMPLETE-COVERAGE-AUDIT.md)** — quality gate for completeness.
 
-## MuleSoft-style documentation model
+## Internal connector theory model
 
-```text
-Connector / Exchange asset
-          |
-          +--> User Guide
-          |      install + configure + examples
-          |
-          +--> Reference Guide
-          |      sources + operations + fields
-          |
-          +--> Release Notes
-                 compatibility + changes + fixes
-```
-
-MuleSoft's Studio guidance follows a practical sequence: authenticate to Anypoint Platform, install the connector, configure a source, configure the connector/global element, test connectivity and use the connector operation. Reusable global configuration, externalized properties and appropriate reconnection strategies are important production practices.
-
-## Core Studio processing layer
+Every connector lesson follows the same learning sequence:
 
 ```text
-                         Mule Event
-                             |
-                      +------+------+
-                      | Transform   |
-                      | DataWeave   |
-                      +------+------+
-                             |
-       +---------------------+----------------------+
-       |                     |                      |
-    Choice             Scatter-Gather          Collection
-       |                /    |    \                 |
- one matching         A      B      C        +------+------+
- route                |      |      |        |             |
-                      +------+------+
-                             |             For Each / Parallel
-                          aggregate              |
-                                              Batch for large data
-       |
-  Error Handler / Try / Retry
-       |
-  Continue or Propagate
+Business requirement
+        ↓
+System / protocol selection
+        ↓
+Connector purpose and architecture
+        ↓
+Prerequisites and dependencies
+        ↓
+Global configuration
+        ↓
+Authentication + TLS + networking
+        ↓
+Source / trigger
+        ↓
+Operation + fields
+        ↓
+Input metadata + payload
+        ↓
+DataWeave transformation
+        ↓
+Success response
+        ↓
+Errors + error types
+        ↓
+Timeout + reconnection + bounded retry
+        ↓
+Idempotency + transaction behavior
+        ↓
+Pagination + batching + streaming
+        ↓
+Security + logging + correlation IDs
+        ↓
+MUnit + negative tests
+        ↓
+Monitoring + alerts
+        ↓
+Troubleshooting + recovery
+        ↓
+Production runbook
+        ↓
+Interview questions
 ```
-
-The dedicated core-components chapter explains configuration and examples for these patterns. Current MuleSoft documentation lists these as core components/flow-control capabilities, including Choice, First Successful, Round Robin, Scatter-Gather, For Each, Parallel For Each, Batch Job, Try, Async and Until Successful.
 
 ## Connector families covered
 
@@ -70,51 +73,46 @@ The dedicated core-components chapter explains configuration and examples for th
 HTTP, Database, File, FTP, SFTP, FTPS, Email, JMS, IBM MQ, Anypoint MQ, Web Service Consumer/SOAP, VM, Object Store, Sockets/WebSockets and LDAP.
 
 ### Enterprise and SaaS
-Salesforce, Salesforce Data Cloud, Salesforce Marketing Cloud, SAP/S4HANA, Workday, ServiceNow, Microsoft Dynamics 365, NetSuite, Anaplan, Box, SharePoint, collaboration/communication integrations, Twilio and other application-specific Exchange assets.
+Salesforce, Salesforce Data Cloud, Salesforce Marketing Cloud, SAP/S4HANA, Workday, ServiceNow, Microsoft Dynamics 365, NetSuite, Anaplan, Box, SharePoint, collaboration/communication integrations, Twilio and other application-specific integrations.
 
 ### Data and cloud
-MongoDB, Snowflake, HDFS, AWS services, Azure services, Google services and other supported data/cloud integrations.
+MongoDB, Snowflake, HDFS, AWS services, Azure services, Google services and other data/cloud integrations.
 
 ### Messaging and streaming
-JMS, IBM MQ, Anypoint MQ, Kafka and other supported messaging/event technologies.
+JMS, IBM MQ, Anypoint MQ, Kafka and other messaging/event technologies.
 
 ### B2B / industry
-X12, EDIFACT, TRADACOMS, AS2/B2B patterns and industry-specific integrations where supported.
+X12, EDIFACT, TRADACOMS, AS2/B2B patterns and industry-specific integrations.
 
 ### Modern connectivity
-AI/LLM integrations, Agent2Agent, Agentforce, Einstein AI, MCP and other current API/agent/tool connectivity where supported by the relevant MuleSoft release and Exchange assets.
-
-### Exchange ecosystem
-MuleSoft-provided, MuleSoft Certified, partner and community assets. The live Exchange inventory is dynamic; this repository is a learning system rather than a claim that a static Markdown list permanently represents every Exchange asset.
+AI/LLM integrations, Agent-to-Agent, Agentforce, Einstein AI, MCP and API/agent/tool connectivity.
 
 ## Universal implementation flow
 
 ```text
 Requirement
     ↓
-Choose protocol/system connector
+Choose system/protocol
     ↓
-Check Mule Runtime + Java + connector compatibility
+Understand connector architecture
     ↓
-Discover/install from Exchange
-    ↓
-Create global configuration
+Configure connection
     ↓
 Authentication + TLS + network
     ↓
-Source / trigger (if applicable)
+Source / trigger
     ↓
 Operation + important fields
     ↓
-DataWeave input/output + metadata
+DataWeave input/output
     ↓
-Choice / For Each / Scatter-Gather / Parallel For Each / Batch as required
+Routing / scopes as required
     ↓
 Success + error handling
     ↓
 Timeout + reconnection + safe retry
     ↓
-Idempotency + transaction semantics
+Idempotency + transaction decision
     ↓
 Pagination / batching / streaming
     ↓
@@ -129,18 +127,15 @@ Troubleshoot + recover
 Explain in interview
 ```
 
-## Mandatory configuration depth for every connector
+## Mandatory configuration depth
 
-The checklist is intentionally a **minimum engineering contract**, not a list to memorize. The new **Mandatory Connector Depth — Explained** chapter explains every item with diagrams, examples, failure scenarios, and production reasoning.
-
-Every connector chapter must cover:
+Every connector chapter must explain:
 
 - purpose and architecture
-- where/when to use it and alternatives
+- when to use it and alternatives
 - prerequisites
-- Studio/Code Builder installation
-- Exchange discovery
-- dependency/Maven/runtime/Java compatibility
+- installation and dependency setup
+- runtime/Java/dependency compatibility
 - global configuration and connection provider
 - endpoint/environment/tenant/region
 - authentication
@@ -148,7 +143,7 @@ Every connector chapter must cover:
 - proxy/networking
 - connection and operation timeouts
 - reconnection
-- safe bounded retry/backoff
+- bounded retry/backoff
 - source/trigger
 - operations and important fields
 - parameters, metadata, payload and attributes
@@ -170,32 +165,14 @@ Every connector chapter must cover:
 - security
 - production runbook
 - hands-on lab
-- interview questions with answers immediately underneath
-- version/compatibility notes
-- current official documentation links
-
-## Connector-family-specific depth
-
-The audit also adds family-specific requirements rather than pretending all connectors behave identically:
-
-```text
-HTTP/API       → methods, headers, status codes, OAuth, 429, idempotency
-Database       → SQL, pools, transactions, isolation, deadlocks, bulk work
-File           → readiness, matching, archive, quarantine, duplicates
-SFTP/FTP/FTPS  → keys, transfer, partial files, partner outage
-MQ/JMS         → ACK, redelivery, ordering, DLQ, poison messages
-Kafka          → partitions, consumer groups, offsets, rebalance, delivery
-Salesforce/SaaS → objects, bulk APIs, pagination, limits, partial success
-SOAP           → WSDL, operations, headers, faults, namespaces
-Cloud          → region, IAM, resources, retries, object/message semantics
-EDI/B2B        → agreements, envelopes, acknowledgements, control numbers
-```
+- interview questions with answers
+- compatibility/version notes
 
 ## Production definition of done
 
-A connector implementation is not complete merely because **Test Connection** succeeds. It must also have:
+A connector implementation is not complete merely because a connection test succeeds. It must also have:
 
-- exact connector/runtime/Java versions recorded
+- versions recorded
 - environment configuration externalized
 - secrets protected
 - TLS/certificates verified
@@ -213,19 +190,8 @@ A connector implementation is not complete merely because **Test Connection** su
 - reconciliation strategy when remote success is uncertain
 - runbook
 
-## Official MuleSoft references
+## Learning rule
 
-- Anypoint Connectors overview: https://docs.mulesoft.com/connectors/introduction/introduction-to-anypoint-connectors
-- Configure a connector in Studio: https://docs.mulesoft.com/connectors/introduction/intro-config-use-studio
-- Connector configuration and best practices: https://docs.mulesoft.com/connectors/introduction/intro-connector-configuration-overview
-- Discover connectors in Exchange: https://docs.mulesoft.com/connectors/introduction/intro-use-exchange
-- XML/Maven connector configuration: https://docs.mulesoft.com/connectors/introduction/intro-config-xml-maven
-- Anypoint Code Builder connector configuration: https://docs.mulesoft.com/connectors/introduction/intro-config-use-acb
-
-## Important rule
-
-Use this repository to learn concepts, patterns and production reasoning. For an actual implementation, always open the **current connector asset in Anypoint Exchange**, then verify its **User Guide, Reference Guide and Release Notes** because connector fields, operations, compatibility and support status are version-specific.
-
-The goal is:
+**The repository is the lesson.** A learner should be able to understand the concept, follow the diagram, study the example, reproduce the configuration, see input/output, run the lab, diagnose failures and answer interview questions without being redirected to a separate documentation hub.
 
 **Understand → Configure → Build → Test → Break → Debug → Secure → Measure → Deploy → Operate → Explain.**
