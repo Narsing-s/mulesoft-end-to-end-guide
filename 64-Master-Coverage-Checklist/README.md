@@ -15,11 +15,11 @@ For every topic, the learner should be able to:
 7. Explain security and production concerns.
 8. Describe when to use it and when not to use it.
 9. Explain one realistic interview scenario.
+10. Operate it after deployment.
 
 ## Coverage inventory
 
 ### Foundations
-
 - [ ] Integration and API concepts
 - [ ] HTTP request/response lifecycle
 - [ ] HTTP methods, status codes, headers and content types
@@ -37,9 +37,11 @@ For every topic, the learner should be able to:
 - [ ] `mule-artifact.json`
 - [ ] Resources and configuration files
 - [ ] Logging and correlation IDs
+- [ ] Java/JVM basics needed to support Mule applications
+- [ ] XML namespaces and schema validation
+- [ ] Application startup/shutdown behavior
 
 ### DataWeave
-
 - [ ] DataWeave syntax and expressions
 - [ ] Selectors
 - [ ] Objects and arrays
@@ -56,12 +58,13 @@ For every topic, the learner should be able to:
 - [ ] JSON/XML/CSV transformations
 - [ ] MIME types and metadata
 - [ ] Schemas and validation
+- [ ] Binary/base64 handling
+- [ ] Java value handling
 - [ ] Performance and streaming considerations
 - [ ] DataWeave testing/debugging
 - [ ] Production-safe transformations
 
 ### API development
-
 - [ ] REST concepts
 - [ ] RAML fundamentals
 - [ ] OAS fundamentals
@@ -81,9 +84,10 @@ For every topic, the learner should be able to:
 - [ ] CORS and browser preflight
 - [ ] 400/401/403/404/405/406/409/415/429 handling
 - [ ] REST vs SOAP vs messaging trade-offs
+- [ ] Consumer onboarding and documentation
+- [ ] API lifecycle and change management
 
 ### API-led connectivity
-
 - [ ] System APIs
 - [ ] Process APIs
 - [ ] Experience APIs
@@ -95,9 +99,9 @@ For every topic, the learner should be able to:
 - [ ] Contract ownership
 - [ ] Dependency boundaries
 - [ ] Avoiding over-layering
+- [ ] API composition and aggregation
 
 ### Integration patterns
-
 - [ ] Request-response
 - [ ] One-way/asynchronous processing
 - [ ] Fire-and-forget concepts
@@ -118,9 +122,10 @@ For every topic, the learner should be able to:
 - [ ] Transactional processing
 - [ ] Compensating actions
 - [ ] Graceful degradation
+- [ ] Back-pressure
+- [ ] Concurrency limits
 
 ### Connectors and enterprise integration
-
 - [ ] HTTP
 - [ ] Database
 - [ ] File
@@ -138,9 +143,10 @@ For every topic, the learner should be able to:
 - [ ] Retry policies
 - [ ] Acknowledgement behavior
 - [ ] Ordering and duplicate delivery
+- [ ] Reconnection strategies
+- [ ] Connector-specific error handling
 
 ### Database integration
-
 - [ ] Parameterized SQL
 - [ ] SQL injection prevention
 - [ ] Select/insert/update/delete
@@ -155,9 +161,10 @@ For every topic, the learner should be able to:
 - [ ] Mapping DB rows to API contracts
 - [ ] Secret management
 - [ ] Migration/schema discipline
+- [ ] Index and query-plan concepts
+- [ ] Data masking and least privilege
 
 ### Error handling and reliability
-
 - [ ] Mule error model
 - [ ] Error types
 - [ ] On Error Continue
@@ -174,9 +181,9 @@ For every topic, the learner should be able to:
 - [ ] Incident evidence
 - [ ] Recovery and replay
 - [ ] RCA and prevention
+- [ ] Idempotent recovery
 
 ### Security
-
 - [ ] Authentication vs authorization
 - [ ] TLS
 - [ ] Keystore
@@ -194,9 +201,10 @@ For every topic, the learner should be able to:
 - [ ] Secure error responses
 - [ ] Dependency vulnerability checks
 - [ ] Security testing
+- [ ] Audit logging
+- [ ] Threat modeling basics
 
 ### Testing
-
 - [ ] Unit-level thinking
 - [ ] MUnit structure
 - [ ] Assertions
@@ -213,9 +221,10 @@ For every topic, the learner should be able to:
 - [ ] Security testing concepts
 - [ ] Coverage as evidence, not the only quality signal
 - [ ] CI quality gates
+- [ ] Test data management
+- [ ] Regression testing
 
 ### Deployment and DevOps
-
 - [ ] Maven build lifecycle
 - [ ] Packaging a Mule application
 - [ ] Environment separation
@@ -235,9 +244,10 @@ For every topic, the learner should be able to:
 - [ ] Smoke testing
 - [ ] Blue/green concepts
 - [ ] Canary concepts
+- [ ] Configuration drift prevention
+- [ ] Release verification
 
 ### Operations
-
 - [ ] Logs
 - [ ] Metrics
 - [ ] Distributed correlation
@@ -260,9 +270,11 @@ For every topic, the learner should be able to:
 - [ ] Disaster recovery
 - [ ] RPO/RTO
 - [ ] High availability
+- [ ] Capacity planning
+- [ ] Runbooks
+- [ ] Post-incident prevention
 
 ### Architecture
-
 - [ ] Synchronous vs asynchronous architecture
 - [ ] API-led architecture
 - [ ] Event-driven architecture
@@ -279,9 +291,10 @@ For every topic, the learner should be able to:
 - [ ] API lifecycle
 - [ ] Architecture decision records
 - [ ] Cost/complexity trade-offs
+- [ ] Capacity planning
+- [ ] Disaster recovery design
 
 ### Production scenarios
-
 - [ ] 404 incident
 - [ ] 405 caused by method/preflight mismatch
 - [ ] 415 caused by content type/body mismatch
@@ -302,9 +315,11 @@ For every topic, the learner should be able to:
 - [ ] Bad configuration promotion
 - [ ] Certificate expiry
 - [ ] Partial Scatter-Gather failure
+- [ ] Object Store failure/key design issue
+- [ ] Scheduler overlap
+- [ ] Batch job failure/restart
 
 ### Interview readiness
-
 - [ ] Fundamentals questions
 - [ ] DataWeave coding
 - [ ] APIkit troubleshooting
@@ -316,6 +331,7 @@ For every topic, the learner should be able to:
 - [ ] Deployment questions
 - [ ] Production support questions
 - [ ] Architecture questions
+- [ ] Performance questions
 - [ ] Project explanation
 - [ ] Trade-off explanation
 - [ ] Incident explanation
@@ -343,5 +359,32 @@ Before calling the guide complete, verify:
 - [ ] Production lessons include observability and recovery.
 - [ ] Interview questions are practice material, not claimed leaked proprietary questions.
 - [ ] External links are optional references only.
-- [ ] The GitHub Pages UI requires a successful local login before opening the learning portal.
-- [ ] The login limitation is clearly documented: static GitHub Pages cannot provide trusted server-side authentication.
+- [ ] GitHub Pages first opens the login screen.
+- [ ] The learning UI cannot be reached through a normal navigation bypass without a valid local session.
+- [ ] Logout invalidates the local session and returns to login.
+- [ ] Login limitations are clearly documented: static GitHub Pages cannot provide trusted server-side authentication.
+- [ ] All important UI actions work on desktop and mobile.
+- [ ] Local progress survives a page refresh.
+- [ ] No real customer or production banking data is committed.
+
+## Final learner gate
+
+Before calling the journey complete, demonstrate at least one project where you can:
+
+1. Explain the architecture.
+2. Explain the Mule event.
+3. Build the API.
+4. Transform data with DataWeave.
+5. Connect to a test dependency.
+6. Handle expected and unexpected failures.
+7. Write automated tests.
+8. Secure the integration.
+9. Configure environments safely.
+10. Deploy it.
+11. Observe it.
+12. Investigate a deliberately injected failure.
+13. Recover safely.
+14. Write an RCA.
+15. Explain the design trade-offs to another engineer.
+
+If any of these are missing, the learner should continue the relevant track rather than treating the repository as finished.
