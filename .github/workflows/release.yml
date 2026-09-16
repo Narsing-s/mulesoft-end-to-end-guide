@@ -1,10 +1,7 @@
 name: Package and publish release
 
 on:
-  workflow_run:
-    workflows: ["Deploy learning site"]
-    types: [completed]
-    branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -15,20 +12,15 @@ concurrency:
 
 jobs:
   release:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout the successful Pages commit
+      - name: Checkout selected commit
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.workflow_run.head_sha }}
           fetch-depth: 0
 
       - name: Build release package
         shell: bash
-        env:
-          SOURCE_SHA: ${{ github.event.workflow_run.head_sha }}
-          PAGES_RUN_ID: ${{ github.event.workflow_run.id }}
         run: |
           set -euo pipefail
           VERSION="v0.1.${GITHUB_RUN_NUMBER}"
@@ -44,27 +36,28 @@ jobs:
           cat > "$PACKAGE_DIR/RELEASE-MANIFEST.md" <<EOF
           # MuleJourney ${VERSION}
 
-          This package was generated automatically after a successful GitHub Pages deployment.
+          This package contains the self-contained MuleSoft learning repository.
 
           - Repository: Narsing-s/mulesoft-end-to-end-guide
-          - Source commit: ${SOURCE_SHA}
-          - Pages workflow: Deploy learning site
-          - Successful Pages run: ${PAGES_RUN_ID}
-          - Release workflow run: ${GITHUB_RUN_ID}
+          - Source commit: ${GITHUB_SHA}
           - Package generated: $(date -u '+%Y-%m-%d %H:%M:%S UTC')
 
           ## Included
 
           - Complete MuleSoft learning repository
-          - docs/ learning portal
-          - Deep explanations, labs, interview material and production guides
-          - Official documentation mapping
+          - Internal learning portal
+          - Deep theory and explanations
+          - Diagrams and examples
+          - DataWeave practice
+          - Connector and Studio material
+          - Labs and troubleshooting
+          - Interview questions and answers
+          - Production engineering guides
           - Login/email setup documentation
-          - Release documentation
 
-          ## Integrity
+          ## Learning model
 
-          The ZIP has a matching SHA-256 checksum asset in the GitHub Release.
+          The repository is self-contained. Required concepts are taught inside the repository rather than through a separate external documentation hub.
 
           ## Important
 
@@ -98,9 +91,6 @@ jobs:
           retention-days: 30
 
       - name: Generate release notes
-        env:
-          SOURCE_SHA: ${{ github.event.workflow_run.head_sha }}
-          PAGES_RUN_ID: ${{ github.event.workflow_run.id }}
         shell: bash
         run: |
           VERSION="v0.1.${GITHUB_RUN_NUMBER}"
@@ -108,28 +98,21 @@ jobs:
           cat > release/notes/RELEASE-NOTES.md <<EOF
           # MuleJourney ${VERSION}
 
-          ## Release status
-
-          Published automatically because the Deploy learning site workflow completed successfully.
-
           ## What's included
 
-          - Current repository documentation and learning portal
-          - Mule Runtime, DataWeave, API, connector, security, testing, deployment and operations material
+          - Current self-contained learning portal
+          - Mule Runtime, DataWeave, API, connector, security, testing, deployment and operations theory
           - Hands-on labs and interview preparation
-          - Official MuleSoft documentation references
+          - Production troubleshooting and architecture material
           - Current login, account deletion and email setup documentation
-          - Releases and Packages center
 
           ## Source
 
-          Commit: ${SOURCE_SHA}
-
-          Successful Pages workflow run: ${PAGES_RUN_ID}
+          Commit: ${GITHUB_SHA}
 
           ## Verification
 
-          The package is validated with unzip -t and SHA-256 verification before the GitHub Release is created. The workflow artifact is also retained for 30 days.
+          The package is validated with unzip -t and SHA-256 verification before publication.
           EOF
 
       - name: Publish GitHub release and assets
@@ -144,6 +127,6 @@ jobs:
             "release/mulejourney-${VERSION}.sha256" \
             "release/notes/RELEASE-NOTES.md" \
             "release/${VERSION}/RELEASE-MANIFEST.md" \
-            --target "${{ github.event.workflow_run.head_sha }}" \
+            --target "${GITHUB_SHA}" \
             --title "MuleJourney ${VERSION}" \
             --notes-file "release/notes/RELEASE-NOTES.md"
