@@ -4,10 +4,11 @@ The learning portal uses an intentionally **backend-free login/profile layer**.
 
 ## What it does
 
-- asks for a display name and a local password
-- stores only a local browser session in `localStorage`
+- asks for a display name, email and local password
+- stores the local profile/session in `localStorage`
 - shows the learner name in the portal
 - provides Logout
+- provides an **Account → Delete account** option
 - requires no database
 - requires no API
 - requires no server-side authentication
@@ -31,34 +32,64 @@ Do not use it for:
 - administrator access
 - authorization of protected APIs
 
+## Account deletion
+
+Signed-in users can open **Account → Delete account** from the portal.
+
+Deletion requires typing `DELETE` to prevent accidental removal. The browser then removes every `localStorage` key beginning with `mulejourney.` and clears `sessionStorage`, which removes the local profile, session, learning progress, theme and greeting-email status stored by MuleJourney.
+
+Because this project is hosted as a static site, deletion is **local browser deletion**, not server-side account deletion. It does not delete:
+
+- an EmailJS account or email-provider data
+- messages already delivered to an email inbox
+- GitHub repository data
+- browser data stored under unrelated applications/domains
+
+After deletion, the user is returned to the login page and can create a new local profile on that browser.
+
 ## Storage
 
-The portal uses these browser keys:
+Current browser keys include:
 
-- `mulejourney.local.session.v1` — local profile/session
+- `mulejourney.local.session.v2` — local session
+- `mulejourney.local.account.v2` — local profile
+- `mulejourney.first-login.greeting.status.v2` — greeting-email status
 - `mulejourney.completed.v1` — learning progress
 - `mulejourney.theme` — UI theme
 
-Clearing browser site data removes the local profile and progress.
+The delete flow intentionally removes all keys beginning with `mulejourney.` so future MuleJourney local-storage features are also covered.
 
 ## Flow
 
 ```text
-Login page
-   │
-   │ name + local password
-   ▼
+Login
+  │
+  ▼
 Browser localStorage
-   │
-   ▼
+  │
+  ├── profile
+  ├── session
+  ├── progress
+  ├── theme
+  └── email status
+  │
+  ▼
 MuleJourney portal
-   │
-   ├── local progress
-   ├── local theme
-   └── local profile
+  │
+  ├── Account → Logout
+  │
+  └── Account → Delete account
+              │
+              ▼
+       Type DELETE
+              │
+              ▼
+    Remove MuleJourney data
+              │
+              ▼
+          Login page
 
 NO BACKEND
 NO DATABASE
-NO API CALL
-NO PASSWORD TRANSMISSION
+NO SERVER-SIDE ACCOUNT RECORD
 ```
