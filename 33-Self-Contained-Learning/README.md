@@ -2,7 +2,7 @@
 
 This repository is designed to teach MuleSoft concepts **inside this repository**.
 
-The learner should not have to leave the project to understand the lesson. External references are optional verification material, not prerequisites.
+The learner should not have to leave the project to understand the lesson. Required theory, examples, diagrams, exercises, labs and troubleshooting belong inside the repository.
 
 ## The lesson contract
 
@@ -37,11 +37,13 @@ A chapter is not considered complete merely because it names a Mule component.
 
 ## Version note
 
-Examples should record the Mule runtime, Java, DataWeave and connector/module versions they were written for. Syntax and supported configuration can vary by version.
+Examples should record the Mule runtime, Java, DataWeave and connector/module versions they were written for. When behavior differs by version, explain the difference inside the lesson and add an internal migration note.
 
-## Internal-first rule
+## Internal knowledge rule
 
-Use this repository as the primary teaching material. Official vendor references may be listed as optional verification links, but no core lesson should say “read external documentation to understand this topic.”
+If a learner needs a concept to understand a lesson, the concept must be taught here. Add the theory, terminology, diagram, configuration, XML, DataWeave, input/output, failure cases, exercises and troubleshooting to the appropriate internal chapter instead of sending the learner to an external documentation hub.
+
+There is no separate official-documentation learning section in this project.
 
 ## Definition of done
 
