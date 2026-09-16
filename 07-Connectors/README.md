@@ -16,6 +16,8 @@ This section is a **deep MuleSoft connector and Studio processing handbook**. It
 10. **[Deep Interview Q&A](./09-CONNECTOR-INTERVIEW-QA-DEEP.md)** — production-level connector questions and answers.
 11. **[Studio Core Components, Routers & Processing](./10-STUDIO-CORE-COMPONENTS-AND-ROUTERS.md)** — Choice, Scatter-Gather, For Each, Parallel For Each, Batch, retry, Try, Async, fallback, transactions and production patterns.
 12. **[Connector + Studio Coverage Matrix](./11-CONNECTOR-STUDIO-COVERAGE-MATRIX.md)** — coverage checklist and definition of done.
+13. **[Mandatory Connector Depth — Explained](./12-MANDATORY-CONNECTOR-DEPTH-EXPLAINED.md)** — explains every mandatory configuration item, why it matters, and what a learner must demonstrate.
+14. **[Complete Coverage Audit](./13-CONNECTOR-COMPLETE-COVERAGE-AUDIT.md)** — quality gate for deciding whether a connector chapter is actually complete.
 
 ## MuleSoft-style documentation model
 
@@ -94,7 +96,7 @@ Choose protocol/system connector
     ↓
 Check Mule Runtime + Java + connector compatibility
     ↓
-Discover/install from Exchange or Studio
+Discover/install from Exchange
     ↓
 Create global configuration
     ↓
@@ -102,11 +104,11 @@ Authentication + TLS + network
     ↓
 Source / trigger (if applicable)
     ↓
-Operation
+Operation + important fields
     ↓
-DataWeave input/output
+DataWeave input/output + metadata
     ↓
-Choice / For Each / Scatter-Gather / Batch as required
+Choice / For Each / Scatter-Gather / Parallel For Each / Batch as required
     ↓
 Success + error handling
     ↓
@@ -127,41 +129,67 @@ Troubleshoot + recover
 Explain in interview
 ```
 
-## Configuration depth required for every connector
+## Mandatory configuration depth for every connector
 
-Every connector chapter must explain:
+The checklist is intentionally a **minimum engineering contract**, not a list to memorize. The new **Mandatory Connector Depth — Explained** chapter explains every item with diagrams, examples, failure scenarios, and production reasoning.
 
-- purpose and alternatives
-- where/when to use it
+Every connector chapter must cover:
+
+- purpose and architecture
+- where/when to use it and alternatives
 - prerequisites
 - Studio/Code Builder installation
-- dependency/Maven considerations
-- global configuration
-- important connection fields
+- Exchange discovery
+- dependency/Maven/runtime/Java compatibility
+- global configuration and connection provider
+- endpoint/environment/tenant/region
 - authentication
-- TLS/certificates
+- TLS/mTLS/certificates
 - proxy/networking
-- source/trigger
-- operations
-- input/output and metadata
-- DataWeave mapping
-- error types
-- timeout behavior
+- connection and operation timeouts
 - reconnection
-- retry/backoff
+- safe bounded retry/backoff
+- source/trigger
+- operations and important fields
+- parameters, metadata, payload and attributes
+- DataWeave input/output
+- representative XML
+- success and failure scenarios
+- error types and error strategy
 - idempotency
 - transaction boundaries
-- pagination/batching/streaming
-- connection pooling/concurrency
+- pagination
+- batching
+- streaming/large payloads
+- pooling/concurrency
 - quotas/rate limits
+- MUnit success/failure/timeout tests
 - logging/masking/correlation IDs
-- MUnit mocking and integration testing
-- production troubleshooting
-- use cases
-- hands-on exercise
-- interview questions and answers
+- monitoring/alerts
+- troubleshooting
+- security
+- production runbook
+- hands-on lab
+- interview questions with answers immediately underneath
 - version/compatibility notes
-- official documentation links
+- current official documentation links
+
+## Connector-family-specific depth
+
+The audit also adds family-specific requirements rather than pretending all connectors behave identically:
+
+```text
+HTTP/API       → methods, headers, status codes, OAuth, 429, idempotency
+Database       → SQL, pools, transactions, isolation, deadlocks, bulk work
+File           → readiness, matching, archive, quarantine, duplicates
+SFTP/FTP/FTPS  → keys, transfer, partial files, partner outage
+MQ/JMS         → ACK, redelivery, ordering, DLQ, poison messages
+Kafka          → partitions, consumer groups, offsets, rebalance, delivery
+Salesforce/SaaS → objects, bulk APIs, pagination, limits, partial success
+SOAP           → WSDL, operations, headers, faults, namespaces
+Cloud          → region, IAM, resources, retries, object/message semantics
+EDI/B2B        → agreements, envelopes, acknowledgements, control numbers
+```
 
 ## Production definition of done
 
