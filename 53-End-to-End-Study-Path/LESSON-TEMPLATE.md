@@ -374,17 +374,13 @@ For each mistake explain:
 
 ## 35. Version/compatibility notes
 
-Record the tested versions and clearly mark version-sensitive behavior. Never invent a connector field or operation; verify the current official reference guide.
+Record the tested versions and clearly mark version-sensitive behavior. Never invent a connector field or operation. Keep version-specific behavior and migration guidance inside the relevant internal lesson.
 
-## 36. Official documentation
-
-Link the relevant current MuleSoft User Guide, Reference Guide and Release Notes.
-
-## 37. Related chapters
+## 36. Related chapters
 
 Link to canonical internal chapters. Avoid copying the same explanation into multiple locations.
 
-## 38. Completion evidence
+## 37. Completion evidence
 
 The learner must demonstrate:
 
