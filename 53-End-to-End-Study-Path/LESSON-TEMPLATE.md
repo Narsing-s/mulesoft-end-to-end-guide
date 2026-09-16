@@ -1,34 +1,44 @@
-# Canonical Lesson Template
+# Canonical Deep Lesson Template
 
-Use this structure when adding or expanding **any** technical topic. Keep the main explanation in one canonical location and link to it from interview, lab and scenario material.
+Use this structure when adding or expanding **any technical topic in the repository**. This is intentionally deeper than a checklist: every important concept/configuration must be explained, demonstrated, tested and operationalized.
 
-## 1. Topic
+> Repo-wide standard: `53-End-to-End-Study-Path/REPO-WIDE-DEEP-EXPLANATION-STANDARD.md`
+
+## 1. Topic identity
 
 **Name:**
 
 **Level:** Beginner / Intermediate / Advanced
 
+**Audience:**
+
 **Prerequisites:**
 
 **Version tested:** Mule Runtime / Java / DataWeave / connector / deployment target
 
+**Last verified:**
+
 ## 2. What is it?
 
-Explain it in plain language first. Assume the reader has never seen the concept.
+Explain it in plain English first. Assume the reader has never seen the concept.
 
 ## 3. Why does it exist?
 
-Explain the real problem it solves.
+Explain the real engineering/business problem it solves. Explain what would happen without it.
 
-## 4. When should I use it?
+## 4. Key terminology
 
-Give 2–4 practical situations.
+Define every important term before using it.
 
-## 5. When should I NOT use it?
+## 5. When should I use it?
 
-Show alternatives and anti-patterns.
+Give practical situations and explain why it fits.
 
-## 6. Architecture diagram
+## 6. When should I NOT use it?
+
+Give alternatives, trade-offs and anti-patterns.
+
+## 7. Architecture / visual model
 
 ```text
 Source
@@ -47,27 +57,44 @@ Processor / Connector
 Target
 ```
 
-Use Mermaid when useful:
+Add Mermaid/sequence/decision diagrams when they clarify runtime behavior.
 
-```mermaid
-flowchart LR
-    A[Source] --> B[Mule Event]
-    B --> C[Transform / Validate]
-    C --> D[External System]
-    D --> E[Response]
-```
+## 8. How it works at runtime
 
-## 7. How it works
+Explain the event lifecycle step by step:
 
-Explain the runtime/data movement step by step.
+1. What starts it?
+2. What enters the flow?
+3. What does Mule create/change?
+4. Which processor executes?
+5. What leaves the processor?
+6. What happens on success?
+7. What happens on failure?
 
-## 8. Smallest working example
+## 9. Configuration depth
 
-Show the minimum implementation needed to understand the idea.
+For **every important configuration field**, use:
 
-## 9. Input → Code → Output
+### `<Field>`
 
-Always provide concrete data.
+**What is it?**  
+**Why is it needed?**  
+**Where is it configured?**  
+**Typical example:**  
+**Runtime effect:**  
+**If wrong:**  
+**How to verify:**  
+**Production note:**
+
+Never list a field without explaining it.
+
+## 10. Smallest working example
+
+Show the minimum implementation required to understand the concept.
+
+## 11. Input → Code → Output
+
+Always provide concrete input and expected output.
 
 ```json
 {
@@ -93,108 +120,294 @@ output application/json
 }
 ```
 
-## 10. Realistic example
+Explain why the transformation produces that result.
 
-Use a business scenario such as customer, payment, order, shipment or notification processing. Use synthetic data.
-
-## 11. Mule configuration
+## 12. Complete Mule configuration
 
 Show relevant XML/configuration and explain the important lines. Do not dump unexplained XML.
 
-## 12. Test cases
+## 13. DataWeave boundary
 
-At minimum:
+Show:
 
-| Case | Input | Expected |
-|---|---|---|
-| Happy path | valid data | successful response |
-| Missing field | incomplete data | controlled validation error |
-| Invalid type | wrong type | predictable error |
-| Dependency failure | downstream unavailable | retry/fallback/error strategy |
-| Duplicate | same request twice | idempotent behavior where required |
+```text
+Incoming payload
+      ↓
+DataWeave
+      ↓
+Connector/component input
+      ↓
+External system / processor
+      ↓
+Result
+      ↓
+DataWeave response mapping
+```
 
-## 13. MUnit strategy
+Explain payload, attributes, variables and metadata.
 
-Explain what to mock, what to assert, what to verify and which negative paths matter.
+## 14. Realistic production example
 
-## 14. Failure injection
+Use synthetic customer/order/payment/shipment/notification data. Explain the business reason for every major step.
 
-Intentionally create failures:
+## 15. Success path
 
-- invalid payload
-- unavailable dependency
-- timeout
+Show the normal request/message lifecycle from source to final response/state.
+
+## 16. Failure paths
+
+At minimum consider:
+
+- invalid input
+- missing field
+- invalid type
 - authentication failure
-- bad property
+- authorization failure
+- dependency unavailable
+- timeout
 - malformed response
-- duplicate message
-- certificate problem where relevant
+- rate limit
+- duplicate request/message
+- partial success
+- uncertain remote outcome
 
-Then show how to diagnose each one.
+For each, explain **symptom → evidence → cause → safe action → prevention**.
 
-## 15. Troubleshooting table
+## 17. Error handling
 
-| Symptom | Evidence to inspect | Likely area | Safe next step |
+Explain the exact error strategy:
+
+- propagate or continue?
+- retry or not?
+- fallback?
+- DLQ?
+- compensation?
+- reconciliation?
+
+Explain why.
+
+## 18. Retry vs reconnection
+
+Explicitly distinguish:
+
+```text
+Reconnection = restore a connector connection/session
+Retry       = repeat an operation
+```
+
+Explain bounded attempts, backoff, timeout interaction and duplicate risk.
+
+## 19. Idempotency
+
+Explain how duplicate work can occur and how the implementation prevents or reconciles it.
+
+## 20. Transactions
+
+Explain the real transaction boundary, commit/rollback behavior and any external side effects that are outside the transaction.
+
+## 21. Pagination / batching / streaming / concurrency
+
+Explain which apply and why:
+
+- pagination
+- batching
+- streaming
+- parallelism
+- back-pressure
+
+Include memory and downstream-load trade-offs.
+
+## 22. Security
+
+Cover applicable:
+
+- authentication
+- authorization
+- TLS/mTLS
+- certificates
+- secure properties/secrets
+- least privilege
+- PII masking
+- safe logging
+- secret rotation
+
+## 23. Performance
+
+Explain relevant:
+
+- connection pools
+- concurrency
+- page/batch size
+- payload size
+- streaming
+- downstream latency
+- rate limits
+- CPU/memory
+
+Do not provide unexplained tuning numbers.
+
+## 24. Testing strategy
+
+Explain what to test and why:
+
+| Case | Input/condition | Expected behavior | Evidence |
 |---|---|---|---|
-| 400 | request/error response | contract/input | inspect payload and validation |
-| 401/403 | auth headers/policy logs | security | verify credentials/token/policy |
-| 404 | URL/method/APIkit route | routing | verify contract and deployed path |
-| 415 | Content-Type | media type | inspect request headers/body |
-| 5xx | Mule error/logs | application/dependency | trace correlation ID |
-| timeout | latency/logs | dependency/network | isolate slow dependency |
+| Happy path | valid data | success | assertion |
+| Validation | invalid data | controlled error | error assertion |
+| Dependency failure | dependency unavailable | safe recovery | mock/verify |
+| Timeout | delayed dependency | bounded failure | assertion |
+| Duplicate | same business key | one business effect | state assertion |
 
-## 16. Security
-
-Cover authentication, authorization, TLS, secrets, PII, safe logging and least privilege where applicable.
-
-## 17. Performance
-
-Explain payload size, streaming, memory, concurrency, connector pools, DB queries and downstream latency where relevant.
-
-## 18. Production operation
+## 25. MUnit strategy
 
 Explain:
 
-- logs
+- what to mock
+- what to spy
+- what to verify
+- what to assert
+- negative-path coverage
+- regression test for every production fix
+
+## 26. Failure injection lab
+
+Intentionally break the implementation:
+
+1. bad property
+2. invalid credentials
+3. unavailable dependency
+4. timeout
+5. malformed response
+6. duplicate message
+7. certificate problem where relevant
+
+Then diagnose and fix each failure.
+
+## 27. Troubleshooting
+
+Use evidence first:
+
+```text
+Symptom
+  ↓
+Timestamp / correlation ID
+  ↓
+Application log
+  ↓
+Exact error
+  ↓
+Connector/processor
+  ↓
+Network/auth/TLS/dependency evidence
+  ↓
+Controlled reproduction
+  ↓
+Fix
+  ↓
+Regression test
+```
+
+## 28. Observability
+
+Explain:
+
 - correlation IDs
-- metrics
-- alerts
+- business IDs
+- elapsed time
+- operation
+- safe endpoint/resource information
+- retry count
+- provider correlation ID
+- queue/file/object state where relevant
 - dashboards
-- health checks
-- runbook
-- rollback/recovery
+- alerts
 
-## 19. Beginner exercise
+Identify values that must never be logged.
 
-A small task that can be completed in 15–30 minutes.
+## 29. Production runbook
 
-## 20. Intermediate exercise
+Explain:
 
-A multi-step integration task with an external dependency.
+- alert meaning
+- evidence collection
+- safe restart/retry rules
+- duplicate/unknown-success handling
+- reconciliation
+- rollback
+- recovery verification
+- preventive action
 
-## 21. Advanced challenge
+## 30. Beginner exercise
+
+15–30 minute task with an explicit expected result.
+
+## 31. Intermediate exercise
+
+Multi-step integration with a dependency, validation and error handling.
+
+## 32. Advanced challenge
 
 Add scale, failure, security, asynchronous processing, observability or deployment constraints.
 
-## 22. Interview questions
+## 33. Interview questions
 
 Include:
 
-- definition question
-- implementation question
-- comparison question
-- troubleshooting question
+- definition
+- why
+- implementation
+- configuration
+- comparison
+- failure scenario
 - production scenario
+- performance scenario
+- security scenario
 - architecture trade-off
 
-## 23. Common mistakes
+**Answer immediately underneath every question.**
 
-List mistakes and explain why they fail.
+## 34. Common mistakes
 
-## 24. Related chapters
+For each mistake explain:
 
-Link to the canonical internal chapters. Do not duplicate the full explanation elsewhere.
+**Why it happens → Why it is wrong → Correct approach → How to detect it.**
 
-## 25. Completion gate
+## 35. Version/compatibility notes
 
-The learner must be able to **explain → implement → test → break → debug → secure → deploy → operate → teach** the topic.
+Record the tested versions and clearly mark version-sensitive behavior. Never invent a connector field or operation; verify the current official reference guide.
+
+## 36. Official documentation
+
+Link the relevant current MuleSoft User Guide, Reference Guide and Release Notes.
+
+## 37. Related chapters
+
+Link to canonical internal chapters. Avoid copying the same explanation into multiple locations.
+
+## 38. Completion evidence
+
+The learner must demonstrate:
+
+```text
+Explain
+  ↓
+Implement
+  ↓
+Test
+  ↓
+Break
+  ↓
+Debug
+  ↓
+Secure
+  ↓
+Scale
+  ↓
+Deploy
+  ↓
+Operate
+  ↓
+Recover
+  ↓
+Teach
+```
