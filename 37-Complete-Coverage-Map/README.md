@@ -99,25 +99,127 @@ Use this page to check topics that are often missed after the normal beginner/in
 - [ ] reconciliation
 - [ ] partial failure strategy
 
-## Connectors
+## Connectors — complete learning coverage
 
-- [ ] HTTP
+### Core connectivity
+
+- [ ] HTTP Listener
+- [ ] HTTP Request
 - [ ] Database
 - [ ] File
-- [ ] FTP/SFTP
+- [ ] FTP
+- [ ] SFTP
+- [ ] FTPS where applicable
+- [ ] Email
 - [ ] JMS
 - [ ] IBM MQ
 - [ ] Anypoint MQ
 - [ ] VM
 - [ ] Object Store
-- [ ] Email/SMTP
-- [ ] SOAP
-- [ ] Salesforce/SaaS
+- [ ] Web Service Consumer / SOAP
+- [ ] Sockets
+- [ ] LDAP
+
+### Data and document systems
+
+- [ ] MongoDB
+- [ ] Snowflake
+- [ ] HDFS
+- [ ] other JDBC-compatible database targets
+
+### Enterprise/SaaS
+
+- [ ] Salesforce
+- [ ] Salesforce Data Cloud
+- [ ] Salesforce Marketing Cloud
+- [ ] SAP
+- [ ] SAP S/4HANA
+- [ ] Workday
+- [ ] ServiceNow
+- [ ] Microsoft Dynamics/CRM
+- [ ] NetSuite
+- [ ] Anaplan
+- [ ] Box
+- [ ] SharePoint
+- [ ] collaboration connectors such as Slack/Teams where supported
+- [ ] Twilio/communication connectors where supported
+- [ ] other Exchange application connectors
+
+### Cloud/service families
+
+- [ ] AWS S3
+- [ ] AWS SQS
+- [ ] AWS SNS
+- [ ] other applicable AWS service connectors
+- [ ] Azure service connectors
+- [ ] Google service connectors
+
+### Messaging and streaming
+
+- [ ] Kafka
+- [ ] JMS acknowledgement
+- [ ] IBM MQ acknowledgement/transactions
+- [ ] Anypoint MQ acknowledgement/retry
+- [ ] queue/topic semantics
+- [ ] redelivery
+- [ ] ordering
+- [ ] duplicate delivery
+- [ ] idempotent consumer
+- [ ] DLQ
+- [ ] poison message
+- [ ] message correlation
+- [ ] back-pressure
+
+### B2B/EDI
+
+- [ ] X12
+- [ ] EDIFACT
+- [ ] TRADACOMS
+- [ ] AS2/B2B patterns where applicable
+- [ ] partner agreements
+- [ ] acknowledgements
+- [ ] validation/rejection
+- [ ] document tracking
+
+### Modern platform / AI
+
+- [ ] Agent2Agent (A2A) where applicable
+- [ ] Agentforce where applicable
+- [ ] Einstein AI where applicable
+- [ ] MCP
+- [ ] AI/LLM integrations
+- [ ] tool authorization and allowlists
+- [ ] AI response validation
+
+### Connector engineering
+
+- [ ] connector global configuration
+- [ ] connection providers
+- [ ] authentication
+- [ ] OAuth/client credentials
+- [ ] Basic authentication where applicable
+- [ ] TLS
+- [ ] mTLS
+- [ ] certificate/truststore handling
+- [ ] secure properties
+- [ ] proxy configuration
 - [ ] connection pools
+- [ ] timeouts
 - [ ] reconnection
-- [ ] connector timeouts
-- [ ] connector error types
+- [ ] retry/backoff
+- [ ] connector-specific error types
 - [ ] transaction behavior
+- [ ] idempotency
+- [ ] pagination
+- [ ] batching
+- [ ] rate limits
+- [ ] large payloads
+- [ ] streaming
+- [ ] MUnit mocking
+- [ ] integration tests
+- [ ] production troubleshooting
+- [ ] connector version tracking
+- [ ] connector/runtime compatibility
 
 ## Database
 
@@ -299,6 +401,7 @@ Use this page to check topics that are often missed after the normal beginner/in
 - [ ] explain API-led trade-offs
 - [ ] explain performance diagnosis
 - [ ] explain rollback
+- [ ] explain connector selection and configuration for at least 10 different integration technologies
 
 ## Final standard
 
