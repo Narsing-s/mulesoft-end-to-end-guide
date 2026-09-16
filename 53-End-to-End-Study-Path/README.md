@@ -61,7 +61,13 @@ ZERO KNOWLEDGE
 52 API Governance
               │
               ▼
+55 Assessment + Project Ladder
+              │
+              ▼
 17 Banking Capstone
+              │
+              ▼
+56 Modern Platform Deep Dive
               │
               ▼
 ARCHITECT / PRODUCTION ENGINEER
@@ -175,7 +181,16 @@ Complete:
 
 **Gate:** given business requirements, produce architecture, API boundaries, failure strategy, security model, deployment topology, observability plan and ADRs.
 
-### Level 9 — Capstone
+### Level 9 — Assessment and project progression
+Use `55-Learning-Assessment-and-Project-Ladder`.
+
+The learner must demonstrate capability rather than merely reading. Each project should progress through:
+
+```text
+Explain → Implement → Test → Break → Debug → Secure → Deploy → Operate → Teach
+```
+
+### Level 10 — Capstone
 Build `17-Real-World-Project` end to end:
 
 ```text
@@ -210,6 +225,24 @@ Incident + RCA + Recovery
 ```
 
 **Capstone gate:** demonstrate the application, tests, deployment, monitoring, failure injection and recovery. Synthetic data only.
+
+### Level 11 — Modern platform engineer
+Use `56-Modern-Platform-Deep-Dive` after the core capstone.
+
+Study:
+
+- Anypoint Code Builder
+- API gateway / Flex Gateway terminology
+- Anypoint Monitoring
+- CloudHub 2.0 Private Spaces and networking
+- deployment/replica lifecycle
+- Runtime Fabric/Kubernetes operational concepts
+- platform RBAC and auditability
+- certificate and secret rotation
+- API automation
+- modern API contract styles
+
+This stage connects application development to the wider platform and operational architecture.
 
 ## How to study one topic
 
@@ -255,6 +288,8 @@ A lesson is complete only when it has, where applicable:
 - interview questions
 - version assumptions
 - links to the canonical topic instead of duplicate explanations
+
+See `LESSON-TEMPLATE.md` and `DIAGRAMS.md` in this folder.
 
 ## Infinite learning path
 
