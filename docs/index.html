@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MuleSoft End-to-End Guide</title>
+<meta name="description" content="Beginner-to-production MuleSoft learning path with practical labs, architecture, DataWeave, APIs, testing, deployment and troubleshooting.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="hero">
+  <nav><a class="brand" href="#top">Mule<span>Journey</span></a><div class="navlinks"><a href="#roadmap">Roadmap</a><a href="#topics">Topics</a><a href="#labs">Labs</a><a href="#project">Project</a></div></nav>
+  <div class="hero-content" id="top">
+    <p class="eyebrow">FREE • OPEN SOURCE • BEGINNER FRIENDLY</p>
+    <h1>Learn MuleSoft from <span>zero to production.</span></h1>
+    <p class="lead">One structured guide for fundamentals, DataWeave, APIs, API-led connectivity, security, testing, deployment, DevOps, observability and real production troubleshooting.</p>
+    <div class="actions"><a class="button primary" href="#roadmap">Start Learning</a><a class="button ghost" href="../README.md">Open GitHub Guide</a></div>
+    <div class="stats"><div><b>20+</b><small>learning stages</small></div><div><b>100+</b><small>concepts & practices</small></div><div><b>1</b><small>real banking capstone</small></div></div>
+  </div>
+</header>
+<main>
+<section id="roadmap" class="section"><div class="section-head"><p class="eyebrow">YOUR PATH</p><h2>From first flow to production engineer</h2><p>Follow the order. Every stage explains the term, why it exists, how to implement it, how to test it and what can fail.</p></div>
+<div class="timeline" id="roadmapGrid"></div></section>
+<section id="topics" class="section alt"><div class="section-head"><p class="eyebrow">TOPIC LIBRARY</p><h2>Everything in one place</h2><div class="search"><input id="search" placeholder="Search DataWeave, APIkit, DB, MUnit..." aria-label="Search topics"></div></div><div class="cards" id="topicGrid"></div></section>
+<section id="labs" class="section"><div class="section-head"><p class="eyebrow">PRACTICE</p><h2>Learn by building</h2><p>Do not only read. Build small exercises, then connect them into the capstone.</p></div><div class="lab-grid"><article><b>01</b><h3>First HTTP API</h3><p>Create a listener, read a request and return JSON.</p></article><article><b>02</b><h3>DataWeave Lab</h3><p>Transform customer JSON, filter records and handle nulls.</p></article><article><b>03</b><h3>DB Integration</h3><p>Use parameterized SQL and map the database response.</p></article><article><b>04</b><h3>Error Handling</h3><p>Create controlled 400/404/500 responses.</p></article><article><b>05</b><h3>MUnit</h3><p>Mock dependencies and test happy/error paths.</p></article><article><b>06</b><h3>Production Incident</h3><p>Diagnose a 502, timeout, TLS or database failure.</p></article></div></section>
+<section id="project" class="project"><div><p class="eyebrow">CAPSTONE</p><h2>Build a real banking integration platform</h2><p>Experience API → Process API → System API → Database/MQ, with RAML, DataWeave, security, MUnit, deployment and operational troubleshooting.</p><a class="button primary" href="../17-Real-World-Project/README.md">Explore the project</a></div><pre>Consumer
+   ↓
+Experience API
+   ↓
+Process API
+   ↓
+System API
+  ↙     ↓     ↘
+ DB     MQ     SaaS</pre></section>
+</main>
+<footer><p>Built as an open learning resource. Verify version-specific behavior against current MuleSoft documentation.</p><p><a href="https://docs.mulesoft.com/">MuleSoft Documentation</a> · <a href="https://github.com/Narsing-s/mulesoft-end-to-end-guide">GitHub Repository</a></p></footer>
+<script src="app.js"></script>
+</body></html>
