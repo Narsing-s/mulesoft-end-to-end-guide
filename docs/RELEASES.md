@@ -13,8 +13,6 @@ Every successful release provides:
 5. **GitHub source archives** — GitHub also provides source ZIP and tar.gz archives for the release tag.
 6. **Workflow artifact** — the package, checksum and manifest are retained in the Actions run for 30 days as a second download/verification path.
 
-GitHub Actions artifacts are designed to persist build outputs after a workflow completes, while releases provide versioned assets for published snapshots. citeturn0search0turn0search5
-
 ## Release lifecycle
 
 ```text
@@ -67,9 +65,7 @@ The release workflow also performs `unzip -t` and `sha256sum -c` before publishi
 
 ## Workflow artifacts
 
-The Actions workflow retains a release package artifact for 30 days. GitHub documents that workflow artifacts can be downloaded from the workflow run and are intended for persisted build outputs. citeturn0search1turn0search2
-
-The artifact contains:
+The Actions workflow retains a release package artifact for 30 days. It contains:
 
 - versioned ZIP package
 - SHA-256 checksum
