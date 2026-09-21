@@ -46,6 +46,7 @@ The repository is intentionally ordered from fundamentals to production engineer
 | Messaging engineering | `49-Messaging-Engineering` |
 | Learning assessment | `55-Learning-Assessment-and-Project-Ladder` |
 | Modern platform deep dive | `56-Modern-Platform-Deep-Dive` |
+| Developer delivery & API verification | `68-Developer-Delivery-and-API-Verification` |
 
 ## Canonical beginner → expert route
 
