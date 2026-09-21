@@ -2,6 +2,14 @@
 
 This is the **canonical route through the repository**. A beginner should start at Step 0 and move forward. An experienced MuleSoft engineer can enter at the closest skill level, but should still use the validation gates and capstone.
 
+## Beginner companion
+
+Before opening a deep chapter, read:
+
+**`53-End-to-End-Study-Path/BEGINNER-FRIENDLY-TOPIC-GUIDE.md`**
+
+It gives a short, plain-English explanation of every major learning area, why it exists, what to learn, and the practical mental model. It is an orientation guide, not a replacement for the detailed chapters.
+
 ## The whole journey
 
 ```text
