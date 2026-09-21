@@ -4,18 +4,21 @@ If you know nothing about MuleSoft, **start here and do not jump randomly betwee
 
 ## Your canonical path
 
-Read this file first, then open:
+Read these in order:
 
-**`53-End-to-End-Study-Path/README.md`**
+1. **This file** — understand the learning rules.
+2. **`53-End-to-End-Study-Path/README.md`** — follow the canonical roadmap and completion gates.
+3. **`53-End-to-End-Study-Path/BEGINNER-FRIENDLY-TOPIC-GUIDE.md`** — plain-English explanation of every major topic/folder and the vocabulary that connects them.
+4. Then open the numbered lesson folder for the current stage.
 
-That document tells you exactly where to start, what to learn next, the completion gate for each level, the project ladder, and how the journey continues after the capstone.
+The new Beginner-Friendly Topic Guide is the **orientation layer**, not a duplicate replacement for the detailed lessons. It tells you what each area means, why it exists, what to learn, and where to practice; the existing topic folders remain the detailed source material.
 
 ## Beginner route
 
 ```text
 00 Start Here
       ↓
-53 End-to-End Study Path
+53 Study Path + Beginner-Friendly Topic Guide
       ↓
 01 Fundamentals
       ↓
@@ -37,19 +40,17 @@ That document tells you exactly where to start, what to learn next, the completi
       ↓
 15 Observability → Troubleshooting → Performance
       ↓
-40 Labs → 41 Patterns → 42 Project Templates
+Hands-on Labs → Patterns → Project Templates
       ↓
-45 Platform → 46 DataWeave Deep Dive → 47 Runtime Internals
+Platform → DataWeave Deep Dive → Runtime Internals
       ↓
-48 Security Engineering → 49 Messaging Engineering
+Security Engineering → Messaging Engineering
       ↓
-50 Release Engineering → 51 Production Operations → 52 API Governance
+Release Engineering → Production Operations → API Governance
       ↓
-17 Real-World Banking Capstone
+Real-World Capstone
       ↓
-Advanced architecture / production engineering / interview mastery
-      ↓
-REPEAT WITH HARDER SYSTEMS — THERE IS NO FINAL END
+Architecture / Production Engineering / Interview Mastery
 ```
 
 ## The five questions behind every integration
@@ -83,7 +84,7 @@ A topic is not complete because you read it. Mark it complete only when you can:
 - monitor it
 - recover it
 - explain production trade-offs
-- answer scenario-based interview questions
+- answer scenario-based questions
 - teach the concept to someone else
 
 ## Practical learning system
@@ -93,34 +94,20 @@ A topic is not complete because you read it. Mark it complete only when you can:
 - `42-Project-Templates` — project blueprints
 - `43-Reference` — quick lookup
 - `44-Career-Paths` — role-based learning
-- `53-End-to-End-Study-Path` — canonical start-to-advanced route
+- `53-End-to-End-Study-Path` — canonical route and learning standards
 - `54-Gap-Analysis-and-Completeness` — completeness and quality control
+- `64-Master-Coverage-Checklist` — final coverage verification
+- `65-Real-World-Scenario-Library` — requirement-to-solution practice
 
 ## One-topic learning loop
 
 ```text
-Explain
-  ↓
-Visualize
-  ↓
-Build
-  ↓
-Test
-  ↓
-Break
-  ↓
-Debug
-  ↓
-Secure
-  ↓
-Optimize
-  ↓
-Deploy
-  ↓
-Operate
-  ↓
-Teach
-  ↺
+Explain → Visualize → Build → Test → Break → Debug
+       → Secure → Optimize → Deploy → Operate → Teach
 ```
 
-For version-sensitive platform capabilities, record the tested Mule runtime, Java, DataWeave/connector versions and deployment target. Current MuleSoft documentation shows Runtime Manager as the central management interface for supported runtime planes, while CloudHub 2.0 has its own application and infrastructure APIs. citeturn0search0turn0search1
+## Version-awareness rule
+
+For version-sensitive platform capabilities, record the tested Mule runtime, Java, DataWeave/connector versions and deployment target. Do not assume that a CloudHub, Runtime Fabric, CLI, connector or API-management behavior is universal across all versions.
+
+For authoritative current platform details, verify version-sensitive claims against MuleSoft documentation. MuleSoft documents runtime/control-plane connectivity, connector models and Anypoint CLI behavior separately, so this guide deliberately distinguishes core Mule concepts from platform-specific implementation details.
