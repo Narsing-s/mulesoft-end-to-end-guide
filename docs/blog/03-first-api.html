@@ -1,0 +1,20 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Build Your First MuleSoft REST API — MuleJourney</title><link rel="stylesheet" href="../styles.css"><link rel="stylesheet" href="article.css"></head><body><article class="post"><nav><a class="brand" href="index.html">Mule<span>Journey</span></a><a href="index.html">← All articles</a></nav><header><span>BEGINNER · API DEVELOPMENT</span><h1>Build Your First MuleSoft REST API</h1><p>We will turn a small requirement into a contract, implementation and testable endpoint.</p></header><main><h2>Requirement</h2><p>Expose <code>GET /customers/{id}</code> and return a customer JSON response.</p><h2>Step 1 — Define the contract</h2><pre><code>#%RAML 1.0
+title: Customer API
+version: v1
+baseUri: /api
+/customers/{id}:
+  get:
+    responses:
+      200:
+        body:
+          application/json:</code></pre><h2>Step 2 — Implement</h2><p>In a typical APIkit project, the specification drives routing. The implementation flow receives the request, obtains data from a system such as a database, transforms it and returns the response.</p><pre><code>HTTP Listener
+   ↓
+APIkit Router
+   ↓
+Customer implementation
+   ↓
+Database / System API
+   ↓
+Transform Message
+   ↓
+JSON response</code></pre><h2>Step 3 — Test</h2><p>Use Postman or another HTTP client to call the endpoint and verify status code, headers and response body. Also test a missing customer and malformed requests.</p><div class="callout"><b>Production habit:</b> An API is not finished when the happy path works. Define expected errors, validation, security and tests as part of the contract.</div><div class="next"><b>Next:</b> <a href="04-dataweave-basics.html">DataWeave for Beginners →</a></div></main></article></body></html>
