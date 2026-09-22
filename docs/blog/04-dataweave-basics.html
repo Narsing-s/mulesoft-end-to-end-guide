@@ -1,0 +1,10 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DataWeave for Beginners — MuleJourney</title><link rel="stylesheet" href="../styles.css"><link rel="stylesheet" href="article.css"></head><body><article class="post"><nav><a class="brand" href="index.html">Mule<span>Journey</span></a><a href="index.html">← All articles</a></nav><header><span>BEGINNER · DATAWEAVE</span><h1>DataWeave for Beginners: Input → Transformation → Output</h1><p>DataWeave is MuleSoft's language for transforming data. Learn it by looking at the input and expected output first.</p></header><main><h2>Start with a concrete example</h2><p>Input:</p><pre><code>{ "firstName": "Narsing", "age": 26 }</code></pre><p>Desired output:</p><pre><code>{ "name": "Narsing", "adult": true }</code></pre><p>Transformation:</p><pre><code>%dw 2.0
+output application/json
+---
+{
+  name: payload.firstName,
+  adult: payload.age &gt;= 18
+}</code></pre><h2>Arrays and map</h2><pre><code>payload map (item) -&gt; {
+  id: item.id,
+  name: item.name
+}</code></pre><h2>Filtering</h2><pre><code>payload filter (item) -&gt; item.active == true</code></pre><h2>The beginner workflow</h2><ol><li>Write the exact input.</li><li>Write the exact expected output.</li><li>Identify fields that move unchanged.</li><li>Identify fields that need calculation or lookup.</li><li>Write the smallest transformation.</li><li>Test edge cases such as null, empty arrays and missing fields.</li></ol><div class="callout"><b>Practice tip:</b> Do not memorize functions first. Practice describing the transformation you need, then choose the DataWeave function that expresses it.</div><div class="next"><b>Next:</b> <a href="05-error-handling.html">Mule 4 Error Handling →</a></div></main></article></body></html>
