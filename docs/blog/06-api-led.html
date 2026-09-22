@@ -1,0 +1,9 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>API-Led Connectivity — MuleJourney</title><link rel="stylesheet" href="../styles.css"><link rel="stylesheet" href="article.css"></head><body><article class="post"><nav><a class="brand" href="index.html">Mule<span>Journey</span></a><a href="index.html">← All articles</a></nav><header><span>INTERMEDIATE · ARCHITECTURE</span><h1>API-Led Connectivity: Experience, Process and System APIs</h1><p>API-led connectivity is an architectural approach that separates consumer experience, business processes and access to systems.</p></header><main><h2>Experience API</h2><p>Shapes data and interaction for a particular consumer such as a mobile app, web portal or partner.</p><h2>Process API</h2><p>Coordinates business logic and combines information from multiple systems without being tied to one consumer.</p><h2>System API</h2><p>Provides controlled access to a system of record such as a CRM, database or legacy application.</p><pre><code>Mobile App
+    ↓
+Experience API
+    ↓
+Process API
+  ↙       ↘
+System API  System API
+   ↓          ↓
+Customer DB  Payment System</code></pre><h2>Why separation matters</h2><p>It can improve reuse and isolate changes. But the layers are not a rule that every API must have three separate applications. Architecture should follow the actual business and operational requirements.</p><div class="callout"><b>Design question:</b> What responsibility changes independently? Put boundaries around responsibilities that need independent reuse, ownership, security or lifecycle.</div><div class="next"><b>Next:</b> <a href="07-testing-deployment.html">From MUnit to Deployment →</a></div></main></article></body></html>
