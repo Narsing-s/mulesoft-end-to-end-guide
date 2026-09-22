@@ -1,18 +1,41 @@
 # MuleSoft End-to-End Guide 🚀
 
-A **clean, self-contained MuleSoft learning platform from absolute beginner to advanced production engineer**.
+A **free, open-source MuleSoft learning platform and MuleJourney blog for beginners, developers, and production-support engineers** — from Mule 4 fundamentals to real-world integration, testing, deployment, troubleshooting, and capstone projects.
 
 [![Contributing](https://img.shields.io/badge/contributions-welcome-55d6be)](CONTRIBUTING.md) [![Code of Conduct](https://img.shields.io/badge/community-code%20of%20conduct-7c6cff)](CODE_OF_CONDUCT.md) [![License: MIT](https://img.shields.io/badge/license-MIT-22c55e)](LICENSE)
 
+> 📖 **Read the MuleJourney Blog:** [**Open the beginner-friendly MuleSoft blog**](blog/index.html) — practical articles that explain MuleSoft step by step.
+
+> 🎓 **Open the Learning Portal:** [**Start MuleJourney**](docs/index.html) — structured learning paths, examples, labs, interview preparation, and reference material.
+
 > 💬 **Have a MuleSoft question?** [**Chat with MuleJourney**](docs/index.html#chat) — use the learning portal's built-in chat experience to explore the repository content.
 
-**Want to help build the learning platform?** Start with the [Contribution Guide](CONTRIBUTING.md), review the [Code of Conduct](CODE_OF_CONDUCT.md), or open an issue with an idea, correction, lab, example, or documentation improvement.
+## What is MuleJourney?
 
-## Core principle
+MuleJourney is an independent open-source learning project built to make MuleSoft easier to learn through **simple explanations, practical examples, input/output transformations, architecture, hands-on labs, troubleshooting, production scenarios, and interview preparation**.
 
-**The repository is the lesson.**
+The goal is not just to memorize MuleSoft concepts:
 
-Theory, diagrams, examples, Mule XML, DataWeave, input/output, exercises, labs, troubleshooting, architecture, interview questions and production runbooks belong inside this repository. Learners should not need a separate documentation hub to understand the curriculum.
+**Learn → Understand → Build → Test → Break → Debug → Fix → Deploy → Operate → Explain**
+
+## 📰 MuleJourney Blog
+
+The repository now includes a dedicated beginner-first blog.
+
+### Starter articles
+
+1. **What Is MuleSoft? A Beginner's Complete Guide**
+2. **Mule Event Explained: Payload, Attributes and Variables**
+3. **Build Your First MuleSoft REST API**
+4. **DataWeave for Beginners: Input → Transformation → Output**
+5. **Mule 4 Error Handling: Continue vs Propagate**
+6. **API-Led Connectivity: Experience, Process and System APIs**
+7. **From MUnit to Deployment: How a Mule App Reaches Production**
+8. **MuleSoft Production Support: A Beginner's Troubleshooting Method**
+
+Each article follows a practical learning style:
+
+**What you'll learn → prerequisites → simple explanation → architecture → step-by-step implementation → code → input/output → common mistakes → real-world example → practice → interview questions → next topic**
 
 ## What you learn
 
@@ -69,7 +92,7 @@ Banking Capstone
 Interview Mastery
 ```
 
-## Every lesson must contain
+## Every lesson should connect theory to practice
 
 ```text
 What → Why → When → Architecture → Configuration
@@ -100,59 +123,47 @@ What → Why → When → Architecture → Configuration
 - `13-Deployment` / `14-CI-CD` — delivery
 - `20-Production-Troubleshooting` / `26-Troubleshooting` — operations
 - `33-Self-Contained-Learning` — internal learning system
-- `53-End-to-End-Study-Path` — canonical study path and explanation standard
+- `53-End-to-End-Study-Path` — canonical study path
 - `55-Learning-Assessment-and-Project-Ladder` — readiness gates
 - `59-DataWeave-Mastery` — advanced transformation practice
 - `60-Production-Support-Engineering` — production support
 - `61-Architecture-Decision-Playbook` — architecture decisions
 - `62-Interview-and-Scenario-Mastery` — interview mastery
 - `63-Capstone-Production-Checklist` — production readiness
-- `docs/` — visual learning portal, local login and release center
+- `docs/blog/` — MuleJourney beginner blog
+- `docs/` — visual learning portal and release center
 
-## Community & contribution
+## Open source
 
-MuleJourney is intended to grow through useful community contributions, not just repository size. Contributions are welcome from MuleSoft developers, production-support engineers, learners, technical writers, testers, reviewers, and people discovering the project for the first time.
+MuleJourney is free and open source. Contributions are welcome from learners, MuleSoft developers, integration engineers, production-support engineers, technical writers, testers, and reviewers.
 
-### Ways to contribute
+Useful contributions include:
 
-- Add or improve MuleSoft explanations
-- Add DataWeave examples with input, code and output
-- Add beginner-to-advanced interview questions
-- Create realistic troubleshooting scenarios
-- Add hands-on labs
-- Improve diagrams and learning paths
-- Fix broken links and documentation issues
-- Improve accessibility and portal UX
-- Add automated validation or tests
-- Review pull requests and improve existing material
+- Improve explanations
+- Add DataWeave input/code/output examples
+- Add practical labs
+- Add troubleshooting scenarios
+- Improve diagrams and navigation
+- Fix broken links
+- Improve accessibility
+- Add tests and documentation validation
+- Review existing content for accuracy and clarity
 
-You do **not** need to be an expert or contribute a large feature. A corrected sentence, clearer example, useful issue report, or small documentation improvement is a valid contribution.
+## Quality principle
 
-### Start contributing
+**The repository is the lesson.**
 
-1. Read [`CONTRIBUTING.md`](CONTRIBUTING.md).
-2. Check open issues for ideas or report a missing topic.
-3. For a new feature or large content area, discuss the approach first when practical.
-4. Create a focused change and verify examples/links.
-5. Open a pull request explaining what changed, why it helps learners, and how it was verified.
-
-Please follow [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md) when participating in the project.
-
-## Quality rule
-
-If a learner asks a question, the repository should contain the theory and an example that answers it. If a topic requires a missing concept, add that concept to the appropriate internal chapter rather than redirecting the learner to an external documentation page.
+When a learner needs a concept, the goal is to provide the explanation, example, practice, and troubleshooting context inside the repository instead of requiring a separate learning hub.
 
 ## Practice loop
 
 **Understand → Build → Test → Break → Debug → Secure → Measure → Deploy → Operate → Explain.**
 
-## License
-
-MuleJourney is released under the [MIT License](LICENSE). See the license file for the complete terms.
-
 ## Project information
 
 - [About MuleJourney](ABOUT.md)
+- [MuleJourney Blog](docs/blog/index.html)
+- [Learning Portal](docs/index.html)
 - [Contribution Guide](CONTRIBUTING.md)
 - [Code of Conduct](CODE_OF_CONDUCT.md)
 - [MIT License](LICENSE)
